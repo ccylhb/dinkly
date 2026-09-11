@@ -1,0 +1,109 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+
+const posts = (await getCollection("blog")).sort((a, b) => b.data.order - a.data.order);
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  name: "Break Notes",
+  description: "Short, practical writing about attention, micro-breaks and working alongside AI agents.",
+  blogPost: posts.map((p) => ({
+    "@type": "BlogPosting",
+    headline: p.data.title,
+    datePublished: p.data.date,
+    url: `https://dinkly.pages.dev/blog/${p.id}/`,
+  })),
+};
+---
+
+<Base
+  title="Break Notes — writing about attention and the AI wait"
+  description="Short, practical essays about micro-breaks, attention, and what to actually do in the ninety seconds your agent is thinking."
+  jsonLd={jsonLd}
+>
+  <div class="wrap page">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span aria-hidden="true">/</span> <span>Break Notes</span>
+    </nav>
+
+    <header class="head">
+      <span class="kicker">✦ {posts.length} essays · no newsletter nag</span>
+      <h1>Break Notes.</h1>
+      <p class="lede">
+        Everything we know about the small, awkward gap between asking a machine for something and
+        getting it back. Short essays, written to be read inside one wait.
+      </p>
+    </header>
+
+    <div class="post-list">
+      {posts.map((p) => (
+        <a class="post-card" href={`/blog/${p.id}/`}>
+          <span class="post-emoji" aria-hidden="true">{p.data.emoji}</span>
+          <div class="post-body">
+            <h2>{p.data.title}</h2>
+            <p>{p.data.description}</p>
+            <div class="post-meta">
+              <span>{new Date(p.data.date).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" })}</span>
+              <span aria-hidden="true">·</span>
+              <span>{p.data.readingTime} read</span>
+            </div>
+          </div>
+          <span class="post-arrow" aria-hidden="true">→</span>
+        </a>
+      ))}
+    </div>
+
+    <div class="ad-slot ad-inline">Ad slot · 728×90</div>
+
+    <section class="more">
+      <h2>Enough reading. Do something.</h2>
+      <div class="more-grid">
+        <a class="more-card" href="/daily-draw/"><span aria-hidden="true">🎴</span><h3>Daily Draw</h3><p>One card a day, with a DO and a DON'T list.</p></a>
+        <a class="more-card" href="/quizzes/"> <span aria-hidden="true">🧠</span><h3>60-second quizzes</h3><p>Three quizzes, instant results, no signup.</p></a>
+        <a class="more-card" href="/sounds/"><span aria-hidden="true">🎧</span><h3>Focus Sounds</h3><p>Rain and brown noise generated in-browser.</p></a>
+      </div>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .page { padding: 34px 0 20px; }
+  .crumbs { font-size: 13.5px; color: var(--faint); display: flex; gap: 8px; }
+  .crumbs a { color: var(--muted); }
+  .crumbs a:hover { color: var(--accent); }
+  .head { max-width: 700px; margin: 26px 0 36px; }
+  .head h1 { font-size: clamp(32px, 4.4vw, 52px); margin: 16px 0 14px; }
+  .lede { color: var(--muted); font-size: 16.5px; }
+
+  .post-list { display: flex; flex-direction: column; gap: 16px; max-width: 860px; }
+  .post-card {
+    display: flex; gap: 22px; align-items: flex-start;
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--r-lg);
+    padding: 26px; transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+  .post-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--accent); }
+  .post-emoji { font-size: 30px; flex: none; }
+  .post-body { flex: 1; }
+  .post-card h2 { font-size: 23px; margin-bottom: 8px; }
+  .post-card p { font-size: 15px; color: var(--muted); margin: 0 0 12px; }
+  .post-meta { display: flex; gap: 10px; font-size: 12.5px; color: var(--faint); }
+  .post-arrow { font-size: 20px; color: var(--accent); align-self: center; }
+
+  .ad-inline { margin: 44px 0 0; max-width: 860px; }
+  .more { margin-top: 56px; }
+  .more h2 { font-size: 26px; margin-bottom: 20px; }
+  .more-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .more-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 24px; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .more-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+  .more-card span { font-size: 26px; }
+  .more-card h3 { font-size: 18px; margin: 12px 0 6px; }
+  .more-card p { font-size: 14px; color: var(--muted); margin: 0; }
+
+  @media (max-width: 700px) {
+    .post-card { flex-direction: column; gap: 12px; }
+    .post-arrow { display: none; }
+    .more-grid { grid-template-columns: 1fr; }
+  }
+</style>

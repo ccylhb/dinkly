@@ -1,0 +1,313 @@
+[
+  {
+    "slug": "ai-wait-personality",
+    "title": "What's your AI-wait personality?",
+    "hook": "Six questions. Sixty seconds. One result that will feel a little too accurate.",
+    "emoji": "🧠",
+    "accent": "#7A5CFF",
+    "tag": "Most shared",
+    "plays": "34.2k",
+    "tags": ["personality", "work", "funny"],
+    "questions": [
+      {
+        "q": "Your agent says “thinking…” and the dots start moving. First instinct?",
+        "options": [
+          { "label": "Watch the dots. Just in case they finish faster.", "scores": { "watcher": 3 } },
+          { "label": "Lean back, eyes closed. Wake me when it's done.", "scores": { "napper": 3 } },
+          { "label": "Open a second task. Idle time is wasted time.", "scores": { "multitasker": 3 } },
+          { "label": "Kitchen. Snack. Immediately.", "scores": { "snacker": 3 } }
+        ]
+      },
+      {
+        "q": "The task will take four minutes. What's the honest ideal four minutes?",
+        "options": [
+          { "label": "I'd still rather watch it happen.", "scores": { "watcher": 3 } },
+          { "label": "Horizontal. On something soft.", "scores": { "napper": 3 } },
+          { "label": "Three other things, started badly.", "scores": { "multitasker": 3 } },
+          { "label": "A walk with no destination.", "scores": { "wanderer": 3 } }
+        ]
+      },
+      {
+        "q": "Be honest — how many tabs are open right now?",
+        "options": [
+          { "label": "Enough that the icons vanished.", "scores": { "multitasker": 3 } },
+          { "label": "Two. Mine and yours.", "scores": { "watcher": 2, "napper": 1 } },
+          { "label": "The snack site is one of them.", "scores": { "snacker": 3 } },
+          { "label": "I closed them. To go outside.", "scores": { "wanderer": 3 } }
+        ]
+      },
+      {
+        "q": "Your perfect break soundtrack is…",
+        "options": [
+          { "label": "Silence. Actual, unfilled silence.", "scores": { "napper": 3 } },
+          { "label": "Rain and a distant train.", "scores": { "wanderer": 3 } },
+          { "label": "The click of me getting things done.", "scores": { "multitasker": 3 } },
+          { "label": "The kettle. The cupboard. The good mug.", "scores": { "snacker": 3 } }
+        ]
+      },
+      {
+        "q": "The notification lands: task complete. How do you feel?",
+        "options": [
+          { "label": "Vindicated. I was watching the whole time.", "scores": { "watcher": 3 } },
+          { "label": "Refreshed. That nap carried the team.", "scores": { "napper": 3 } },
+          { "label": "Guilty. I'm now mid-way through something else.", "scores": { "multitasker": 3 } },
+          { "label": "Cheerful. I have crumbs and zero regrets.", "scores": { "snacker": 3 } }
+        ]
+      },
+      {
+        "q": "Pick the sentence that sounds most like you.",
+        "options": [
+          { "label": "“It's fine, I'll just wait here.”", "scores": { "watcher": 3 } },
+          { "label": "“Five more minutes, then productivity.”", "scores": { "napper": 3 } },
+          { "label": "“I can absolutely do both.”", "scores": { "multitasker": 3 } },
+          { "label": "“Let's go see what's out there.”", "scores": { "wanderer": 3 } }
+        ]
+      }
+    ],
+    "results": {
+      "watcher": {
+        "title": "The Watcher",
+        "emoji": "👀",
+        "blurb": "You supervise progress bars like they might make a mistake without you. It's loyal, it's attentive — and it is slowly turning your retinas into raisins. The spinner has never once finished faster because you watched.",
+        "strength": "Reliable. You never miss a thing.",
+        "fix": "Try one task today where you walk away before it finishes. Just one. Report back.",
+        "share": "I'm The Watcher — I supervise my AI like it's an intern 📉"
+      },
+      "napper": {
+        "title": "The Napper",
+        "emoji": "😴",
+        "blurb": "You have understood something most people never do: the CPU is busy, so the human might as well be horizontal. Your break-to-work ratio is technically a lifestyle philosophy.",
+        "strength": "Zero guilt. Maximum recovery.",
+        "fix": "Keep it — but set one alarm. Four minutes is a nap, forty is a new day.",
+        "share": "I'm The Napper — my agent works in the cloud, I work in the duvet ☁️"
+      },
+      "multitasker": {
+        "title": "The Multitasker",
+        "emoji": "🌀",
+        "blurb": "You refuse to let 180 seconds go unmonetised. You now have five half-finished things and none of them remember who you are. Impressive throughput, questionable endings.",
+        "strength": "You start faster than anyone.",
+        "fix": "Try a break with no outputs. Nothing to show. Nobody to tell.",
+        "share": "I'm The Multitasker — 5 projects, 0 of them finished 🌀"
+      },
+      "snacker": {
+        "title": "The Snacker",
+        "emoji": "🍪",
+        "blurb": "Every waiting period is a small meal opportunity, and honestly? There is wisdom in that. Your breaks are warm, your mood is stable, and your keyboard has crumbs in places that defy physics.",
+        "strength": "You actually enjoy the pause.",
+        "fix": "Move one snack away from the desk. The crumbs will thank you.",
+        "share": "I'm The Snacker — my agent thinks, I eat 🍪"
+      },
+      "wanderer": {
+        "title": "The Wanderer",
+        "emoji": "🚶",
+        "blurb": "You treat a loading spinner like a flight attendant telling you the door is open. Off you go. You return with better ideas than the model produced, which is annoying and delightful in equal measure.",
+        "strength": "You come back with ideas.",
+        "fix": "Take notes when you wander. Half of them are good.",
+        "share": "I'm The Wanderer — I left during the loading bar and came back better 🚶"
+      }
+    }
+  },
+  {
+    "slug": "which-cozy-pet",
+    "title": "Which cozy pet are you?",
+    "hook": "Five questions to reveal the small, warm creature running your personality.",
+    "emoji": "🐾",
+    "accent": "#FF9EC4",
+    "tag": "Feel-good",
+    "plays": "21.4k",
+    "tags": ["personality", "cozy", "animals"],
+    "questions": [
+      {
+        "q": "It's 3pm and everything is fine. Where are you?",
+        "options": [
+          { "label": "On the windowsill, judging the street.", "scores": { "cat": 2, "owl": 1 } },
+          { "label": "Wherever the people are, ideally touching them.", "scores": { "dog": 3 } },
+          { "label": "In water. Suspiciously peaceful.", "scores": { "capybara": 3 } },
+          { "label": "Curled into the smallest possible ball.", "scores": { "rabbit": 3 } }
+        ]
+      },
+      {
+        "q": "Somebody knocks on your door unexpectedly.",
+        "options": [
+          { "label": "I was already hidden. I was born hidden.", "scores": { "rabbit": 3 } },
+          { "label": "NEW FRIEND?! I have so much to show them.", "scores": { "dog": 3 } },
+          { "label": "I'll let them in… eventually. Maybe.", "scores": { "cat": 3 } },
+          { "label": "Everyone is welcome. The vibe cannot be broken.", "scores": { "capybara": 3 } }
+        ]
+      },
+      {
+        "q": "Pick your ideal compliment.",
+        "options": [
+          { "label": "“You're so unbothered, it's inspiring.”", "scores": { "capybara": 3 } },
+          { "label": "“I feel better just being near you.”", "scores": { "dog": 3 } },
+          { "label": "“You have excellent taste and you know it.”", "scores": { "cat": 3 } },
+          { "label": "“You're so gentle, everyone trusts you.”", "scores": { "rabbit": 3 } }
+        ]
+      },
+      {
+        "q": "Your relationship with being observed:",
+        "options": [
+          { "label": "Observe me. I am the main event.", "scores": { "cat": 3 } },
+          { "label": "I'd rather you didn't. Too much.", "scores": { "rabbit": 3 } },
+          { "label": "Please look. I will perform.", "scores": { "dog": 3 } },
+          { "label": "People take photos of me while I sit in a hot spring.", "scores": { "capybara": 3 } }
+        ]
+      },
+      {
+        "q": "It's raining. Choose your afternoon.",
+        "options": [
+          { "label": "Blanket fort. Minimal movement. Maximum naps.", "scores": { "rabbit": 2, "owl": 1 } },
+          { "label": "Rain is just outdoor bathwater. Outside I go.", "scores": { "capybara": 3 } },
+          { "label": "Pressing against the glass, making a puddle of nostalgia.", "scores": { "cat": 3 } },
+          { "label": "Wet walk! Mud! Best day of my life!", "scores": { "dog": 3 } }
+        ]
+      }
+    ],
+    "results": {
+      "cat": {
+        "title": "The Cat",
+        "emoji": "🐈",
+        "blurb": "You are selective, elegant, and quietly running the entire household. You demand attention on your terms and give warmth on your schedule. People think you're aloof; really you're just expensive to impress.",
+        "strength": "Sovereign self-respect.",
+        "fix": "Let someone pet you before you were going to say yes. You'll like it.",
+        "share": "I'm The Cat — I run this house and everyone knows it 🐈"
+      },
+      "dog": {
+        "title": "The Golden Retriever",
+        "emoji": "🐕",
+        "blurb": "You are a walking welcome committee with a heart the size of a beach ball. Every arrival is the best arrival. Every person is the best person. You have never once played it cool, and thank goodness.",
+        "strength": "You make people feel chosen.",
+        "fix": "Rest once today without checking if anyone needs you first.",
+        "share": "I'm The Golden Retriever — everybody is my best friend 🐕"
+      },
+      "capybara": {
+        "title": "The Capybara",
+        "emoji": "🦫",
+        "blurb": "Nothing moves you off your centre. Birds sit on you. Chaos happens around you and your face stays exactly the same. You are the group's emotional hot spring.",
+        "strength": "Unshakeable calm.",
+        "fix": "Nothing. Do not change. Teach us.",
+        "share": "I'm The Capybara — everything is fine and I am sitting in a hot spring 🦫"
+      },
+      "rabbit": {
+        "title": "The Rabbit",
+        "emoji": "🐇",
+        "blurb": "Gentle, quick, and easily startled, with a very loud internal monologue. You love deeply and quietly. Your comfort zone is small, soft, and exactly the right temperature.",
+        "strength": "Deep, steady softness.",
+        "fix": "Do one loud, silly thing today. You are safe.",
+        "share": "I'm The Rabbit — small, soft, and 78% internal monologue 🐇"
+      },
+      "owl": {
+        "title": "The Owl",
+        "emoji": "🦉",
+        "blurb": "You come alive when the rest of the world goes quiet. Your best thinking happens late, alone — and it is genuinely several steps ahead of the room.",
+        "strength": "Night-quiet brilliance.",
+        "fix": "Go to bed one hour earlier than your instinct says. Try it once.",
+        "share": "I'm The Owl — my best ideas turn up after midnight 🦉"
+      }
+    }
+  },
+  {
+    "slug": "mood-color",
+    "title": "What color is your mood right now?",
+    "hook": "Five quick picks and we'll name the exact shade of your afternoon.",
+    "emoji": "🎨",
+    "accent": "#7FE0C3",
+    "tag": "Quick pick",
+    "plays": "18.1k",
+    "tags": ["mood", "quick", "cozy"],
+    "questions": [
+      {
+        "q": "First sound of the morning, in your ideal world:",
+        "options": [
+          { "label": "Nothing. Absolute velvet silence.", "scores": { "grape": 3 } },
+          { "label": "Birds being unreasonable.", "scores": { "mint": 3 } },
+          { "label": "A kettle reaching its conclusion.", "scores": { "butter": 3 } },
+          { "label": "Rain on a window you don't have to leave.", "scores": { "sky": 3 } }
+        ]
+      },
+      {
+        "q": "The energy you're carrying today is closest to:",
+        "options": [
+          { "label": "A buzzing little current under everything.", "scores": { "bubblegum": 3 } },
+          { "label": "Slow, steady, deeply unbothered.", "scores": { "mint": 3 } },
+          { "label": "Bright and a bit too helpful.", "scores": { "butter": 3 } },
+          { "label": "Wide, open, and mildly daydreamy.", "scores": { "sky": 3 } }
+        ]
+      },
+      {
+        "q": "Choose a texture.",
+        "options": [
+          { "label": "Deep velvet.", "scores": { "grape": 3 } },
+          { "label": "Cold glass, warm hand.", "scores": { "sky": 3 } },
+          { "label": "Fresh cotton.", "scores": { "mint": 3 } },
+          { "label": "A cherry with a shine on it.", "scores": { "bubblegum": 3 } }
+        ]
+      },
+      {
+        "q": "Your ideal evening, in one object:",
+        "options": [
+          { "label": "A candle nobody lit yet.", "scores": { "grape": 3 } },
+          { "label": "A blanket that belongs only to you.", "scores": { "mint": 3 } },
+          { "label": "A window seat and nothing to do.", "scores": { "sky": 3 } },
+          { "label": "A plate of something golden and unnecessary.", "scores": { "butter": 3 } }
+        ]
+      },
+      {
+        "q": "Last one — how do you want to be described this week?",
+        "options": [
+          { "label": "Soft, but with an edge.", "scores": { "grape": 3 } },
+          { "label": "Disgustingly warm and lovely.", "scores": { "bubblegum": 3 } },
+          { "label": "Grounded and quietly thriving.", "scores": { "mint": 3 } },
+          { "label": "Sunny for no reason at all.", "scores": { "butter": 3 } }
+        ]
+      }
+    ],
+    "results": {
+      "grape": {
+        "title": "Deep Grape",
+        "emoji": "🍇",
+        "hex": "#7A5CFF",
+        "blurb": "Your mood is violet: interior, imaginative, a little bit unknowable. You are processing something under the surface and you are closer to the answer than you think. This is the colour of ideas forming.",
+        "strength": "Depth and originality.",
+        "fix": "Give the thought thirty unbroken minutes. It's nearly ripe.",
+        "share": "My mood today is Deep Grape 🍇 — imaginative, interior, slightly unknowable."
+      },
+      "bubblegum": {
+        "title": "Bubblegum",
+        "emoji": "🍬",
+        "hex": "#FF9EC4",
+        "blurb": "Your mood is bright, social, and a bit ridiculous in the best way. You are running on the delight of small things and you are one good conversation away from a great day.",
+        "strength": "Warmth that's contagious.",
+        "fix": "Send the message you drafted. Somebody needs it.",
+        "share": "My mood today is Bubblegum 🍬 — bright, silly, and one chat from great."
+      },
+      "mint": {
+        "title": "Cool Mint",
+        "emoji": "🌿",
+        "hex": "#7FE0C3",
+        "blurb": "Your mood is steady and clear. Nothing is on fire, the pace is survivable, and you are operating at the exact temperature where good work actually happens.",
+        "strength": "Calm, competent, unbothered.",
+        "fix": "Protect the calm. Say no to one optional thing.",
+        "share": "My mood today is Cool Mint 🌿 — steady, clear, unbothered."
+      },
+      "butter": {
+        "title": "Soft Butter",
+        "emoji": "🧈",
+        "hex": "#FFD37E",
+        "blurb": "Your mood is golden and generous. You are being unusually useful to the people around you — just make sure some of that warmth lands on you as well.",
+        "strength": "Warmth that gets things done.",
+        "fix": "One treat, just for you, before you do the next helpful thing.",
+        "share": "My mood today is Soft Butter 🧈 — sunny and far too helpful."
+      },
+      "sky": {
+        "title": "Open Sky",
+        "emoji": "☁️",
+        "hex": "#8FD0FF",
+        "blurb": "Your mood is spacious and slightly dreamy. Your attention keeps drifting out the window and honestly — that is information, not a flaw. You need a horizon today.",
+        "strength": "Big, open perspective.",
+        "fix": "Take the break with no screen in it. Ten minutes outside.",
+        "share": "My mood today is Open Sky ☁️ — wide, dreamy, and out the window."
+      }
+    }
+  }
+]

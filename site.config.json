@@ -1,0 +1,33 @@
+{
+  "siteName": "Dinkly",
+  "siteUrl": "https://dinkly.pages.dev",
+  "tagline": "A 3-minute dopamine menu for the pause between prompts.",
+  "description": "A tiny break hub for the moments your AI is thinking. Free daily draws, 60-second quizzes, joke jar, and cozy sounds — all under three minutes.",
+  "adsenseClientId": "ca-pub-3245910354455258",
+  "adsensePublisherId": "pub-3245910354455258",
+  "indexNowKey": "",
+  "theme": {
+    "bg": "#FAFAF7",
+    "bgSoft": "#F3F1FA",
+    "card": "#FFFFFF",
+    "border": "#ECE9F1",
+    "text": "#2B2A33",
+    "muted": "#7A7789",
+    "accent": "#7A5CFF",
+    "accent2": "#FF9EC4",
+    "mint": "#7FE0C3",
+    "butter": "#FFD37E",
+    "dark": "#241E3C",
+    "good": "#3FB98A",
+    "bad": "#F0736A"
+  },
+  "favicon": "🌙",
+  "nav": [
+    { "label": "Home", "href": "/" },
+    { "label": "Daily Draw", "href": "/daily-draw/" },
+    { "label": "Quizzes", "href": "/quizzes/" },
+    { "label": "Games", "href": "/games/" },
+    { "label": "Sounds", "href": "/sounds/" }
+  ],
+  "footerNote": "Dinkly is a small independent studio. Free to use, ad-supported, and made for the waiting times."
+}

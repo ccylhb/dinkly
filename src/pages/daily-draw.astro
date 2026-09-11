@@ -1,0 +1,269 @@
+---
+import Base from "../layouts/Base.astro";
+import cards from "../data/cards.json";
+
+// Deterministic daily card: same card for everyone, all day, then it advances.
+const DAY = 86400000;
+const today = new Date();
+const daySeed = Math.floor(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate()) / DAY);
+const cardIndex = (daySeed * 17 + 5) % cards.length;
+const card = cards[cardIndex];
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" });
+
+const history = Array.from({ length: 7 }, (_, i) => {
+  const d = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate()) - i * DAY);
+  const s = Math.floor(d.getTime() / DAY);
+  return { date: fmt(d), label: i === 0 ? "Today" : i === 1 ? "Yesterday" : fmt(d), card: cards[(s * 17 + 5) % cards.length] };
+});
+
+const locked = JSON.stringify(card);
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: `Daily Draw — Card No. ${card.no}: ${card.title}`,
+  datePublished: today.toISOString().slice(0, 10),
+  author: { "@type": "Organization", name: "Dinkly" },
+  description: card.meaning,
+  publisher: { "@type": "Organization", name: "Dinkly" },
+};
+---
+
+<Base
+  title={`Daily Draw · Card No. ${card.no} — ${card.title}`}
+  description={`Today's Dinkly card: “${card.quote}” ${card.tone} — a free 30-second break for while your AI is thinking. Pull a new card every day.`}
+  jsonLd={jsonLd}
+>
+  <div class="wrap page">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span aria-hidden="true">/</span> <span>Daily Draw</span>
+    </nav>
+
+    <header class="head">
+      <span class="kicker">✦ Card No. {card.no} of {cards.length}</span>
+      <h1>Today's card · {fmt(today)}</h1>
+      <p class="lede">
+        One card per day, the same for everybody, chosen by a very small algorithm with no opinions.
+        Read it, do the DO, skip the DON'T, and go back to your agent.
+      </p>
+    </header>
+
+    <div class="draw-grid">
+      <aside class="verdict do-panel">
+        <h2 class="v-title">DO</h2>
+        <ul>{card.do.map((d) => <li>{d}</li>)}</ul>
+      </aside>
+
+      <article class="the-card" id="theCard">
+        <div class="card-glow" aria-hidden="true"></div>
+        <div class="card-top">
+          <span class="card-no num">No. {card.no}</span>
+          <span class="card-tone">{card.tone}</span>
+        </div>
+        <p class="card-emoji" aria-hidden="true">{card.emoji}</p>
+        <h2 class="card-title">{card.title}</h2>
+        <p class="card-quote">“{card.quote}”</p>
+        <p class="card-meaning">{card.meaning}</p>
+        <div class="card-bottom">
+          <span>Lucky number <b class="num">{card.lucky}</b></span>
+          <span class="card-brand">dinkly.</span>
+        </div>
+      </article>
+
+      <aside class="verdict dont-panel">
+        <h2 class="v-title">DON'T</h2>
+        <ul>{card.dont.map((d) => <li>{d}</li>)}</ul>
+      </aside>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-primary" id="shareBtn" type="button">Share this card</button>
+      <button class="btn btn-ghost" id="practiceBtn" type="button">Draw a random card</button>
+      <span class="actions-note muted" id="shareNote" role="status"></span>
+    </div>
+
+    <div class="ad-slot ad-inline">Ad slot · 728×90</div>
+
+    <section class="history">
+      <h2 class="sub-title">The last seven days</h2>
+      <p class="muted">Every card has been drawn by somebody today. Here's what the week looked like.</p>
+      <div class="hist-grid">
+        {history.map((h) => (
+          <article class="hist-card">
+            <span class="hist-date">{h.label}</span>
+            <span class="hist-emoji" aria-hidden="true">{h.card.emoji}</span>
+            <h3>{h.card.title}</h3>
+            <p>“{h.card.quote}”</p>
+            <span class="hist-tone">{h.card.tone}</span>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="next">
+      <h2 class="sub-title">While you're here</h2>
+      <div class="next-grid">
+        <a class="next-card" href="/quizzes/ai-wait-personality/">
+          <span aria-hidden="true">🧠</span>
+          <h3>What's your AI-wait personality?</h3>
+          <p>Six questions, one uncomfortably accurate result.</p>
+        </a>
+        <a class="next-card" href="/jokes/">
+          <span aria-hidden="true">🫙</span>
+          <h3>Joke Jar</h3>
+          <p>39 jokes, ten seconds each, zero commitment.</p>
+        </a>
+        <a class="next-card" href="/oracle/">
+          <span aria-hidden="true">🔮</span>
+          <h3>Yes / No Oracle</h3>
+          <p>Ask one thing. Get a straight answer for once.</p>
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <script is:inline define:vars={{ locked, allCards: cards }}>
+    (function () {
+      var today = JSON.parse(locked);
+      var shareNote = document.getElementById("shareNote");
+      var cardEl = document.getElementById("theCard");
+
+      function setCard(c) {
+        cardEl.querySelector(".card-no").textContent = "No. " + c.no;
+        cardEl.querySelector(".card-tone").textContent = c.tone;
+        cardEl.querySelector(".card-emoji").textContent = c.emoji;
+        cardEl.querySelector(".card-title").textContent = c.title;
+        cardEl.querySelector(".card-quote").textContent = "“" + c.quote + "”";
+        cardEl.querySelector(".card-meaning").textContent = c.meaning;
+        cardEl.querySelector(".card-bottom b").textContent = c.lucky;
+        var d = cardEl.querySelectorAll(".do-panel li");
+        var n = cardEl.querySelectorAll(".dont-panel li");
+        c.do.forEach(function (t, i) { if (d[i]) d[i].textContent = t; });
+        c.dont.forEach(function (t, i) { if (n[i]) n[i].textContent = t; });
+      }
+
+      document.getElementById("shareBtn").addEventListener("click", function () {
+        var text = "Dinkly Daily Draw — Card No. " + today.no + ": “" + today.quote + "”";
+        var url = window.location.href;
+        if (navigator.share) {
+          navigator.share({ title: "Dinkly Daily Draw", text: text, url: url }).catch(function () {});
+          return;
+        }
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(text + " " + url).then(function () {
+            shareNote.textContent = "Copied — paste it anywhere.";
+          }).catch(function () {
+            shareNote.textContent = text;
+          });
+        } else {
+          shareNote.textContent = text;
+        }
+      });
+
+      document.getElementById("practiceBtn").addEventListener("click", function () {
+        var pool = allCards.filter(function (c) { return c.no !== today.no; });
+        setCard(pool[Math.floor(Math.random() * pool.length)]);
+        cardEl.animate(
+          [{ transform: "rotate(-6deg) scale(.94)", opacity: 0.4 }, { transform: "none", opacity: 1 }],
+          { duration: 380, easing: "cubic-bezier(.2,.8,.2,1)" }
+        );
+        shareNote.textContent = "Practice card — today's real card is still No. " + today.no + ".";
+      });
+    })();
+  </script>
+</Base>
+
+<style>
+  .page { padding: 34px 0 20px; }
+  .crumbs { font-size: 13.5px; color: var(--faint); display: flex; gap: 8px; }
+  .crumbs a { color: var(--muted); }
+  .crumbs a:hover { color: var(--accent); }
+
+  .head { max-width: 680px; margin: 26px 0 34px; }
+  .head h1 { font-size: clamp(30px, 4vw, 46px); margin: 16px 0 14px; }
+  .lede { color: var(--muted); font-size: 16.5px; }
+
+  .draw-grid { display: grid; grid-template-columns: 0.85fr 1.7fr 0.85fr; gap: 22px; align-items: center; }
+
+  .verdict { border-radius: var(--r-xl); padding: 26px 24px; }
+  .v-title { font-family: var(--font-num); font-size: 13px; letter-spacing: 0.16em; margin-bottom: 14px; }
+  .verdict ul { margin: 0; padding-left: 20px; font-size: 15px; }
+  .verdict li { margin-bottom: 8px; }
+  .do-panel { background: var(--mint-soft); border: 1px solid #cfeee4; }
+  .do-panel .v-title { color: #2f9e7e; }
+  .dont-panel { background: var(--accent2-soft); border: 1px solid #ffdbe8; }
+  .dont-panel .v-title { color: #d5568f; }
+
+  .the-card {
+    position: relative; overflow: hidden; border-radius: var(--r-xl); padding: 40px 38px;
+    background: linear-gradient(155deg, #2c2350, #4a3580 52%, #7a5cff);
+    color: #fff; box-shadow: 0 30px 70px -28px rgba(74, 53, 128, 0.7);
+  }
+  .card-glow {
+    position: absolute; inset: auto -30% -50% -30%; height: 320px;
+    background: radial-gradient(closest-side, rgba(255, 158, 196, 0.55), transparent);
+    filter: blur(20px);
+  }
+  .card-top { position: relative; display: flex; justify-content: space-between; align-items: center; }
+  .card-no, .card-tone { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; }
+  .card-no { color: rgba(255, 255, 255, 0.6); }
+  .card-tone { background: rgba(255, 255, 255, 0.14); border-radius: 999px; padding: 6px 14px; }
+  .card-emoji { position: relative; font-size: 52px; margin: 26px 0 10px; }
+  .card-title { position: relative; font-size: 32px; color: #fff; }
+  .card-quote {
+    position: relative; font-family: var(--font-display); font-style: italic;
+    font-size: 26px; line-height: 1.32; margin: 16px 0 20px; color: #fff;
+  }
+  .card-meaning { position: relative; font-size: 15.5px; line-height: 1.7; color: rgba(255, 255, 255, 0.82); margin: 0; }
+  .card-bottom {
+    position: relative; display: flex; justify-content: space-between; align-items: center;
+    margin-top: 28px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.18);
+    font-size: 13px; color: rgba(255, 255, 255, 0.7);
+  }
+  .card-bottom b { color: #fff; }
+  .card-brand { font-family: var(--font-num); font-weight: 700; font-size: 18px; color: #fff; }
+
+  .actions { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin: 30px 0 8px; }
+  .actions-note { font-size: 14px; }
+
+  .ad-inline { margin: 34px 0 10px; }
+
+  .sub-title { font-size: clamp(22px, 2.6vw, 30px); margin-bottom: 8px; }
+  .history { margin-top: 46px; }
+  .hist-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px; margin-top: 22px; }
+  .hist-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--r-md);
+    padding: 16px; display: flex; flex-direction: column; gap: 6px;
+  }
+  .hist-date { font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); }
+  .hist-emoji { font-size: 22px; }
+  .hist-card h3 { font-size: 15px; }
+  .hist-card p { font-size: 12.5px; color: var(--muted); margin: 0; flex: 1; }
+  .hist-tone { font-size: 11px; color: var(--accent); }
+
+  .next { margin-top: 52px; }
+  .next-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 20px; }
+  .next-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--r-lg);
+    padding: 24px; transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .next-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+  .next-card span { font-size: 26px; }
+  .next-card h3 { font-size: 18px; margin: 12px 0 6px; }
+  .next-card p { font-size: 14px; color: var(--muted); margin: 0; }
+
+  @media (max-width: 1000px) {
+    .draw-grid { grid-template-columns: 1fr; }
+    .the-card { order: -1; }
+    .hist-grid { grid-template-columns: repeat(3, 1fr); }
+    .next-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .hist-grid { grid-template-columns: repeat(2, 1fr); }
+    .the-card { padding: 28px 22px; }
+    .card-title { font-size: 26px; }
+    .card-quote { font-size: 21px; }
+  }
+</style>

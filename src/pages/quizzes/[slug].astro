@@ -1,0 +1,335 @@
+---
+import Base from "../../layouts/Base.astro";
+import quizzes from "../../data/quizzes.json";
+
+export function getStaticPaths() {
+  return quizzes.map((q) => ({ params: { slug: q.slug }, props: { quiz: q } }));
+}
+
+const { quiz } = Astro.props;
+const others = quizzes.filter((q) => q.slug !== quiz.slug);
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Quiz",
+    name: quiz.title,
+    about: quiz.hook,
+    url: `https://dinkly.pages.dev/quizzes/${quiz.slug}/`,
+    educationalLevel: "casual",
+    numberOfQuestions: quiz.questions.length,
+    inLanguage: "en",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://dinkly.pages.dev/" },
+      { "@type": "ListItem", position: 2, name: "Quizzes", item: "https://dinkly.pages.dev/quizzes/" },
+      { "@type": "ListItem", position: 3, name: quiz.title },
+    ],
+  },
+];
+---
+
+<Base title={`${quiz.title} — Dinkly quiz`} description={`${quiz.hook} Free, instant, no signup — a 60-second Dinkly quiz.`} jsonLd={jsonLd}>
+  <div class="wrap page">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span aria-hidden="true">/</span>
+      <a href="/quizzes/">Quizzes</a> <span aria-hidden="true">/</span>
+      <span>{quiz.title}</span>
+    </nav>
+
+    <div class="hero" style={`--tint:${quiz.accent}`}>
+      <div class="hero-copy">
+        <span class="kicker" style={`--k:${quiz.accent}`}>✦ {quiz.tag}</span>
+        <h1>{quiz.title}</h1>
+        <p class="lede">{quiz.hook}</p>
+        <div class="meta">
+          <span class="num">{quiz.plays} plays</span>
+          <span aria-hidden="true">·</span>
+          <span>{quiz.questions.length} questions</span>
+          <span aria-hidden="true">·</span>
+          <span>≈60 seconds</span>
+        </div>
+        <div class="tags">{quiz.tags.map((t) => <span class="chip">#{t}</span>)}</div>
+      </div>
+
+      <!-- Live quiz card -->
+      <div class="quiz-shell" id="quiz" data-total={quiz.questions.length}>
+        <div class="qz-top">
+          <span class="qz-progress-label">Question <b class="num" id="qzNum">1</b> / {quiz.questions.length}</span>
+          <span class="qz-time num" id="qzTime">0:00</span>
+        </div>
+        <div class="qz-bar"><i id="qzBar" style="width:0%"></i></div>
+
+        <div class="qz-body">
+          {quiz.questions.map((q, qi) => (
+            <section class="qz-step" data-step={qi} hidden={qi !== 0}>
+              <p class="qz-q">{q.q}</p>
+              <div class="qz-opts">
+                {q.options.map((o) => (
+                  <button class="qz-opt" type="button" data-scores={JSON.stringify(o.scores)} data-label={o.label}>
+                    <span class="qz-dot" aria-hidden="true"></span>
+                    <span>{o.label}</span>
+                  </button>
+                ))}
+              </div>
+            </section>
+          ))}
+
+          <section class="qz-step qz-result" data-step="result" hidden>
+            <span class="qz-res-emoji" id="resEmoji" aria-hidden="true"></span>
+            <h2 id="resTitle"></h2>
+            <p class="qz-res-blurb" id="resBlurb"></p>
+            <div class="qz-res-rows">
+              <div><span>Your strength</span><b id="resStrength"></b></div>
+              <div><span>Try this</span><b id="resFix"></b></div>
+            </div>
+            <div class="qz-res-actions">
+              <button class="btn btn-primary btn-sm" type="button" id="resShare">Copy my result</button>
+              <button class="btn btn-ghost btn-sm" type="button" id="resAgain">Play again</button>
+            </div>
+            <p class="qz-share" id="resNote" role="status"></p>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <div class="ad-slot ad-inline">Ad slot · 728×90</div>
+
+    <section class="about">
+      <h2>About this quiz</h2>
+      <p class="muted">
+        {quiz.title} is a {quiz.questions.length}-question Dinkly quiz designed to be finished inside a single
+        model response. Scoring is transparent: each answer adds points to one or two of the
+        {" "}{Object.keys(quiz.results).length} possible results, and the highest total wins. Ties are broken by the
+        order you answered — first to reach the top score keeps it.
+      </p>
+      <details class="reveal">
+        <summary>Show all {Object.keys(quiz.results).length} possible results</summary>
+        <div class="reveal-grid">
+          {Object.entries(quiz.results).map(([key, r]) => (
+            <div class="reveal-item">
+              <span aria-hidden="true">{r.emoji}</span>
+              <h3>{r.title}</h3>
+              <p>{r.blurb}</p>
+            </div>
+          ))}
+        </div>
+      </details>
+    </section>
+
+    <section class="more">
+      <h2>More 60-second quizzes</h2>
+      <div class="more-grid">
+        {others.map((q) => (
+          <a class="more-card" href={`/quizzes/${q.slug}/`} style={`--tint:${q.accent}`}>
+            <span aria-hidden="true">{q.emoji}</span>
+            <h3>{q.title}</h3>
+            <p>{q.hook}</p>
+            <span class="more-cta">Start →</span>
+          </a>
+        ))}
+        <a class="more-card" href="/daily-draw/" style="--tint:#7A5CFF">
+          <span aria-hidden="true">🎴</span>
+          <h3>Daily Draw</h3>
+          <p>One card a day, same for everybody. Thirty seconds of reassurance.</p>
+          <span class="more-cta">Pull a card →</span>
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <script is:inline define:vars={{ results: quiz.results, slug: quiz.slug }}>
+    (function () {
+      var shell = document.getElementById("quiz");
+      if (!shell) return;
+      var steps = Array.prototype.slice.call(shell.querySelectorAll(".qz-step[data-step]"));
+      var qSteps = steps.filter(function (s) { return s.getAttribute("data-step") !== "result"; });
+      var resStep = shell.querySelector('[data-step="result"]');
+      var bar = document.getElementById("qzBar");
+      var num = document.getElementById("qzNum");
+      var timeEl = document.getElementById("qzTime");
+      var total = qSteps.length;
+      var idx = 0;
+      var score = {};
+      var order = [];
+      var t0 = Date.now();
+      var timer = setInterval(function () {
+        var s = Math.floor((Date.now() - t0) / 1000);
+        timeEl.textContent = Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0");
+      }, 500);
+
+      function paint() {
+        qSteps.forEach(function (s, i) { s.hidden = i !== idx; });
+        resStep.hidden = true;
+        num.textContent = String(idx + 1);
+        bar.style.width = (idx / total) * 100 + "%";
+        var active = qSteps[idx];
+        if (active) active.animate([{ opacity: 0, transform: "translateY(8px)" }, { opacity: 1, transform: "none" }], { duration: 260, easing: "ease-out" });
+      }
+
+      function finish() {
+        clearInterval(timer);
+        bar.style.width = "100%";
+        qSteps.forEach(function (s) { s.hidden = true; });
+        resStep.hidden = false;
+
+        var best = null, bestScore = -1;
+        Object.keys(results).forEach(function (k) {
+          var v = score[k] || 0;
+          if (v > bestScore) { bestScore = v; best = k; }
+        });
+        if (!best) best = Object.keys(results)[0];
+        var r = results[best];
+
+        document.getElementById("resEmoji").textContent = r.emoji;
+        document.getElementById("resTitle").textContent = r.title;
+        document.getElementById("resBlurb").textContent = r.blurb;
+        document.getElementById("resStrength").textContent = r.strength;
+        document.getElementById("resFix").textContent = r.fix;
+        document.getElementById("resNote").textContent = "";
+        shell.setAttribute("data-result", best);
+
+        try {
+          localStorage.setItem("dinkly:quiz:" + slug, JSON.stringify({ result: best, title: r.title, at: Date.now() }));
+        } catch (e) {}
+      }
+
+      qSteps.forEach(function (step, si) {
+        Array.prototype.slice.call(step.querySelectorAll(".qz-opt")).forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            var sc = {};
+            try { sc = JSON.parse(btn.getAttribute("data-scores")); } catch (e) {}
+            Object.keys(sc).forEach(function (k) {
+              score[k] = (score[k] || 0) + sc[k];
+              if (order.indexOf(k) === -1) order.push(k);
+            });
+
+            btn.animate([{ transform: "scale(1)" }, { transform: "scale(0.97)" }, { transform: "scale(1)" }], { duration: 180 });
+            btn.classList.add("qz-picked");
+            setTimeout(function () {
+              btn.classList.remove("qz-picked");
+              if (si + 1 < total) { idx = si + 1; paint(); } else { finish(); }
+            }, 190);
+          });
+        });
+      });
+
+      document.getElementById("resAgain").addEventListener("click", function () {
+        idx = 0; score = {}; order = []; t0 = Date.now();
+        clearInterval(timer);
+        timer = setInterval(function () {
+          var s = Math.floor((Date.now() - t0) / 1000);
+          timeEl.textContent = Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0");
+        }, 500);
+        paint();
+      });
+
+      document.getElementById("resShare").addEventListener("click", function () {
+        var key = shell.getAttribute("data-result");
+        var r = results[key];
+        var text = r.share + " — take the quiz: " + window.location.href;
+        var note = document.getElementById("resNote");
+        if (navigator.share) {
+          navigator.share({ title: "Dinkly quiz result", text: r.share, url: window.location.href }).catch(function () {});
+          return;
+        }
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(text).then(function () { note.textContent = "Copied — go paste it somewhere."; });
+        } else {
+          note.textContent = r.share;
+        }
+      });
+
+      paint();
+    })();
+  </script>
+</Base>
+
+<style>
+  .page { padding: 34px 0 20px; }
+  .crumbs { font-size: 13.5px; color: var(--faint); display: flex; gap: 8px; flex-wrap: wrap; }
+  .crumbs a { color: var(--muted); }
+  .crumbs a:hover { color: var(--accent); }
+
+  .hero { display: grid; grid-template-columns: 1fr 1fr; gap: 52px; align-items: center; margin-top: 28px; }
+  .hero h1 { font-size: clamp(32px, 4.2vw, 52px); margin: 18px 0 16px; }
+  .kicker { color: var(--k, var(--accent)); background: color-mix(in srgb, var(--k, #7A5CFF) 12%, #fff); }
+  .lede { font-size: 17px; color: var(--muted); max-width: 480px; }
+  .meta { display: flex; gap: 10px; align-items: center; font-size: 14px; color: var(--faint); margin: 18px 0; }
+  .tags { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  /* ---------- Quiz shell ---------- */
+  .quiz-shell {
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--r-xl);
+    padding: 28px; box-shadow: var(--shadow-lg);
+    background-image: linear-gradient(160deg, color-mix(in srgb, var(--tint) 9%, #fff), #fff 58%);
+    min-height: 380px; display: flex; flex-direction: column;
+  }
+  .qz-top { display: flex; justify-content: space-between; font-size: 12.5px; color: var(--faint); letter-spacing: 0.06em; text-transform: uppercase; }
+  .qz-time { letter-spacing: 0; }
+  .qz-bar { height: 6px; border-radius: 99px; background: #eceaf4; overflow: hidden; margin: 12px 0 24px; }
+  .qz-bar i { display: block; height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--tint), color-mix(in srgb, var(--tint) 40%, #FF9EC4)); transition: width 0.35s cubic-bezier(.3,.8,.3,1); }
+  .qz-body { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+  .qz-q { font-family: var(--font-display); font-size: 22px; line-height: 1.32; font-weight: 600; margin: 0 0 20px; }
+  .qz-opts { display: flex; flex-direction: column; gap: 10px; }
+  .qz-opt {
+    display: flex; align-items: flex-start; gap: 12px; text-align: left;
+    background: #fff; border: 1px solid var(--border-strong); border-radius: var(--r-md);
+    padding: 15px 18px; font-size: 15px; cursor: pointer; line-height: 1.45;
+    transition: border-color 0.16s ease, background 0.16s ease, transform 0.16s ease;
+  }
+  .qz-opt:hover { border-color: var(--tint); background: color-mix(in srgb, var(--tint) 6%, #fff); transform: translateX(3px); }
+  .qz-opt.qz-picked { border-color: var(--tint); background: color-mix(in srgb, var(--tint) 14%, #fff); }
+  .qz-dot { width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--border-strong); flex: none; margin-top: 3px; }
+  .qz-opt:hover .qz-dot, .qz-opt.qz-picked .qz-dot { border-color: var(--tint); background: var(--tint); }
+
+  .qz-result { text-align: center; }
+  .qz-res-emoji { font-size: 52px; display: block; margin-bottom: 10px; }
+  .qz-result h2 { font-size: 30px; }
+  .qz-res-blurb { font-size: 15.5px; color: var(--muted); margin: 14px 0 22px; text-align: left; }
+  .qz-res-rows { display: grid; gap: 10px; text-align: left; }
+  .qz-res-rows > div { background: var(--bg-soft); border-radius: var(--r-md); padding: 14px 16px; }
+  .qz-res-rows span { display: block; font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); margin-bottom: 4px; }
+  .qz-res-rows b { font-weight: 500; font-size: 15px; }
+  .qz-res-actions { display: flex; gap: 10px; justify-content: center; margin-top: 22px; flex-wrap: wrap; }
+  .qz-share { font-size: 13.5px; color: var(--accent); margin: 14px 0 0; min-height: 20px; }
+
+  .ad-inline { margin: 48px 0 0; }
+
+  .about { margin-top: 52px; max-width: 760px; }
+  .about h2 { font-size: 26px; margin-bottom: 12px; }
+  .reveal { margin-top: 22px; border: 1px solid var(--border); border-radius: var(--r-md); background: var(--card); padding: 16px 20px; }
+  .reveal summary { cursor: pointer; font-weight: 600; font-size: 15px; }
+  .reveal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 18px; }
+  .reveal-item { background: var(--bg-soft); border-radius: var(--r-md); padding: 16px; }
+  .reveal-item span { font-size: 22px; }
+  .reveal-item h3 { font-size: 16px; margin: 8px 0 6px; }
+  .reveal-item p { font-size: 13.5px; color: var(--muted); margin: 0; }
+
+  .more { margin-top: 56px; }
+  .more h2 { font-size: 26px; margin-bottom: 20px; }
+  .more-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .more-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--r-lg);
+    padding: 24px; display: flex; flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .more-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+  .more-card span { font-size: 26px; }
+  .more-card h3 { font-size: 18px; margin: 12px 0 6px; }
+  .more-card p { font-size: 14px; color: var(--muted); margin: 0 0 16px; }
+  .more-cta { margin-top: auto; font-size: 14px; font-weight: 600; color: var(--tint); }
+
+  @media (max-width: 980px) {
+    .hero { grid-template-columns: 1fr; gap: 34px; }
+    .more-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 640px) {
+    .more-grid { grid-template-columns: 1fr; }
+    .quiz-shell { padding: 20px; }
+    .qz-q { font-size: 19px; }
+  }
+</style>

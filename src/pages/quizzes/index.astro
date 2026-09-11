@@ -1,0 +1,125 @@
+---
+import Base from "../../layouts/Base.astro";
+import quizzes from "../../data/quizzes.json";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "Quizzes",
+  description: "60-second personality quizzes for the pause between prompts.",
+  hasPart: quizzes.map((q) => ({
+    "@type": "Quiz",
+    name: q.title,
+    url: `https://dinkly.pages.dev/quizzes/${q.slug}/`,
+    about: q.hook,
+  })),
+};
+---
+
+<Base
+  title="60-second quizzes — Dinkly"
+  description="Personality quizzes you can finish while your AI is thinking. Result in under a minute, no signup, plus a shareable card at the end."
+  jsonLd={jsonLd}
+>
+  <div class="wrap page">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span aria-hidden="true">/</span> <span>Quizzes</span>
+    </nav>
+
+    <header class="head">
+      <span class="kicker">✦ No signup · instant result</span>
+      <h1>Quizzes you can finish before your agent does.</h1>
+      <p class="lede">
+        Five or six questions, four options each, one result you'll want to send to someone.
+        Everything runs in your browser — nothing is stored, nothing is sent anywhere.
+      </p>
+    </header>
+
+    <div class="quiz-grid">
+      {quizzes.map((q) => (
+        <a class="quiz-card" href={`/quizzes/${q.slug}/`} style={`--tint:${q.accent}`}>
+          <div class="quiz-top">
+            <span class="quiz-emoji" aria-hidden="true">{q.emoji}</span>
+            <span class="quiz-tag">{q.tag}</span>
+          </div>
+          <h2>{q.title}</h2>
+          <p>{q.hook}</p>
+          <div class="quiz-foot">
+            <span class="num">{q.plays} plays</span>
+            <span>{q.questions.length} questions</span>
+            <span class="quiz-cta">Start →</span>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <div class="ad-slot ad-inline">Ad slot · 728×90</div>
+
+    <section class="aside">
+      <h2>How these work</h2>
+      <p class="muted">
+        Each quiz keeps a running score for every possible result and awards it to the answer you pick.
+        Highest score wins. There are no wrong answers, no emails, and no result page you have to unlock by sharing.
+      </p>
+    </section>
+
+    <section class="aside">
+      <h2>Want another kind of break?</h2>
+      <div class="next-grid">
+        <a class="next-card" href="/daily-draw/"><span aria-hidden="true">🎴</span><h3>Daily Draw</h3><p>One card a day, same for everybody.</p></a>
+        <a class="next-card" href="/games/dink-match/"><span aria-hidden="true">🃏</span><h3>Dink Match</h3><p>Emoji memory, two minutes a round.</p></a>
+        <a class="next-card" href="/sounds/"><span aria-hidden="true">🎧</span><h3>Focus Sounds</h3><p>Rain and noise, generated live.</p></a>
+      </div>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .page { padding: 34px 0 20px; }
+  .crumbs { font-size: 13.5px; color: var(--faint); display: flex; gap: 8px; }
+  .crumbs a { color: var(--muted); }
+  .crumbs a:hover { color: var(--accent); }
+  .head { max-width: 700px; margin: 26px 0 36px; }
+  .head h1 { font-size: clamp(30px, 4vw, 48px); margin: 16px 0 14px; }
+  .lede { color: var(--muted); font-size: 16.5px; }
+
+  .quiz-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .quiz-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--r-xl);
+    padding: 28px; display: flex; flex-direction: column; min-height: 300px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+  .quiz-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); border-color: var(--tint); }
+  .quiz-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+  .quiz-emoji { font-size: 30px; }
+  .quiz-tag {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase;
+    color: var(--tint); background: color-mix(in srgb, var(--tint) 12%, #fff);
+    border-radius: 999px; padding: 5px 11px;
+  }
+  .quiz-card h2 { font-size: 23px; line-height: 1.24; }
+  .quiz-card p { font-size: 14.5px; color: var(--muted); margin: 12px 0 22px; }
+  .quiz-foot {
+    margin-top: auto; display: flex; gap: 14px; align-items: center;
+    font-size: 12.5px; color: var(--faint); border-top: 1px solid var(--border); padding-top: 16px;
+  }
+  .quiz-cta { margin-left: auto; font-weight: 600; color: var(--tint); }
+
+  .ad-inline { margin: 40px 0 0; }
+  .aside { margin-top: 46px; max-width: 720px; }
+  .aside h2 { font-size: 24px; margin-bottom: 10px; }
+  .next-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 20px; }
+  .next-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--r-lg);
+    padding: 22px; transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .next-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+  .next-card span { font-size: 24px; }
+  .next-card h3 { font-size: 17px; margin: 10px 0 6px; }
+  .next-card p { font-size: 14px; color: var(--muted); margin: 0; }
+
+  @media (max-width: 1000px) { .quiz-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 700px) {
+    .quiz-grid, .next-grid { grid-template-columns: 1fr; }
+  }
+</style>

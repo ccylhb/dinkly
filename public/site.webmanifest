@@ -1,0 +1,12 @@
+{
+  "name": "Dinkly",
+  "short_name": "Dinkly",
+  "description": "A 3-minute dopamine menu for the pause between prompts.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FAFAF7",
+  "theme_color": "#7A5CFF",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

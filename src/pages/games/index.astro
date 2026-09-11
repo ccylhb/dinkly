@@ -1,0 +1,133 @@
+---
+import Base from "../../layouts/Base.astro";
+
+const games = [
+  { slug: "dink-match", name: "Dink Match", emoji: "🃏", live: true, desc: "Sixteen cards, eight pairs, two minutes. The classic memory grid with a soft palette and honest timers.", meta: "Playable now · 2 min" },
+  { slug: "word-chain", name: "Word Chain", emoji: "🔤", live: false, desc: "Each word must start with the last letter of the previous one. Sounds easy until the clock starts.", meta: "In build · this week" },
+  { slug: "spot-it", name: "Spot It", emoji: "🔍", live: false, desc: "One tile differs from the rest. Find it before your eyes stop cooperating.", meta: "In build" },
+];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "Tiny Games",
+  description: "Two-minute browser games designed to fit inside a single AI response.",
+};
+---
+
+<Base
+  title="Tiny Games — two-minute browser games for the AI wait"
+  description="Small browser games designed to fit inside a single model response. Dink Match is playable now; Word Chain and Spot It are on the way. No downloads, no signup."
+  jsonLd={jsonLd}
+>
+  <div class="wrap page">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span aria-hidden="true">/</span> <span>Tiny Games</span>
+    </nav>
+
+    <header class="head">
+      <span class="kicker">✦ Two minutes a round</span>
+      <h1>Games that fit inside one reply.</h1>
+      <p class="lede">
+        Nothing here needs a tutorial, an account, or more than two minutes of your attention.
+        Start one, finish it, go back to your agent with a calmer brain.
+      </p>
+    </header>
+
+    <div class="game-grid">
+      {games.map((g) => (
+        g.live ? (
+          <a class="game-card live" href={`/games/${g.slug}/`}>
+            <div class="gc-top">
+              <span class="gc-emoji" aria-hidden="true">{g.emoji}</span>
+              <span class="gc-flag gc-flag-live">Playable</span>
+            </div>
+            <h2>{g.name}</h2>
+            <p>{g.desc}</p>
+            <div class="gc-foot">
+              <span>{g.meta}</span>
+              <span class="gc-cta">Play now →</span>
+            </div>
+          </a>
+        ) : (
+          <article class="game-card soon">
+            <div class="gc-top">
+              <span class="gc-emoji" aria-hidden="true">{g.emoji}</span>
+              <span class="gc-flag">Soon</span>
+            </div>
+            <h2>{g.name}</h2>
+            <p>{g.desc}</p>
+            <div class="gc-foot">
+              <span>{g.meta}</span>
+              <span class="gc-cta muted">Not yet</span>
+            </div>
+          </article>
+        )
+      ))}
+    </div>
+
+    <div class="ad-slot ad-inline">Ad slot · 728×90</div>
+
+    <section class="how">
+      <h2>Why games and not videos</h2>
+      <p class="muted">
+        A video demands a fixed block of your attention and punishes you for leaving. A two-minute game ends
+        when you want it to. When the real constraint is “my agent will be done in 90 seconds”, a small
+        game with a clear finish line beats an infinite feed every single time.
+      </p>
+    </section>
+
+    <section class="more">
+      <h2>No patience for games?</h2>
+      <div class="more-grid">
+        <a class="more-card" href="/daily-draw/"><span aria-hidden="true">🎴</span><h3>Daily Draw</h3><p>Thirty seconds of reassurance, once a day.</p></a>
+        <a class="more-card" href="/jokes/"><span aria-hidden="true">🫙</span><h3>Joke Jar</h3><p>Ten-second jokes with punchlines on demand.</p></a>
+        <a class="more-card" href="/oracle/"><span aria-hidden="true">🔮</span><h3>Yes / No Oracle</h3><p>One question, one verdict, no follow-up.</p></a>
+      </div>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .page { padding: 34px 0 20px; }
+  .crumbs { font-size: 13.5px; color: var(--faint); display: flex; gap: 8px; }
+  .crumbs a { color: var(--muted); }
+  .crumbs a:hover { color: var(--accent); }
+  .head { max-width: 700px; margin: 26px 0 36px; }
+  .head h1 { font-size: clamp(32px, 4.4vw, 50px); margin: 16px 0 14px; }
+  .lede { color: var(--muted); font-size: 16.5px; }
+
+  .game-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .game-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--r-xl);
+    padding: 28px; display: flex; flex-direction: column; min-height: 280px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+  .game-card.live:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); border-color: var(--accent); }
+  .game-card.soon { opacity: 0.72; }
+  .gc-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+  .gc-emoji { font-size: 30px; }
+  .gc-flag { font-size: 11px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--faint); border: 1px solid var(--border-strong); border-radius: 999px; padding: 5px 11px; }
+  .gc-flag-live { color: #2f9e7e; background: var(--mint-soft); border-color: #cfeee4; }
+  .game-card h2 { font-size: 23px; }
+  .game-card p { font-size: 14.5px; color: var(--muted); margin: 12px 0 22px; }
+  .gc-foot { margin-top: auto; display: flex; justify-content: space-between; align-items: center; font-size: 12.5px; color: var(--faint); border-top: 1px solid var(--border); padding-top: 16px; }
+  .gc-cta { font-weight: 600; color: var(--accent); font-size: 14px; }
+
+  .ad-inline { margin: 40px 0 0; }
+  .how { margin-top: 52px; max-width: 760px; }
+  .how h2 { font-size: 26px; margin-bottom: 12px; }
+  .more { margin-top: 56px; }
+  .more h2 { font-size: 26px; margin-bottom: 20px; }
+  .more-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .more-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 24px; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .more-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+  .more-card span { font-size: 26px; }
+  .more-card h3 { font-size: 18px; margin: 12px 0 6px; }
+  .more-card p { font-size: 14px; color: var(--muted); margin: 0; }
+
+  @media (max-width: 980px) { .game-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 700px) {
+    .game-grid, .more-grid { grid-template-columns: 1fr; }
+  }
+</style>

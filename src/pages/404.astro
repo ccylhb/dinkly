@@ -1,0 +1,51 @@
+---
+import Base from "../layouts/Base.astro";
+---
+
+<Base
+  title="Page not found — Dinkly"
+  description="That page has gone. Here are some better uses of the next three minutes."
+  noindex={true}
+>
+  <div class="wrap page">
+    <div class="notfound">
+      <span class="nf-emoji" aria-hidden="true">🌀</span>
+      <h1>This page went for a break.</h1>
+      <p class="lede">
+        It hasn't come back. Meanwhile your agent is still thinking, so here's something to do instead —
+        all of it under three minutes.
+      </p>
+      <div class="nf-actions">
+        <a class="btn btn-primary" href="/daily-draw/">Pull today's card</a>
+        <a class="btn btn-ghost" href="/">Back to home</a>
+      </div>
+    </div>
+
+    <div class="nf-grid">
+      <a class="nf-card" href="/quizzes/"><span aria-hidden="true">🧠</span><h2>Quizzes</h2><p>Three quizzes, 60 seconds each.</p></a>
+      <a class="nf-card" href="/games/dink-match/"><span aria-hidden="true">🃏</span><h2>Dink Match</h2><p>Emoji memory, two minutes a round.</p></a>
+      <a class="nf-card" href="/jokes/"><span aria-hidden="true">🫙</span><h2>Joke Jar</h2><p>39 jokes, punchlines on demand.</p></a>
+      <a class="nf-card" href="/sounds/"><span aria-hidden="true">🎧</span><h2>Focus Sounds</h2><p>Rain and brown noise, generated live.</p></a>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .page { padding: 60px 0 20px; }
+  .notfound { max-width: 640px; margin: 0 auto; text-align: center; }
+  .nf-emoji { font-size: 56px; display: block; margin-bottom: 18px; animation: spin 6s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .notfound h1 { font-size: clamp(30px, 4.4vw, 48px); margin-bottom: 16px; }
+  .lede { color: var(--muted); font-size: 17px; }
+  .nf-actions { display: flex; gap: 12px; justify-content: center; margin-top: 28px; flex-wrap: wrap; }
+
+  .nf-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 64px; }
+  .nf-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 24px; text-align: center; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .nf-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+  .nf-card span { font-size: 28px; }
+  .nf-card h2 { font-size: 17px; margin: 10px 0 6px; }
+  .nf-card p { font-size: 13.5px; color: var(--muted); margin: 0; }
+
+  @media (max-width: 900px) { .nf-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .nf-grid { grid-template-columns: 1fr; } }
+</style>

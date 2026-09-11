@@ -1,0 +1,115 @@
+---
+import Base from "../layouts/Base.astro";
+
+const updated = "September 11, 2026";
+---
+
+<Base
+  title="Terms of Use — Dinkly"
+  description="The terms governing use of Dinkly: acceptable use, intellectual property, entertainment-only disclaimers, and limitation of liability."
+>
+  <div class="wrap narrow page">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span aria-hidden="true">/</span> <span>Terms of Use</span>
+    </nav>
+
+    <header class="head">
+      <h1>Terms of Use</h1>
+      <p class="muted">Last updated: {updated}</p>
+    </header>
+
+    <div class="prose">
+      <p class="lead">
+        By using Dinkly you agree to these terms. They are written to be readable, and the short version is:
+        use the site normally, don't abuse it, and remember that the oracle, the quizzes and the cards are
+        entertainment rather than professional advice.
+      </p>
+
+      <h2>1. Using the site</h2>
+      <p>
+        Dinkly is free to use for personal, non-commercial purposes. You may browse, play, share links, and
+        save exported wallpapers for personal use including as desktop or phone backgrounds.
+      </p>
+
+      <h2>2. Acceptable use</h2>
+      <ul>
+        <li>Do not attempt to disrupt, overload or gain unauthorised access to the site or its infrastructure.</li>
+        <li>Do not scrape the site at a volume that degrades service for other people.</li>
+        <li>Do not resell or repackage Dinkly's content as your own product.</li>
+        <li>Do not use automated tools to generate fake traffic or advertising impressions.</li>
+      </ul>
+
+      <h2>3. Entertainment only</h2>
+      <p>
+        The Daily Draw, the Yes/No Oracle, the personality quizzes and the jokes are provided purely for
+        amusement. They are not psychological assessments, financial advice, medical advice, legal advice,
+        or predictions of future events. Do not make significant life decisions on the basis of a card drawn
+        by a random number generator.
+      </p>
+      <p>
+        Likewise, nothing on this site is professional advice about work, health or wellbeing. The essays in
+        Break Notes reflect general observations, not clinical guidance.
+      </p>
+
+      <h2>4. Intellectual property</h2>
+      <p>
+        The written content, design, code and generated assets of Dinkly are the property of their respective
+        creators. You may quote short excerpts with a link back to the source page. Wholesale reproduction
+        requires permission.
+      </p>
+      <p>
+        Emoji characters used in the memory game and elsewhere are provided by your device's operating system
+        and font vendors, not by Dinkly.
+      </p>
+
+      <h2>5. Advertising and third-party links</h2>
+      <p>
+        The site displays advertising and may link to third-party websites. We are not responsible for the
+        content, products, or privacy practices of those third parties. Any transaction you enter into with
+        an advertiser is solely between you and them.
+      </p>
+
+      <h2>6. Availability</h2>
+      <p>
+        Dinkly is provided "as is". We aim to keep it online and working, but we do not guarantee
+        uninterrupted availability, and features may change or be removed. Data stored in your browser's
+        local storage may be lost when you clear browsing data or change devices.
+      </p>
+
+      <h2>7. Limitation of liability</h2>
+      <p>
+        To the maximum extent permitted by law, Dinkly and its creators are not liable for any indirect,
+        incidental, or consequential loss arising from your use of, or inability to use, the site —
+        including time spent, or not spent, waiting for an AI model to finish.
+      </p>
+
+      <h2>8. Changes to these terms</h2>
+      <p>
+        These terms may be updated from time to time. Continued use of the site after an update constitutes
+        acceptance of the revised terms. Material changes will carry a new "last updated" date.
+      </p>
+
+      <h2>9. Contact</h2>
+      <p>
+        Questions about these terms can be raised through the <a href="/about/">About page</a>.
+      </p>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .narrow { max-width: 780px; }
+  .page { padding: 34px 0 20px; }
+  .crumbs { font-size: 13.5px; color: var(--faint); display: flex; gap: 8px; }
+  .crumbs a { color: var(--muted); }
+  .crumbs a:hover { color: var(--accent); }
+  .head { margin: 28px 0 30px; }
+  .head h1 { font-size: clamp(30px, 4vw, 46px); margin-bottom: 10px; }
+  .prose { font-size: 16px; line-height: 1.76; }
+  .prose .lead { font-size: 18px; color: var(--muted); }
+  .prose h2 { font-size: 21px; margin: 36px 0 12px; }
+  .prose p { margin: 0 0 16px; }
+  .prose ul { margin: 0 0 16px; padding-left: 22px; }
+  .prose li { margin-bottom: 8px; }
+  .prose a { color: var(--accent); font-weight: 500; border-bottom: 1px solid color-mix(in srgb, var(--accent) 35%, transparent); }
+</style>

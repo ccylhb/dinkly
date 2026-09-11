@@ -1,0 +1,489 @@
+---
+import Base from "../layouts/Base.astro";
+import cards from "../data/cards.json";
+import quizzes from "../data/quizzes.json";
+import jokes from "../data/jokes.json";
+
+const card = cards[41]; // The Spinner Spins
+const topQuiz = quizzes[0];
+
+const searchIndex = [
+  ...quizzes.map((q) => ({ t: q.title, h: `/quizzes/${q.slug}/`, k: "Quiz", e: q.emoji })),
+  { t: "Daily Draw · pull today's card", h: "/daily-draw/", k: "Daily Draw", e: "🎴" },
+  { t: "Joke Jar · dad jokes on tap", h: "/jokes/", k: "Jokes", e: "🫙" },
+  { t: "Yes / No Oracle", h: "/oracle/", k: "Oracle", e: "🔮" },
+  { t: "Focus Sounds · rain, waves, brown noise", h: "/sounds/", k: "Sounds", e: "🎧" },
+  { t: "Dink Match · emoji memory game", h: "/games/dink-match/", k: "Game", e: "🃏" },
+  { t: "Wallpaper Drop", h: "/wallpapers/", k: "Wallpapers", e: "🖼️" },
+  { t: "Why waiting is not wasting", h: "/blog/why-waiting-is-not-wasting/", k: "Article", e: "📓" },
+  { t: "How to take a 3-minute break that actually works", h: "/blog/three-minute-break/", k: "Article", e: "📓" },
+  { t: "The 7 types of AI-wait behaviour", h: "/blog/seven-types-of-waiting/", k: "Article", e: "📓" },
+  { t: "Which cozy pet are you?", h: "/quizzes/which-cozy-pet/", k: "Quiz", e: "🐾" },
+  { t: "What color is your mood right now?", h: "/quizzes/mood-color/", k: "Quiz", e: "🎨" },
+];
+
+const bentoRow2 = [
+  { href: "/jokes/", emoji: "🫙", title: "Joke Jar", desc: "Why do programmers prefer dark mode? Tap to find out.", badge: "Dad jokes · 10-second chuckle", cta: "Another one →", theme: "butter" },
+  { href: "/oracle/", emoji: "🔮", title: "Yes / No Oracle", desc: "Ask one thing. Get a yes, a no — or a witty maybe.", badge: "1-tap answer · free daily", cta: "Ask now →", theme: "grape" },
+  { href: "/wallpapers/", emoji: "🖼️", title: "Wallpaper Drop", desc: "Soft gradients and minimal scenes. Save one, close the tab.", badge: "8 free · new daily", cta: "Browse gallery →", theme: "mint" },
+  { href: "/sounds/", emoji: "🎧", title: "Focus Sounds", desc: "Rain, campfire, waves, brown noise — generated live in your browser.", badge: "No downloads · loops forever", cta: "Press play →", theme: "sky" },
+];
+
+const feed = [
+  { tag: "DAILY DRAW", theme: "grape", href: "/daily-draw/", title: `Card No. ${card.no} · ${card.tone}`, body: `“${card.quote}” ${card.meaning.split(".")[0]}.`, by: "by Ora · keeper of draws", stat: "12k" },
+  { tag: "QUIZ", theme: "bubblegum", href: `/quizzes/${topQuiz.slug}/`, title: topQuiz.title, body: "Six quick questions. One uncomfortably accurate result — and a share card at the end.", by: "by Quizzy · staff pick", stat: "34k" },
+  { tag: "JOKE JAR", theme: "butter", href: "/jokes/", title: "Dad jokes, freshly jarred", body: `“${jokes[3].setup}” — tap for the punchline.`, by: "by Punny · chief joker", stat: "9k" },
+  { tag: "SPONSORED", theme: "ad", href: "/advertise/", title: "While your AI works, dinner's handled", body: "30-minute delivery · $15 off your first order. Placeholder ad slot — this is where a real brand goes.", by: "Sponsored placement", stat: "Ad" },
+  { tag: "WALLPAPER", theme: "mint", href: "/wallpapers/", title: "Today's wallpaper · Gradient No. 4", body: "Soft 4K scenery, generated as pure CSS. One tap, one download, zero clutter.", by: "by Blanche · curator", stat: "8k" },
+  { tag: "ORACLE", theme: "grape", href: "/oracle/", title: "Ask one thing, get one answer", body: "40 hand-written verdicts. No signup, no fee, no follow-up question.", by: "by Luna · resident oracle", stat: "5k" },
+  { tag: "FOCUS SOUNDS", theme: "sky", href: "/sounds/", title: "Rain on leaves · loop it", body: "Four ambient rooms synthesised in-browser with Web Audio. Nothing to download.", by: "by Summer · sound therapist", stat: "7k" },
+  { tag: "SPONSORED", theme: "ad", href: "/advertise/", title: "The laptop built for waiting", body: "Placeholder ad slot · 728×90 or responsive. Reach a focused audience of builders.", by: "Sponsored placement", stat: "Ad" },
+  { tag: "QUIZ", theme: "bubblegum", href: "/quizzes/which-cozy-pet/", title: "Which cozy pet are you?", body: "Five questions to reveal the small warm creature running your personality.", by: "by Quizzy · staff pick", stat: "21k" },
+  { tag: "BREAK NOTES", theme: "grape", href: "/blog/why-waiting-is-not-wasting/", title: "Why waiting is not wasting", body: "The research on micro-breaks is unusually clear, and unusually kind.", by: "by Rivers · community writer", stat: "3k" },
+  { tag: "JOKE JAR", theme: "butter", href: "/jokes/", title: "Three new jokes today", body: `“${jokes[9].setup}”`, by: "by Punny · chief joker", stat: "6k" },
+  { tag: "SPONSORED", theme: "ad", href: "/advertise/", title: "Coffee for long thinking", body: "Placeholder ad slot · native in-feed format, matches card styling.", by: "Sponsored placement", stat: "Ad" },
+];
+
+const themeMap = {
+  grape: { bg: "linear-gradient(150deg,#efeaff,#fff)", accent: "#7A5CFF" },
+  bubblegum: { bg: "linear-gradient(150deg,#ffeef4,#fff)", accent: "#E8619B" },
+  butter: { bg: "linear-gradient(150deg,#fff6e2,#fff)", accent: "#C9922B" },
+  mint: { bg: "linear-gradient(150deg,#e6faf4,#fff)", accent: "#2F9E7E" },
+  sky: { bg: "linear-gradient(150deg,#eaf5ff,#fff)", accent: "#3E8FC9" },
+  ad: { bg: "repeating-linear-gradient(45deg,rgba(122,92,255,.03) 0 12px,#fafaf7 12px 24px)", accent: "#A8A4B6" },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: "Dinkly",
+  applicationCategory: "EntertainmentApplication",
+  operatingSystem: "Any",
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  description: "Free micro-break hub: daily draws, 60-second quizzes, jokes, oracle and generated focus sounds.",
+};
+---
+
+<Base
+  title="Dinkly · Tiny breaks for the moments your AI is thinking"
+  description="A 3-minute dopamine menu for the pause between prompts. Free daily draws, 60-second quizzes, a joke jar, an honest oracle, and focus sounds — all under three minutes, no signup."
+  jsonLd={jsonLd}
+>
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="hero-mesh" aria-hidden="true"></div>
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <span class="status">
+          <span class="pulse" aria-hidden="true"></span>
+          Your agent is working · take a dink break
+        </span>
+        <h1>Your AI is thinking.<br /><em>You should be playing.</em></h1>
+        <p class="hero-sub">A 3-minute dopamine menu for the pause between prompts. No signup, no feed, nothing to catch up on.</p>
+
+        <form class="search" role="search" onsubmit="return false;">
+          <label class="sr-only" for="q">Search breaks</label>
+          <span class="search-icon" aria-hidden="true">⌕</span>
+          <input id="q" type="search" placeholder="Try “which pet are you” or “rain sounds”…" autocomplete="off" />
+          <button class="btn btn-primary btn-sm" type="submit" data-roll>Break me</button>
+        </form>
+        <div class="search-results" id="results" hidden></div>
+
+        <div class="trending">
+          <span class="muted trend-label">Trending:</span>
+          <a class="chip" href="/daily-draw/">#dailydraw</a>
+          <a class="chip" href="/quizzes/which-cozy-pet/">#which cozy pet</a>
+          <a class="chip" href="/games/dink-match/">#dink match</a>
+          <a class="chip" href="/jokes/">#dad jokes</a>
+        </div>
+      </div>
+
+      <div class="hero-cards">
+        <article class="float f1">
+          <div class="float-head">
+            <span class="float-tag">Daily Draw</span>
+            <span class="float-meta num">Sep 11</span>
+          </div>
+          <p class="float-emoji" aria-hidden="true">{card.emoji}</p>
+          <p class="float-quote">“The spinner spins.<br />You, my friend, rest.”</p>
+          <div class="float-foot">
+            <span class="float-sub">Card No. {card.no} · {card.tone}</span>
+            <a class="float-link" href="/daily-draw/">Pull again →</a>
+          </div>
+        </article>
+
+        <article class="float f2">
+          <span class="float-tag">60-second quiz</span>
+          <h3>What's your AI-wait personality?</h3>
+          <div class="bar"><i style="width:62%"></i></div>
+          <div class="float-foot">
+            <span class="float-sub num">{topQuiz.plays} plays</span>
+            <a class="float-link" href={`/quizzes/${topQuiz.slug}/`}>Take the quiz →</a>
+          </div>
+        </article>
+
+        <article class="float f3">
+          <span class="float-tag">Right now</span>
+          <p class="big-num num" data-live>1,284</p>
+          <p class="float-sub">people taking a dink break now</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap ad-wrap"><div class="ad-slot">Ad slot · 970×90 leaderboard</div></div>
+
+  <!-- ============ BENTO ============ -->
+  <section class="wrap bento-section" id="bento">
+    <div class="section-head">
+      <span class="kicker">✦ Pick a break</span>
+      <h2>Eight tiny pleasures.</h2>
+      <p class="section-sub">Every card is a sub-3-minute escape. Your agent runs long — we run longer. Nothing here needs an account.</p>
+    </div>
+
+    <div class="filters" role="tablist" aria-label="Filter breaks">
+      <button class="chip chip-active" data-filter="all">All</button>
+      <button class="chip" data-filter="cozy">Cozy</button>
+      <button class="chip" data-filter="quiz">Quizzes</button>
+      <button class="chip" data-filter="quick">Quick play</button>
+      <button class="chip" data-filter="game">Games</button>
+    </div>
+
+    <div class="bento bento-row1">
+      <article class="bento-card big" data-cat="cozy">
+        <span class="bento-badge">Today · card #{card.no}</span>
+        <h3>Daily Draw</h3>
+        <p class="bento-quote">“{card.quote}”</p>
+        <div class="dodont">
+          <div class="dodont-col do">
+            <h4>DO</h4>
+            <ul>{card.do.slice(0, 3).map((d) => <li>{d}</li>)}</ul>
+          </div>
+          <div class="dodont-col dont">
+            <h4>DON'T</h4>
+            <ul>{card.dont.slice(0, 3).map((d) => <li>{d}</li>)}</ul>
+          </div>
+        </div>
+        <div class="bento-foot">
+          <span class="num">12,847 pulled today</span>
+          <a class="btn btn-ghost btn-sm" href="/daily-draw/">Pull your card</a>
+        </div>
+      </article>
+
+      <article class="bento-card" data-cat="quiz">
+        <span class="bento-emoji" aria-hidden="true">🧠</span>
+        <h3>Mini Quizzes</h3>
+        <p>Personality tests with a wink. 60 seconds to your result, and a share card at the end.</p>
+        <a class="bento-link" href="/quizzes/">3 quizzes →</a>
+      </article>
+
+      <article class="bento-card" data-cat="game">
+        <span class="bento-emoji" aria-hidden="true">🃏</span>
+        <h3>Tiny Games</h3>
+        <p>Dink Match, Word Chain, Spot It — two minutes a round, the perfect AI-wait buddy.</p>
+        <a class="bento-link" href="/games/">Play now →</a>
+      </article>
+    </div>
+
+    <div class="bento bento-row2">
+      {bentoRow2.map((b) => (
+        <article class="bento-card small" data-cat={b.href.includes("games") ? "game" : b.href.includes("oracle") || b.href.includes("sounds") ? "quick" : "cozy"} style={`--tint:${themeMap[b.theme as keyof typeof themeMap].accent}`}>
+          <span class="bento-emoji" aria-hidden="true">{b.emoji}</span>
+          <h3>{b.title}</h3>
+          <p>{b.desc}</p>
+          <div class="bento-foot">
+            <span class="bento-badge-soft">{b.badge}</span>
+            <a class="bento-link" href={b.href}>{b.cta}</a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- ============ FEED ============ -->
+  <section class="wrap feed-section">
+    <div class="section-head">
+      <span class="kicker">✦ Updated daily</span>
+      <h2>Fresh from the jar.</h2>
+      <p class="section-sub">New cards, jokes and quizzes every day — plus a few sponsored slots that keep the lights on.</p>
+    </div>
+
+    <div class="feed-grid">
+      {feed.map((f, i) => (
+        <article class={`feed-card t-${f.theme}`} style={`--tint:${themeMap[f.theme as keyof typeof themeMap].accent};background:${themeMap[f.theme as keyof typeof themeMap].bg}`}>
+          <div class="feed-top">
+            <span class="feed-tag">{f.tag}</span>
+            {f.tag === "SPONSORED" && <span class="feed-tag feed-tag-ad">Ad</span>}
+          </div>
+          <div class="feed-art" aria-hidden="true">
+            {f.theme === "ad" ? <span class="ad-art">AD</span> : <span class="feed-emoji">{["🎴", "🧠", "🫙", "🍜", "🖼️", "🔮", "🎧", "💻", "🐾", "📓", "😄", "☕"][i]}</span>}
+          </div>
+          <h3>{f.title}</h3>
+          <p>{f.body}</p>
+          <div class="feed-foot">
+            <span>{f.by}</span>
+            <span class="num">{f.stat}</span>
+          </div>
+          <a class="feed-hit" href={f.href} aria-label={f.title}></a>
+        </article>
+      ))}
+    </div>
+    <noscript><p class="muted center">Search needs JavaScript, but everything above is a plain link — go ahead and click.</p></noscript>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <section class="wrap">
+    <div class="cta-band">
+      <div>
+        <h2>Sound like your kind of break?</h2>
+        <p>Bookmark Dinkly. Next time the dots start moving, you'll know where to go.</p>
+      </div>
+      <div class="cta-actions">
+        <a class="btn btn-primary" href="/daily-draw/">Pull today's card</a>
+        <a class="btn btn-ghost" href="/quizzes/">Take a quiz</a>
+      </div>
+    </div>
+  </section>
+
+  <script is:inline define:vars={{ searchIndex }}>
+    (function () {
+      var idx = searchIndex;
+      var input = document.getElementById("q");
+      var box = document.getElementById("results");
+      if (!input || !box) return;
+
+      function render(items) {
+        if (!items.length) { box.hidden = true; box.innerHTML = ""; return; }
+        box.innerHTML = items.map(function (it) {
+          return '<a class="res" href="' + it.h + '"><span class="res-e">' + it.e + '</span><span class="res-t">' + it.t + '</span><span class="res-k">' + it.k + '</span></a>';
+        }).join("");
+        box.hidden = false;
+      }
+
+      input.addEventListener("input", function () {
+        var v = input.value.trim().toLowerCase();
+        if (v.length < 2) { render([]); return; }
+        render(idx.filter(function (it) { return (it.t + " " + it.k).toLowerCase().indexOf(v) > -1; }).slice(0, 6));
+      });
+
+      document.addEventListener("click", function (e) {
+        if (!box.contains(e.target) && e.target !== input) render([]);
+      });
+
+      var roll = document.querySelector("[data-roll]");
+      if (roll) {
+        roll.addEventListener("click", function () {
+          var pool = ["/daily-draw/", "/jokes/", "/oracle/", "/sounds/", "/games/dink-match/", "/quizzes/ai-wait-personality/", "/quizzes/which-cozy-pet/", "/wallpapers/"];
+          window.location.href = pool[Math.floor(Math.random() * pool.length)];
+        });
+      }
+
+      // Live counter — feels alive without lying to analytics.
+      var live = document.querySelector("[data-live]");
+      if (live) {
+        var n = 1284;
+        setInterval(function () {
+          n += Math.floor(Math.random() * 9) - 4;
+          if (n < 900) n = 1000 + Math.floor(Math.random() * 40);
+          live.textContent = n.toLocaleString("en-US");
+        }, 3600);
+      }
+    })();
+  </script>
+</Base>
+
+<style>
+  /* ---------- Hero ---------- */
+  .hero { position: relative; padding: 68px 0 40px; overflow: hidden; }
+  .hero-mesh {
+    position: absolute; inset: -180px -10% auto -10%; height: 720px; z-index: 0;
+    background:
+      radial-gradient(46% 52% at 18% 28%, rgba(122, 92, 255, 0.28), transparent 62%),
+      radial-gradient(40% 48% at 78% 16%, rgba(255, 158, 196, 0.32), transparent 64%),
+      radial-gradient(44% 46% at 58% 68%, rgba(127, 224, 195, 0.26), transparent 66%);
+    filter: blur(34px);
+    opacity: 0.75;
+    pointer-events: none;
+  }
+  .hero-grid {
+    position: relative; z-index: 1;
+    display: grid; grid-template-columns: 1.12fr 0.88fr; gap: 48px; align-items: center;
+  }
+  .status {
+    display: inline-flex; align-items: center; gap: 9px;
+    background: rgba(255, 255, 255, 0.9); border: 1px solid var(--border-strong);
+    border-radius: 999px; padding: 8px 16px; font-size: 13.5px; font-weight: 500;
+    color: var(--text); box-shadow: var(--shadow-sm);
+  }
+  .pulse {
+    width: 8px; height: 8px; border-radius: 50%; background: var(--good);
+    box-shadow: 0 0 0 0 rgba(63, 185, 138, 0.6); animation: pulse 2.2s infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(63, 185, 138, 0.55); }
+    70% { box-shadow: 0 0 0 10px rgba(63, 185, 138, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(63, 185, 138, 0); }
+  }
+  h1 {
+    font-size: clamp(40px, 5.4vw, 68px);
+    margin: 22px 0 0;
+    font-variation-settings: "SOFT" 60, "WONK" 1;
+  }
+  h1 em { font-style: italic; color: var(--accent); }
+  .hero-sub { font-size: 18px; color: var(--muted); margin: 20px 0 0; max-width: 520px; }
+
+  .search {
+    display: flex; align-items: center; gap: 10px;
+    background: #fff; border: 1px solid var(--border-strong); border-radius: 999px;
+    padding: 8px 8px 8px 20px; margin-top: 28px; max-width: 560px;
+    box-shadow: var(--shadow-md);
+  }
+  .search-icon { color: var(--faint); font-size: 20px; line-height: 1; }
+  .search input { flex: 1; border: 0; background: none; outline: none; font-size: 15.5px; min-width: 0; }
+  .search input::placeholder { color: var(--faint); }
+
+  .search-results {
+    margin-top: 10px; background: #fff; border: 1px solid var(--border);
+    border-radius: var(--r-md); box-shadow: var(--shadow-md); overflow: hidden; max-width: 560px;
+  }
+  .search-results :global(.res) {
+    display: flex; align-items: center; gap: 12px; padding: 12px 18px;
+    border-bottom: 1px solid var(--border); font-size: 14.5px;
+  }
+  .search-results :global(.res:last-child) { border-bottom: 0; }
+  .search-results :global(.res:hover) { background: var(--bg-soft); }
+  .search-results :global(.res-t) { flex: 1; font-weight: 500; }
+  .search-results :global(.res-k) { font-size: 12px; color: var(--faint); text-transform: uppercase; letter-spacing: 0.08em; }
+
+  .trending { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 22px; }
+  .trend-label { font-size: 14px; }
+
+  /* ---------- Floating cards ---------- */
+  .hero-cards { position: relative; min-height: 460px; }
+  .float {
+    position: absolute; background: #fff; border: 1px solid var(--border);
+    border-radius: var(--r-lg); padding: 22px; box-shadow: var(--shadow-lg);
+  }
+  .f1 { top: 0; left: 0; width: 300px; transform: rotate(-3deg); z-index: 3; background: linear-gradient(160deg, #f2edff, #fff 62%); }
+  .f2 { top: 176px; right: 0; width: 300px; transform: rotate(2.5deg); z-index: 4; background: linear-gradient(160deg, #ffeef5, #fff 62%); }
+  .f3 { bottom: 0; left: 34px; width: 254px; transform: rotate(-1.5deg); z-index: 2; background: linear-gradient(160deg, #e9faf3, #fff 62%); }
+  .float-head { display: flex; justify-content: space-between; align-items: center; }
+  .float-tag {
+    font-size: 11.5px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase;
+    color: var(--accent); background: var(--accent-soft); border-radius: 999px; padding: 5px 11px;
+  }
+  .f2 .float-tag { color: #d5568f; background: var(--accent2-soft); }
+  .float-meta { font-size: 12.5px; color: var(--faint); }
+  .float-emoji { font-size: 34px; margin: 16px 0 6px; }
+  .float-quote { font-family: var(--font-display); font-style: italic; font-size: 19px; line-height: 1.32; margin: 0 0 18px; }
+  .float h3 { font-size: 20px; margin: 14px 0 14px; }
+  .bar { height: 7px; border-radius: 99px; background: #f0edf7; overflow: hidden; }
+  .bar i { display: block; height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+  .float-foot { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 16px; }
+  .float-sub { font-size: 12.5px; color: var(--muted); margin: 0; }
+  .float-link { font-size: 13.5px; font-weight: 600; color: var(--accent); }
+  .big-num { font-family: var(--font-num); font-size: 44px; font-weight: 700; margin: 12px 0 2px; letter-spacing: -0.02em; }
+
+  /* ---------- Sections ---------- */
+  .ad-wrap { margin: 32px auto; }
+  .bento-section, .feed-section { padding: 56px 0 12px; }
+  .section-head { max-width: 680px; margin-bottom: 30px; }
+  .section-head h2 { margin-top: 16px; font-size: clamp(28px, 3.4vw, 42px); }
+
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+
+  .bento { display: grid; gap: 20px; }
+  .bento-row1 { grid-template-columns: 1.5fr 1fr 1fr; }
+  .bento-row2 { grid-template-columns: repeat(4, 1fr); margin-top: 20px; }
+
+  .bento-card {
+    position: relative; background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--r-xl); padding: 30px; box-shadow: var(--shadow-sm);
+    display: flex; flex-direction: column; transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .bento-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+  .bento-card h3 { font-size: 24px; margin-bottom: 10px; }
+  .bento-card p { color: var(--muted); font-size: 15px; margin: 0; }
+  .bento-emoji { font-size: 30px; margin-bottom: 16px; display: block; }
+  .bento-badge {
+    align-self: flex-start; font-size: 11.5px; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--accent); background: var(--accent-soft);
+    border-radius: 999px; padding: 6px 13px; margin-bottom: 18px;
+  }
+  .bento-card.big { background: linear-gradient(155deg, #f3edff, #fff5fa 96%); grid-row: span 1; }
+  .bento-card.big h3 { font-size: 30px; }
+  .bento-quote { font-family: var(--font-display); font-style: italic; font-size: 22px; line-height: 1.35; color: var(--text) !important; margin: 8px 0 22px !important; }
+  .dodont { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: auto; }
+  .dodont-col { border-radius: var(--r-md); padding: 14px 16px; }
+  .dodont-col h4 { font-family: var(--font-body); font-size: 11.5px; letter-spacing: 0.1em; margin-bottom: 8px; }
+  .dodont-col ul { margin: 0; padding-left: 16px; font-size: 14px; }
+  .dodont-col li { margin-bottom: 3px; }
+  .do { background: var(--mint-soft); }
+  .do h4 { color: #2f9e7e; }
+  .dont { background: var(--accent2-soft); }
+  .dont h4 { color: #d5568f; }
+  .bento-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
+  .bento-foot .num, .bento-foot > span { font-size: 13px; color: var(--muted); }
+  .bento-link { font-size: 14px; font-weight: 600; color: var(--tint, var(--accent)); margin-top: 16px; }
+  .bento-card.small:hover .bento-link { text-decoration: underline; }
+  .bento-badge-soft { font-size: 12.5px; color: var(--muted); }
+
+  /* ---------- Feed ---------- */
+  .feed-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .feed-card {
+    position: relative; border: 1px solid var(--border); border-radius: var(--r-lg);
+    padding: 22px; display: flex; flex-direction: column; min-height: 268px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .feed-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+  .feed-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  .feed-tag { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--tint); }
+  .feed-tag-ad { color: var(--faint); border: 1px solid var(--border-strong); border-radius: 999px; padding: 2px 8px; }
+  .feed-art { margin: 18px 0; }
+  .feed-emoji { font-size: 34px; }
+  .ad-art {
+    display: inline-flex; align-items: center; justify-content: center; width: 58px; height: 44px;
+    border: 1px dashed var(--border-strong); border-radius: 10px; color: var(--faint);
+    font-family: var(--font-num); font-size: 13px; letter-spacing: 0.14em; background: rgba(255, 255, 255, 0.7);
+  }
+  .feed-card h3 { font-size: 19px; line-height: 1.28; margin-bottom: 8px; }
+  .feed-card p { font-size: 14.5px; color: var(--muted); margin: 0 0 18px; }
+  .feed-foot {
+    margin-top: auto; display: flex; justify-content: space-between; gap: 10px;
+    font-size: 12.5px; color: var(--faint); border-top: 1px solid var(--border); padding-top: 14px;
+  }
+  .feed-hit { position: absolute; inset: 0; border-radius: var(--r-lg); }
+
+  /* ---------- CTA band ---------- */
+  .cta-band {
+    margin-top: 64px; border-radius: var(--r-xl); padding: 46px;
+    background: linear-gradient(135deg, #2b2447, #46356f 60%, #6c4f9e);
+    color: #fff; display: flex; align-items: center; justify-content: space-between;
+    gap: 32px; flex-wrap: wrap; box-shadow: var(--shadow-lg);
+  }
+  .cta-band h2 { font-size: clamp(26px, 3vw, 36px); }
+  .cta-band p { color: rgba(255, 255, 255, 0.78); margin: 12px 0 0; max-width: 460px; }
+  .cta-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .cta-band .btn-primary { background: #fff; color: var(--dark); box-shadow: none; }
+  .cta-band .btn-ghost { background: rgba(255, 255, 255, 0.1); color: #fff; border-color: rgba(255, 255, 255, 0.3); }
+  .cta-band .btn-ghost:hover { background: rgba(255, 255, 255, 0.18); }
+
+  @media (max-width: 1080px) {
+    .bento-row2 { grid-template-columns: repeat(2, 1fr); }
+    .bento-row1 { grid-template-columns: 1fr 1fr; }
+    .bento-card.big { grid-column: span 2; }
+  }
+  @media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 56px; }
+    .hero-cards { min-height: 0; position: static; display: grid; gap: 18px; }
+    .float { position: static; width: auto !important; transform: none !important; }
+    .feed-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 640px) {
+    .bento-row1, .bento-row2, .feed-grid { grid-template-columns: 1fr; }
+    .bento-card.big { grid-column: span 1; }
+    .dodont { grid-template-columns: 1fr; }
+    .cta-band { padding: 32px 24px; }
+    .hero { padding-top: 40px; }
+  }
+</style>

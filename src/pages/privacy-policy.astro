@@ -1,0 +1,132 @@
+---
+import Base from "../layouts/Base.astro";
+
+const updated = "September 11, 2026";
+---
+
+<Base
+  title="Privacy Policy — Dinkly"
+  description="Dinkly's privacy policy: no accounts, no email collection, and no personal data sold. What we store, what we don't, and how advertising cookies work."
+>
+  <div class="wrap narrow page">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span aria-hidden="true">/</span> <span>Privacy Policy</span>
+    </nav>
+
+    <header class="head">
+      <h1>Privacy Policy</h1>
+      <p class="muted">Last updated: {updated}</p>
+    </header>
+
+    <div class="prose">
+      <p class="lead">
+        The short version: Dinkly has no accounts, collects no email addresses, and does not sell personal
+        information. Everything you do on this site — quiz results, game scores, your daily card — stays in
+        your own browser.
+      </p>
+
+      <h2>1. Information we do not collect</h2>
+      <ul>
+        <li>No account registration, and therefore no names, passwords or phone numbers.</li>
+        <li>No email addresses, and no newsletter or mailing list of any kind.</li>
+        <li>No contact lists, camera, microphone or precise location access.</li>
+        <li>No upload of quiz answers, game results, oracle questions or draw history to our servers.</li>
+      </ul>
+
+      <h2>2. Information stored in your browser</h2>
+      <p>
+        Some features remember you between visits using <strong>local storage</strong> — a mechanism that
+        keeps data on your own device. Dinkly currently stores:
+      </p>
+      <ul>
+        <li>Your best Dink Match time and move count.</li>
+        <li>The result of your most recent personality quiz, so we can avoid re-asking.</li>
+        <li>Interface preferences, if any are added.</li>
+      </ul>
+      <p>
+        None of this is transmitted to us. Clearing your browser's site data for this domain removes all of it.
+      </p>
+
+      <h2>3. Server logs and hosting</h2>
+      <p>
+        The site is served as static files by a content delivery network. Like almost all web hosting, our
+        provider may automatically record standard technical information such as IP address, request time,
+        requested URL, referrer and user-agent string, in aggregate logs used for security and abuse
+        prevention. We do not use these logs to identify individuals.
+      </p>
+
+      <h2>4. Advertising</h2>
+      <p>
+        Dinkly is free and supported by advertising. We use third-party advertising partners, currently
+        including <strong>Google AdSense</strong>. These partners may:
+      </p>
+      <ul>
+        <li>Use cookies or similar identifiers to serve and measure advertising.</li>
+        <li>Serve personalised advertising based on prior visits to this and other websites.</li>
+        <li>Collect device and approximate location information for ad delivery and fraud prevention.</li>
+      </ul>
+      <p>
+        Google's use of advertising cookies enables it and its partners to serve ads based on your visit to
+        this site and other sites on the internet. You may opt out of personalised advertising through
+        Google's <a href="https://adssettings.google.com/" rel="nofollow noopener" target="_blank">Ads Settings</a>,
+        or opt out of third-party vendor cookies at
+        <a href="https://www.aboutads.info/choices/" rel="nofollow noopener" target="_blank">aboutads.info</a>.
+      </p>
+      <p>
+        Directly sold placements on this site are labelled <em>Sponsored</em>. We do not run pop-ups,
+        interstitials, or audio advertising inside our ambient sound player.
+      </p>
+
+      <h2>5. Analytics</h2>
+      <p>
+        If analytics tooling is enabled, it is used only in aggregate to understand which pages are useful.
+        It is not used to build individual profiles, and it is not linked to any identifying information.
+      </p>
+
+      <h2>6. Children</h2>
+      <p>
+        Dinkly is not directed at children under 13, and we do not knowingly collect personal information
+        from children. Because we do not collect personal information from anyone, there is nothing to
+        delete on request — but if you believe a child's data has been captured by an advertising partner,
+        contact us and we will investigate.
+      </p>
+
+      <h2>7. Your rights</h2>
+      <p>
+        Depending on where you live, you may have rights to access, correct, delete or restrict processing
+        of your personal data, and to object to personalised advertising. Because we do not hold personal
+        data about you, the practical route for advertising-related requests is directly through our
+        advertising partners' own controls (see section 4).
+      </p>
+
+      <h2>8. Changes to this policy</h2>
+      <p>
+        If this policy changes materially — for example if we add accounts or a newsletter — the change will
+        be reflected here with an updated date, and it will be described plainly rather than buried.
+      </p>
+
+      <h2>9. Contact</h2>
+      <p>
+        Questions about privacy can be raised through the <a href="/about/">About page</a>.
+      </p>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .narrow { max-width: 780px; }
+  .page { padding: 34px 0 20px; }
+  .crumbs { font-size: 13.5px; color: var(--faint); display: flex; gap: 8px; }
+  .crumbs a { color: var(--muted); }
+  .crumbs a:hover { color: var(--accent); }
+  .head { margin: 28px 0 30px; }
+  .head h1 { font-size: clamp(30px, 4vw, 46px); margin-bottom: 10px; }
+
+  .prose { font-size: 16px; line-height: 1.76; }
+  .prose .lead { font-size: 18px; color: var(--muted); }
+  .prose h2 { font-size: 21px; margin: 36px 0 12px; }
+  .prose p { margin: 0 0 16px; }
+  .prose ul { margin: 0 0 16px; padding-left: 22px; }
+  .prose li { margin-bottom: 8px; }
+  .prose a { color: var(--accent); font-weight: 500; border-bottom: 1px solid color-mix(in srgb, var(--accent) 35%, transparent); }
+</style>

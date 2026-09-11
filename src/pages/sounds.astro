@@ -1,0 +1,322 @@
+---
+import Base from "../layouts/Base.astro";
+
+const rooms = [
+  {
+    id: "rain",
+    name: "Rain on leaves",
+    emoji: "🌧️",
+    desc: "Bright filtered noise with a soft high shelf. Reads as rainfall on foliage — good for reading.",
+    tint: "#8FD0FF",
+  },
+  {
+    id: "brown",
+    name: "Brown noise",
+    emoji: "🟤",
+    desc: "Deeper, softer, no sharp edges at all. The classic focus blanket for loud thoughts.",
+    tint: "#C9922B",
+  },
+  {
+    id: "waves",
+    name: "Ocean waves",
+    emoji: "🌊",
+    desc: "Low noise with a slow swell, so the room breathes. Best for winding down.",
+    tint: "#2F9E7E",
+  },
+  {
+    id: "hum",
+    name: "Deep hum",
+    emoji: "🛸",
+    desc: "A low drone with a barely-there pulse. Feels like a quiet machine room.",
+    tint: "#7A5CFF",
+  },
+];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: "Dinkly Focus Sounds",
+  applicationCategory: "MultimediaApplication",
+  operatingSystem: "Any",
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  description: "Four ambient focus sounds generated live in the browser with the Web Audio API. No downloads, no streaming, no ads inside the audio.",
+};
+---
+
+<Base
+  title="Focus Sounds — rain, brown noise and waves, made in your browser"
+  description="Four ambient rooms generated live with the Web Audio API: rain on leaves, brown noise, ocean waves and a deep hum. Nothing to download, nothing streamed, loops forever."
+  jsonLd={jsonLd}
+>
+  <div class="wrap page">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span aria-hidden="true">/</span> <span>Focus Sounds</span>
+    </nav>
+
+    <header class="head">
+      <span class="kicker">✦ Generated live · nothing streams</span>
+      <h1>Four rooms. No downloads.</h1>
+      <p class="lede">
+        Every sound here is synthesised in your browser from filtered noise — no audio files, no streaming,
+        no buffering. Press play, leave the tab open, come back when the agent is done.
+      </p>
+    </header>
+
+    <section class="rooms" id="rooms">
+      {rooms.map((r) => (
+        <article class="room" data-room={r.id} style={`--tint:${r.tint}`}>
+          <div class="room-top">
+            <span class="room-emoji" aria-hidden="true">{r.emoji}</span>
+            <div class="viz" aria-hidden="true">
+              {Array.from({ length: 12 }).map((_, i) => <i style={`--i:${i}`}></i>)}
+            </div>
+          </div>
+          <h2>{r.name}</h2>
+          <p>{r.desc}</p>
+          <button class="btn btn-ghost btn-sm play" type="button" data-play={r.id} aria-pressed="false">▶ Play</button>
+        </article>
+      ))}
+    </section>
+
+    <div class="controls">
+      <label for="vol">Volume</label>
+      <input id="vol" type="range" min="0" max="100" value="45" />
+      <span class="num" id="volVal">45%</span>
+      <span class="now-playing muted" id="nowPlaying">Nothing playing</span>
+    </div>
+
+    <p class="warn muted">
+      Headphones recommended. Audio starts only after you press play, which is the browser's rule, not ours.
+    </p>
+
+    <div class="ad-slot ad-inline">Ad slot · 728×90</div>
+
+    <section class="how">
+      <h2>Why noise helps you think</h2>
+      <p class="muted">
+        Steady broadband sound masks the unpredictable small noises — a chair, a door, a notification — that
+        your brain cannot help but check. Because nothing in it changes, there is nothing to listen <em>for</em>.
+        That is the whole trick, and it is why rain has been the unofficial soundtrack of libraries for a century.
+      </p>
+      <h3 class="sub">Tips that actually matter</h3>
+      <ul class="muted tips">
+        <li>Quieter than you think. The right level is “barely there”, not “cinema”.</li>
+        <li>Pick one room and keep it. Switching flavours every five minutes defeats the masking.</li>
+        <li>Combine with a timer: 25 minutes of sound, then actually stand up. The break is the point.</li>
+      </ul>
+    </section>
+
+    <section class="more">
+      <h2>Pair it with something</h2>
+      <div class="more-grid">
+        <a class="more-card" href="/daily-draw/"><span aria-hidden="true">🎴</span><h3>Daily Draw</h3><p>Rain plus a card is a full 3-minute reset.</p></a>
+        <a class="more-card" href="/games/dink-match/"><span aria-hidden="true">🃏</span><h3>Dink Match</h3><p>Memory game with brown noise behind it.</p></a>
+        <a class="more-card" href="/blog/three-minute-break/"><span aria-hidden="true">📓</span><h3>The 3-minute break</h3><p>What to actually do with a short pause.</p></a>
+      </div>
+    </section>
+  </div>
+
+  <script is:inline>
+    (function () {
+      var ctx = null;
+      var current = null;      // { id, nodes }
+      var master = null;
+      var vol = 0.45;
+
+      function init() {
+        if (ctx) return ctx;
+        var AC = window.AudioContext || window.webkitAudioContext;
+        if (!AC) return null;
+        ctx = new AC();
+        master = ctx.createGain();
+        master.gain.value = vol;
+        master.connect(ctx.destination);
+        return ctx;
+      }
+
+      function noiseBuffer(seconds) {
+        var len = ctx.sampleRate * seconds;
+        var buf = ctx.createBuffer(1, len, ctx.sampleRate);
+        var d = buf.getChannelData(0);
+        var b0 = 0, b1 = 0, b2 = 0, last = 0;
+        for (var i = 0; i < len; i++) {
+          var white = Math.random() * 2 - 1;
+          // light brown-ish integration keeps raw noise from being harsh
+          b0 = 0.99765 * b0 + white * 0.0990460;
+          b1 = 0.96300 * b1 + white * 0.2965164;
+          b2 = 0.57000 * b2 + white * 1.0526913;
+          var brown = (b0 + b1 + b2 + white * 0.1848) * 0.18;
+          last = brown;
+          d[i] = white * 0.55 + last * 0.85;
+        }
+        return buf;
+      }
+
+      function build(id) {
+        var src = ctx.createBufferSource();
+        src.buffer = noiseBuffer(3);
+        src.loop = true;
+
+        var filter = ctx.createBiquadFilter();
+        var gain = ctx.createGain();
+        var nodes = [src, filter, gain];
+        var lfo = null, lfoGain = null;
+
+        if (id === "rain") {
+          filter.type = "highpass"; filter.frequency.value = 900;
+          var shelf = ctx.createBiquadFilter();
+          shelf.type = "highshelf"; shelf.frequency.value = 5200; shelf.gain.value = 3;
+          gain.gain.value = 0.34;
+          src.connect(filter); filter.connect(shelf); shelf.connect(gain);
+          nodes.push(shelf);
+        } else if (id === "brown") {
+          filter.type = "lowpass"; filter.frequency.value = 420;
+          gain.gain.value = 0.5;
+          src.connect(filter); filter.connect(gain);
+        } else if (id === "waves") {
+          filter.type = "lowpass"; filter.frequency.value = 640;
+          gain.gain.value = 0.3;
+          lfo = ctx.createOscillator(); lfo.frequency.value = 0.09;
+          lfoGain = ctx.createGain(); lfoGain.gain.value = 0.22;
+          lfo.connect(lfoGain); lfoGain.connect(gain.gain);
+          lfo.start();
+          src.connect(filter); filter.connect(gain);
+          nodes.push(lfo, lfoGain);
+        } else if (id === "hum") {
+          filter.type = "lowpass"; filter.frequency.value = 190;
+          gain.gain.value = 0.55;
+          var osc = ctx.createOscillator();
+          osc.type = "sine"; osc.frequency.value = 58;
+          var oscGain = ctx.createGain(); oscGain.gain.value = 0.09;
+          osc.connect(oscGain); oscGain.connect(gain); osc.start();
+          src.connect(filter); filter.connect(gain);
+          nodes.push(osc, oscGain);
+        }
+
+        gain.connect(master);
+        src.start();
+        return { id: id, nodes: nodes };
+      }
+
+      function stop() {
+        if (!current) return;
+        current.nodes.forEach(function (n) {
+          try { if (n.stop) n.stop(); } catch (e) {}
+          try { n.disconnect(); } catch (e) {}
+        });
+        current = null;
+        document.querySelectorAll("[data-play]").forEach(function (b) {
+          b.textContent = "▶ Play";
+          b.classList.remove("playing");
+          b.classList.add("btn-ghost");
+          b.classList.remove("btn-primary");
+          b.setAttribute("aria-pressed", "false");
+        });
+        document.querySelectorAll(".room").forEach(function (r) { r.classList.remove("on"); });
+        document.getElementById("nowPlaying").textContent = "Nothing playing";
+      }
+
+      function play(id, btn) {
+        if (!init()) {
+          document.getElementById("nowPlaying").textContent = "Your browser blocked audio — try a different one.";
+          return;
+        }
+        if (ctx.state === "suspended") ctx.resume();
+        stop();
+        current = build(id);
+        var room = document.querySelector('.room[data-room="' + id + '"]');
+        if (room) room.classList.add("on");
+        btn.textContent = "■ Stop";
+        btn.classList.add("playing", "btn-primary");
+        btn.classList.remove("btn-ghost");
+        btn.setAttribute("aria-pressed", "true");
+        var name = room ? room.querySelector("h2").textContent : id;
+        document.getElementById("nowPlaying").textContent = "Playing · " + name;
+      }
+
+      document.querySelectorAll("[data-play]").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var id = btn.getAttribute("data-play");
+          if (current && current.id === id) { stop(); return; }
+          play(id, btn);
+        });
+      });
+
+      var volEl = document.getElementById("vol");
+      volEl.addEventListener("input", function () {
+        vol = Number(volEl.value) / 100;
+        document.getElementById("volVal").textContent = volEl.value + "%";
+        if (master) master.gain.value = vol;
+      });
+
+      window.addEventListener("pagehide", stop);
+    })();
+  </script>
+</Base>
+
+<style>
+  .page { padding: 34px 0 20px; }
+  .crumbs { font-size: 13.5px; color: var(--faint); display: flex; gap: 8px; }
+  .crumbs a { color: var(--muted); }
+  .crumbs a:hover { color: var(--accent); }
+  .head { max-width: 700px; margin: 26px 0 36px; }
+  .head h1 { font-size: clamp(32px, 4.4vw, 50px); margin: 16px 0 14px; }
+  .lede { color: var(--muted); font-size: 16.5px; }
+
+  .rooms { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .room {
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--r-xl);
+    padding: 24px; display: flex; flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+  .room:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+  .room.on { border-color: var(--tint); box-shadow: 0 0 0 4px color-mix(in srgb, var(--tint) 14%, transparent); }
+  .room-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+  .room-emoji { font-size: 28px; }
+  .room h2 { font-size: 19px; }
+  .room p { font-size: 14px; color: var(--muted); margin: 8px 0 20px; flex: 1; }
+  .play { align-self: flex-start; }
+
+  .viz { display: flex; align-items: flex-end; gap: 3px; height: 22px; }
+  .viz i {
+    width: 3px; background: var(--tint); opacity: 0.28; border-radius: 2px;
+    height: calc(5px + (var(--i) % 5) * 3px);
+  }
+  .room.on .viz i { animation: bar 1.1s ease-in-out infinite alternate; opacity: 0.85; }
+  .room.on .viz i:nth-child(2n) { animation-delay: 0.14s; }
+  .room.on .viz i:nth-child(3n) { animation-delay: 0.28s; }
+  .room.on .viz i:nth-child(5n) { animation-delay: 0.42s; }
+  @keyframes bar { from { height: 5px; } to { height: 22px; } }
+
+  .controls {
+    display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    margin-top: 24px; padding: 20px 24px; background: var(--bg-soft);
+    border: 1px solid var(--border); border-radius: var(--r-lg);
+  }
+  .controls label { font-size: 14px; font-weight: 500; }
+  .controls input[type="range"] { flex: 1; min-width: 160px; accent-color: var(--accent); }
+  .now-playing { margin-left: auto; font-size: 14px; }
+  .warn { font-size: 13.5px; margin: 14px 0 0; }
+
+  .ad-inline { margin: 42px 0 0; }
+
+  .how { margin-top: 52px; max-width: 760px; }
+  .how h2 { font-size: 26px; margin-bottom: 12px; }
+  .sub { font-size: 19px; margin: 26px 0 10px; }
+  .tips { padding-left: 20px; }
+  .tips li { margin-bottom: 8px; }
+
+  .more { margin-top: 56px; }
+  .more h2 { font-size: 26px; margin-bottom: 20px; }
+  .more-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .more-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 24px; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .more-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+  .more-card span { font-size: 26px; }
+  .more-card h3 { font-size: 18px; margin: 12px 0 6px; }
+  .more-card p { font-size: 14px; color: var(--muted); margin: 0; }
+
+  @media (max-width: 1000px) { .rooms { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 700px) {
+    .rooms, .more-grid { grid-template-columns: 1fr; }
+  }
+</style>

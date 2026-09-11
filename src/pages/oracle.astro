@@ -1,0 +1,201 @@
+---
+import Base from "../layouts/Base.astro";
+import oracle from "../data/oracle.json";
+import jokes from "../data/jokes.json";
+
+const yes = oracle.answers.filter((a) => a.verdict === "yes").length;
+const no = oracle.answers.filter((a) => a.verdict === "no").length;
+const maybe = oracle.answers.filter((a) => a.verdict === "maybe").length;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: "Yes / No Oracle",
+  applicationCategory: "EntertainmentApplication",
+  operatingSystem: "Any",
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  description: `A free yes-or-no oracle with ${oracle.answers.length} hand-written verdicts. Ask one question, get one answer.`,
+};
+---
+
+<Base
+  title="Yes / No Oracle — ask one thing, get one answer"
+  description={`A free yes-or-no oracle with ${oracle.answers.length} hand-written answers. Type your question, press the button, accept the verdict. No signup, no follow-up question.`}
+  jsonLd={jsonLd}
+>
+  <div class="wrap page">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span aria-hidden="true">/</span> <span>Yes / No Oracle</span>
+    </nav>
+
+    <header class="head">
+      <span class="kicker">✦ {oracle.answers.length} verdicts · no signup</span>
+      <h1>The Oracle has one minute and no patience.</h1>
+      <p class="lede">
+        Type the thing you keep circling. Press the button. Take the answer like an adult.
+        The Oracle cannot see your question — it is a random number generator with good manners.
+      </p>
+    </header>
+
+    <section class="oracle-shell" id="oracle">
+      <div class="orb" aria-hidden="true"><span>🔮</span></div>
+      <label class="sr-only" for="question">Your question</label>
+      <input id="question" type="text" maxlength="140" placeholder="Type the question you already know the answer to…" />
+      <button class="btn btn-primary" type="button" id="askBtn">Ask the Oracle</button>
+
+      <div class="verdict" id="verdict" hidden>
+        <span class="v-badge" id="vBadge"></span>
+        <p class="v-text" id="vText"></p>
+        <button class="btn btn-ghost btn-sm" type="button" id="againBtn">Ask something else</button>
+      </div>
+
+      <p class="hint muted">Press <kbd>Enter</kbd> to ask. One question at a time; the Oracle has no memory.</p>
+    </section>
+
+    <div class="odds">
+      <div class="odds-card"><b class="num">{yes}</b><span>Yes</span></div>
+      <div class="odds-card"><b class="num">{no}</b><span>No</span></div>
+      <div class="odds-card"><b class="num">{maybe}</b><span>Maybe</span></div>
+      <div class="odds-note">The Oracle is roughly {Math.round((yes / oracle.answers.length) * 100)}% optimistic. That's a design decision, not a prophecy.</div>
+    </div>
+
+    <div class="ad-slot ad-inline">Ad slot · 728×90</div>
+
+    <section class="how">
+      <h2>How to use it without ruining your week</h2>
+      <p class="muted">
+        Ask a real question, one you would actually act on. Read the verdict before you argue with it.
+        If your first reaction is “that's not right”, you have just discovered your answer — the Oracle
+        only exists to make you say it out loud. And if the verdict is “no”, that is permission, not a punishment.
+      </p>
+      <details class="reveal">
+        <summary>Show all {oracle.answers.length} verdicts</summary>
+        <ul class="verdict-list">
+          {oracle.answers.map((a) => (
+            <li><span class={`vt vt-${a.verdict}`}>{a.verdict}</span> {a.text}</li>
+          ))}
+        </ul>
+      </details>
+    </section>
+
+    <section class="more">
+      <h2>Other things to do while you wait</h2>
+      <div class="more-grid">
+        <a class="more-card" href="/daily-draw/"><span aria-hidden="true">🎴</span><h3>Daily Draw</h3><p>One card a day, same for everybody.</p></a>
+        <a class="more-card" href="/jokes/"><span aria-hidden="true">🫙</span><h3>Joke Jar</h3><p>{jokes.length} jokes, ten seconds each.</p></a>
+        <a class="more-card" href="/sounds/"><span aria-hidden="true">🎧</span><h3>Focus Sounds</h3><p>Rain and noise, made in your browser.</p></a>
+      </div>
+    </section>
+  </div>
+
+  <script is:inline define:vars={{ answers: oracle.answers }}>
+    (function () {
+      var input = document.getElementById("question");
+      var box = document.getElementById("verdict");
+      var badge = document.getElementById("vBadge");
+      var text = document.getElementById("vText");
+      var shell = document.getElementById("oracle");
+      var last = null;
+
+      function ask() {
+        var pick = last;
+        while (pick === last) pick = answers[Math.floor(Math.random() * answers.length)];
+        last = pick;
+
+        badge.textContent = pick.verdict.toUpperCase();
+        badge.className = "v-badge v-" + pick.verdict;
+        text.textContent = pick.text;
+        box.hidden = false;
+        box.animate(
+          [{ opacity: 0, transform: "translateY(10px) scale(.98)" }, { opacity: 1, transform: "none" }],
+          { duration: 340, easing: "cubic-bezier(.2,.8,.2,1)" }
+        );
+        shell.animate([{ transform: "scale(1)" }, { transform: "scale(1.012)" }, { transform: "scale(1)" }], { duration: 300 });
+      }
+
+      document.getElementById("askBtn").addEventListener("click", ask);
+      document.getElementById("againBtn").addEventListener("click", function () {
+        input.value = "";
+        input.focus();
+        box.hidden = true;
+      });
+      input.addEventListener("keydown", function (e) { if (e.key === "Enter") ask(); });
+    })();
+  </script>
+</Base>
+
+<style>
+  .page { padding: 34px 0 20px; }
+  .crumbs { font-size: 13.5px; color: var(--faint); display: flex; gap: 8px; }
+  .crumbs a { color: var(--muted); }
+  .crumbs a:hover { color: var(--accent); }
+  .head { max-width: 700px; margin: 26px 0 34px; }
+  .head h1 { font-size: clamp(30px, 4.2vw, 48px); margin: 16px 0 14px; }
+  .lede { color: var(--muted); font-size: 16.5px; }
+
+  .oracle-shell {
+    border-radius: var(--r-xl); padding: 44px; text-align: center;
+    background: linear-gradient(150deg, #f2edff, #fff 55%, #ffeef4);
+    border: 1px solid #e8e1fb; box-shadow: var(--shadow-md);
+    display: flex; flex-direction: column; align-items: center; gap: 18px;
+  }
+  .orb { font-size: 54px; line-height: 1; animation: float 4s ease-in-out infinite; }
+  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  .oracle-shell input {
+    width: min(560px, 100%); text-align: center; border-radius: 999px;
+    padding: 16px 24px; font-size: 16px; border: 1px solid var(--border-strong); background: #fff;
+  }
+  .oracle-shell input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px rgba(122, 92, 255, 0.14); }
+
+  .verdict { max-width: 620px; }
+  .v-badge {
+    display: inline-block; border-radius: 999px; padding: 7px 18px;
+    font-family: var(--font-num); font-size: 13px; font-weight: 700; letter-spacing: 0.14em;
+  }
+  .v-yes { background: var(--mint-soft); color: #2f9e7e; }
+  .v-no { background: var(--accent2-soft); color: #d5568f; }
+  .v-maybe { background: var(--butter-soft); color: #b8842a; }
+  .v-text { font-family: var(--font-display); font-size: clamp(21px, 2.6vw, 28px); line-height: 1.32; margin: 16px 0 20px; }
+
+  .hint { font-size: 13.5px; margin: 0; }
+  kbd { background: var(--bg-soft); border: 1px solid var(--border-strong); border-radius: 6px; padding: 1px 6px; font-family: var(--font-num); font-size: 12px; }
+
+  .odds { display: grid; grid-template-columns: repeat(3, auto) 1fr; gap: 16px; align-items: center; margin-top: 28px; }
+  .odds-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--r-md);
+    padding: 16px 22px; text-align: center;
+  }
+  .odds-card b { display: block; font-size: 26px; }
+  .odds-card span { font-size: 12px; color: var(--faint); letter-spacing: 0.1em; text-transform: uppercase; }
+  .odds-note { font-size: 13.5px; color: var(--muted); }
+
+  .ad-inline { margin: 42px 0 0; }
+
+  .how { margin-top: 52px; max-width: 760px; }
+  .how h2 { font-size: 26px; margin-bottom: 12px; }
+  .reveal { margin-top: 22px; border: 1px solid var(--border); border-radius: var(--r-md); background: var(--card); padding: 16px 20px; }
+  .reveal summary { cursor: pointer; font-weight: 600; font-size: 15px; }
+  .verdict-list { margin: 18px 0 0; padding: 0; list-style: none; font-size: 14.5px; }
+  .verdict-list li { padding: 9px 0; border-bottom: 1px solid var(--border); display: flex; gap: 12px; align-items: baseline; }
+  .verdict-list li:last-child { border-bottom: 0; }
+  .vt { font-family: var(--font-num); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; border-radius: 999px; padding: 3px 9px; flex: none; }
+  .vt-yes { background: var(--mint-soft); color: #2f9e7e; }
+  .vt-no { background: var(--accent2-soft); color: #d5568f; }
+  .vt-maybe { background: var(--butter-soft); color: #b8842a; }
+
+  .more { margin-top: 56px; }
+  .more h2 { font-size: 26px; margin-bottom: 20px; }
+  .more-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .more-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 24px; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .more-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+  .more-card span { font-size: 26px; }
+  .more-card h3 { font-size: 18px; margin: 12px 0 6px; }
+  .more-card p { font-size: 14px; color: var(--muted); margin: 0; }
+
+  @media (max-width: 900px) {
+    .odds { grid-template-columns: repeat(3, 1fr); }
+    .odds-note { grid-column: span 3; }
+    .more-grid { grid-template-columns: 1fr; }
+    .oracle-shell { padding: 30px 22px; }
+  }
+</style>

@@ -1,0 +1,260 @@
+---
+import Base from "../../layouts/Base.astro";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Game",
+  name: "Dink Match",
+  url: "https://dinkly.pages.dev/games/dink-match/",
+  genre: "Memory game",
+  gamePlatform: "Web browser",
+  numberOfPlayers: 1,
+  playMode: "SinglePlayer",
+  description:
+    "A two-minute emoji memory game. Flip sixteen cards, find eight pairs, beat your best time. Runs entirely in the browser.",
+};
+---
+
+<Base
+  title="Dink Match — a two-minute emoji memory game"
+  description="Flip sixteen cards, find eight pairs, beat your best time. A free browser memory game designed to be finished before your AI answers. No download, no signup, works on mobile."
+  jsonLd={jsonLd}
+>
+  <div class="wrap page">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span aria-hidden="true">/</span>
+      <a href="/games/">Games</a> <span aria-hidden="true">/</span>
+      <span>Dink Match</span>
+    </nav>
+
+    <header class="head">
+      <span class="kicker">✦ One round ≈ 2 minutes</span>
+      <h1>Dink Match</h1>
+      <p class="lede">
+        Sixteen cards, eight pairs, one honest timer. Flip a card, remember it, find its twin.
+        Best time is kept in your browser only — we never see it.
+      </p>
+    </header>
+
+    <section class="board-shell" id="board">
+      <div class="hud">
+        <div class="hud-item"><span>Time</span><b class="num" id="hudTime">0:00</b></div>
+        <div class="hud-item"><span>Moves</span><b class="num" id="hudMoves">0</b></div>
+        <div class="hud-item"><span>Pairs</span><b class="num" id="hudPairs">0 / 8</b></div>
+        <div class="hud-item"><span>Best</span><b class="num" id="hudBest">—</b></div>
+        <button class="btn btn-primary btn-sm" type="button" id="newGame">New game</button>
+      </div>
+
+      <div class="grid" id="grid" role="grid" aria-label="Memory board"></div>
+
+      <p class="status" id="status" role="status">Find all eight pairs.</p>
+    </section>
+
+    <div class="ad-slot ad-inline">Ad slot · 728×90</div>
+
+    <section class="how">
+      <h2>How to play</h2>
+      <ol class="muted steps">
+        <li>Click or tap any card to flip it. You get two flips per move.</li>
+        <li>Match the two emoji and the pair stays open, locked in green.</li>
+        <li>Clear all eight pairs. Fewer moves and less time is better.</li>
+        <li>On mobile, the grid becomes four columns — same game, smaller thumbs.</li>
+      </ol>
+      <h3 class="sub">A small tip</h3>
+      <p class="muted">
+        Most people lose time by scanning randomly. Pick a route — top-left to bottom-right, always —
+        and you will cut your average round by about a third. It works because a fixed order removes the
+        “where was that thing?” tax from every move.
+      </p>
+    </section>
+
+    <section class="more">
+      <h2>While the page is open</h2>
+      <div class="more-grid">
+        <a class="more-card" href="/sounds/"><span aria-hidden="true">🎧</span><h3>Focus Sounds</h3><p>Brown noise behind the board is a genuine upgrade.</p></a>
+        <a class="more-card" href="/daily-draw/"><span aria-hidden="true">🎴</span><h3>Daily Draw</h3><p>One card a day, thirty seconds of calm.</p></a>
+        <a class="more-card" href="/games/"><span aria-hidden="true">🕹️</span><h3>All tiny games</h3><p>Word Chain and Spot It are in build.</p></a>
+      </div>
+    </section>
+  </div>
+
+  <script is:inline>
+    (function () {
+      var EMOJI = ["🎴", "🫙", "🔮", "🎧", "🐈", "🍪", "🌙", "🍃"];
+      var PAIRS = EMOJI.length;
+      var STORE = "dinkly:match:best";
+
+      var gridEl = document.getElementById("grid");
+      var timeEl = document.getElementById("hudTime");
+      var movesEl = document.getElementById("hudMoves");
+      var pairsEl = document.getElementById("hudPairs");
+      var bestEl = document.getElementById("hudBest");
+      var statusEl = document.getElementById("status");
+
+      var deck = [], first = null, lock = false, moves = 0, found = 0, t0 = 0, timer = null, started = false;
+
+      function fmt(ms) {
+        var s = Math.floor(ms / 1000);
+        return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0");
+      }
+
+      function best() {
+        try { return JSON.parse(localStorage.getItem(STORE) || "null"); } catch (e) { return null; }
+      }
+      function paintBest() {
+        var b = best();
+        bestEl.textContent = b ? fmt(b.ms) + " · " + b.moves + " mv" : "—";
+      }
+
+      function shuffle(a) {
+        for (var i = a.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var t = a[i]; a[i] = a[j]; a[j] = t;
+        }
+        return a;
+      }
+
+      function newGame() {
+        clearInterval(timer);
+        deck = shuffle(EMOJI.concat(EMOJI).map(function (e, i) { return { e: e, id: i }; }));
+        first = null; lock = false; moves = 0; found = 0; started = false;
+        timeEl.textContent = "0:00"; movesEl.textContent = "0"; pairsEl.textContent = "0 / " + PAIRS;
+        statusEl.textContent = "Find all eight pairs.";
+        gridEl.innerHTML = "";
+
+        deck.forEach(function (c, i) {
+          var b = document.createElement("button");
+          b.type = "button";
+          b.className = "tile";
+          b.setAttribute("aria-label", "Card " + (i + 1));
+          b.dataset.emoji = c.e;
+          b.innerHTML = '<span class="face front">?</span><span class="face back">' + c.e + '</span>';
+          b.addEventListener("click", function () { flip(b); });
+          gridEl.appendChild(b);
+        });
+      }
+
+      function startTimer() {
+        if (started) return;
+        started = true;
+        t0 = Date.now();
+        timer = setInterval(function () { timeEl.textContent = fmt(Date.now() - t0); }, 250);
+      }
+
+      function flip(el) {
+        if (lock || el.classList.contains("open") || el.classList.contains("done")) return;
+        startTimer();
+        el.classList.add("open");
+
+        if (!first) { first = el; return; }
+
+        moves++;
+        movesEl.textContent = String(moves);
+
+        if (first.dataset.emoji === el.dataset.emoji) {
+          first.classList.add("done");
+          el.classList.add("done");
+          first = null;
+          found++;
+          pairsEl.textContent = found + " / " + PAIRS;
+          if (found === PAIRS) win();
+          return;
+        }
+
+        lock = true;
+        var a = first, b = el;
+        first = null;
+        setTimeout(function () {
+          a.classList.remove("open");
+          b.classList.remove("open");
+          a.animate([{ transform: "translateX(0)" }, { transform: "translateX(-3px)" }, { transform: "translateX(3px)" }, { transform: "translateX(0)" }], { duration: 220 });
+          b.animate([{ transform: "translateX(0)" }, { transform: "translateX(3px)" }, { transform: "translateX(-3px)" }, { transform: "translateX(0)" }], { duration: 220 });
+          lock = false;
+        }, 620);
+      }
+
+      function win() {
+        clearInterval(timer);
+        var ms = Date.now() - t0;
+        statusEl.textContent = "Cleared in " + fmt(ms) + " with " + moves + " moves.";
+        var b = best();
+        if (!b || ms < b.ms) {
+          try { localStorage.setItem(STORE, JSON.stringify({ ms: ms, moves: moves })); } catch (e) {}
+          statusEl.textContent += " New personal best!";
+        }
+        paintBest();
+        gridEl.animate([{ transform: "scale(1)" }, { transform: "scale(1.015)" }, { transform: "scale(1)" }], { duration: 420 });
+      }
+
+      document.getElementById("newGame").addEventListener("click", newGame);
+      paintBest();
+      newGame();
+    })();
+  </script>
+</Base>
+
+<style>
+  .page { padding: 34px 0 20px; }
+  .crumbs { font-size: 13.5px; color: var(--faint); display: flex; gap: 8px; flex-wrap: wrap; }
+  .crumbs a { color: var(--muted); }
+  .crumbs a:hover { color: var(--accent); }
+  .head { max-width: 680px; margin: 26px 0 30px; }
+  .head h1 { font-size: clamp(32px, 4.4vw, 50px); margin: 16px 0 14px; }
+  .lede { color: var(--muted); font-size: 16.5px; }
+
+  .board-shell {
+    background: linear-gradient(155deg, #f4f0ff, #fff 55%, #f2fbf8);
+    border: 1px solid var(--border); border-radius: var(--r-xl);
+    padding: 26px; box-shadow: var(--shadow-md); max-width: 720px;
+  }
+  .hud { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; margin-bottom: 20px; }
+  .hud-item { display: flex; flex-direction: column; }
+  .hud-item span { font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); }
+  .hud-item b { font-size: 18px; }
+  .hud button { margin-left: auto; }
+
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .tile {
+    position: relative; aspect-ratio: 1 / 1; border: 0; padding: 0; background: none;
+    cursor: pointer; perspective: 700px; border-radius: var(--r-md);
+  }
+  .face {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    border-radius: var(--r-md); font-size: clamp(24px, 6vw, 36px);
+    backface-visibility: hidden; transition: transform 0.42s cubic-bezier(.3,.8,.3,1);
+  }
+  .front {
+    background: linear-gradient(155deg, #7a5cff, #a48cff);
+    color: rgba(255, 255, 255, 0.75); font-family: var(--font-num); font-size: 20px;
+    box-shadow: 0 6px 16px -8px rgba(122, 92, 255, 0.9);
+  }
+  .back { background: #fff; border: 1px solid var(--border-strong); transform: rotateY(180deg); }
+  .tile.open .front, .tile.done .front { transform: rotateY(180deg); }
+  .tile.open .back, .tile.done .back { transform: rotateY(0deg); }
+  .tile.done .back { background: var(--mint-soft); border-color: #b9e8d8; }
+  .tile:hover .front { filter: brightness(1.06); }
+
+  .status { margin: 20px 0 0; font-size: 14.5px; color: var(--muted); }
+
+  .ad-inline { margin: 40px 0 0; max-width: 720px; }
+  .how { margin-top: 52px; max-width: 720px; }
+  .how h2 { font-size: 26px; margin-bottom: 12px; }
+  .steps { padding-left: 20px; }
+  .steps li { margin-bottom: 8px; }
+  .sub { font-size: 19px; margin: 24px 0 10px; }
+
+  .more { margin-top: 56px; }
+  .more h2 { font-size: 26px; margin-bottom: 20px; }
+  .more-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .more-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 24px; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .more-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+  .more-card span { font-size: 26px; }
+  .more-card h3 { font-size: 18px; margin: 12px 0 6px; }
+  .more-card p { font-size: 14px; color: var(--muted); margin: 0; }
+
+  @media (max-width: 700px) {
+    .more-grid { grid-template-columns: 1fr; }
+    .board-shell { padding: 18px; }
+    .grid { gap: 9px; }
+  }
+</style>
