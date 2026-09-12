@@ -4,48 +4,499 @@
     "Ask the question you already know the answer to.",
     "One honest yes-or-no question, please.",
     "What are you actually deciding?",
-    "Ask it plainly. The Oracle is busy but fair."
+    "Ask it plainly. The Oracle is busy but fair.",
+    "What have you been avoiding in a polite way?",
+    "The decision you'd make if nobody was watching — type it.",
+    "Two doors. You've been staring at both for days. Ask.",
+    "Finish this: “What if I just…”",
+    "You already know. Type it anyway, for the record.",
+    "Ask about the thing that made your stomach dip this morning.",
+    "One question. No hedging, no “sort of”, no plan B.",
+    "What would you tell a friend in your exact position?",
+    "The message you've drafted eight times — ask about that.",
+    "If the answer couldn't hurt you, what would you ask?",
+    "Type the question. Leave the outcome to the professional."
   ],
   "answers": [
-    { "verdict": "yes", "text": "Yes — and sooner than you're planning." },
-    { "verdict": "yes", "text": "Yes. Stop asking and start doing." },
-    { "verdict": "yes", "text": "Yes, but do the small version first." },
-    { "verdict": "yes", "text": "Yes. You already decided; this is just the receipt." },
-    { "verdict": "yes", "text": "Yes, and you'll wonder why you hesitated." },
-    { "verdict": "yes", "text": "Yes — the timing is better than you think." },
-    { "verdict": "yes", "text": "Yes. Tell one person and it becomes real." },
-    { "verdict": "yes", "text": "Yes. Say it out loud before you talk yourself out of it." },
-    { "verdict": "yes", "text": "Yes, and it's going to be fine." },
-    { "verdict": "yes", "text": "Yes. Not perfectly, but yes." },
-    { "verdict": "yes", "text": "Yes — this is the version of the idea that works." },
-    { "verdict": "yes", "text": "Yes. The hesitation is the only thing in the way." },
-    { "verdict": "no", "text": "No — and you felt that before you asked." },
-    { "verdict": "no", "text": "No. Not because it's wrong, because it's early." },
-    { "verdict": "no", "text": "No. Sleep on it and watch the answer change." },
-    { "verdict": "no", "text": "No — this is a bargain that costs more than it says." },
-    { "verdict": "no", "text": "No. You're solving the wrong problem beautifully." },
-    { "verdict": "no", "text": "No. The person who wants this isn't the person who has to do it." },
-    { "verdict": "no", "text": "No — and that's a relief, not a loss." },
-    { "verdict": "no", "text": "No. Ask again next week; the question will be different." },
-    { "verdict": "no", "text": "No. Spend the energy on the thing you keep postponing." },
-    { "verdict": "no", "text": "No. Some doors are open because nobody bothered to close them." },
-    { "verdict": "maybe", "text": "Maybe — you're missing one fact, not one decision." },
-    { "verdict": "maybe", "text": "Maybe. The answer isn't yes or no; it's “not yet”." },
-    { "verdict": "maybe", "text": "Maybe — try the smallest possible version and let it tell you." },
-    { "verdict": "maybe", "text": "Maybe. Ask one more person, then trust the average." },
-    { "verdict": "maybe", "text": "Maybe. Come back after you've taken the break you skipped." },
-    { "verdict": "maybe", "text": "Maybe — the coin lands yes if you're honest about what you want." },
-    { "verdict": "maybe", "text": "Maybe. It depends on whether you'll still care in a month." },
-    { "verdict": "maybe", "text": "Maybe — your hesitation is data, not weakness." },
-    { "verdict": "maybe", "text": "Maybe. There's a third option you haven't written down." },
-    { "verdict": "maybe", "text": "Maybe. Say yes to the experiment and no to the commitment." },
-    { "verdict": "yes", "text": "Yes — but only if you keep it small and keep it yours." },
-    { "verdict": "no", "text": "No. You're negotiating with the version of events you wish were happening." },
-    { "verdict": "maybe", "text": "Maybe. The Oracle suggests a snack and a second opinion." },
-    { "verdict": "yes", "text": "Yes — the universe is not nearly as invested in this as you are." },
-    { "verdict": "no", "text": "No. Protect the quiet you already have." },
-    { "verdict": "maybe", "text": "Maybe. Decide at a time when you're not tired." },
-    { "verdict": "yes", "text": "Yes. Close this tab and go do it." },
-    { "verdict": "no", "text": "No — and it costs you nothing to leave it alone today." }
+    {
+      "verdict": "yes",
+      "text": "Yes — and sooner than you're planning."
+    },
+    {
+      "verdict": "yes",
+      "text": "Yes. Stop asking and start doing."
+    },
+    {
+      "verdict": "yes",
+      "text": "Yes, but do the small version first."
+    },
+    {
+      "verdict": "yes",
+      "text": "Yes. You already decided; this is just the receipt."
+    },
+    {
+      "verdict": "yes",
+      "text": "Yes, and you'll wonder why you hesitated."
+    },
+    {
+      "verdict": "yes",
+      "text": "Yes — the timing is better than you think."
+    },
+    {
+      "verdict": "yes",
+      "text": "Yes. Tell one person and it becomes real."
+    },
+    {
+      "verdict": "yes",
+      "text": "Yes. Say it out loud before you talk yourself out of it."
+    },
+    {
+      "verdict": "yes",
+      "text": "Yes, and it's going to be fine."
+    },
+    {
+      "verdict": "yes",
+      "text": "Yes. Not perfectly, but yes."
+    },
+    {
+      "verdict": "yes",
+      "text": "Yes — this is the version of the idea that works."
+    },
+    {
+      "verdict": "yes",
+      "text": "Yes. The hesitation is the only thing in the way."
+    },
+    {
+      "verdict": "no",
+      "text": "No — and you felt that before you asked."
+    },
+    {
+      "verdict": "no",
+      "text": "No. Not because it's wrong, because it's early."
+    },
+    {
+      "verdict": "no",
+      "text": "No. Sleep on it and watch the answer change."
+    },
+    {
+      "verdict": "no",
+      "text": "No — this is a bargain that costs more than it says."
+    },
+    {
+      "verdict": "no",
+      "text": "No. You're solving the wrong problem beautifully."
+    },
+    {
+      "verdict": "no",
+      "text": "No. The person who wants this isn't the person who has to do it."
+    },
+    {
+      "verdict": "no",
+      "text": "No — and that's a relief, not a loss."
+    },
+    {
+      "verdict": "no",
+      "text": "No. Ask again next week; the question will be different."
+    },
+    {
+      "verdict": "no",
+      "text": "No. Spend the energy on the thing you keep postponing."
+    },
+    {
+      "verdict": "no",
+      "text": "No. Some doors are open because nobody bothered to close them."
+    },
+    {
+      "verdict": "maybe",
+      "text": "Maybe — you're missing one fact, not one decision."
+    },
+    {
+      "verdict": "maybe",
+      "text": "Maybe. The answer isn't yes or no; it's “not yet”."
+    },
+    {
+      "verdict": "maybe",
+      "text": "Maybe — try the smallest possible version and let it tell you."
+    },
+    {
+      "verdict": "maybe",
+      "text": "Maybe. Ask one more person, then trust the average."
+    },
+    {
+      "verdict": "maybe",
+      "text": "Maybe. Come back after you've taken the break you skipped."
+    },
+    {
+      "verdict": "maybe",
+      "text": "Maybe — the coin lands yes if you're honest about what you want."
+    },
+    {
+      "verdict": "maybe",
+      "text": "Maybe. It depends on whether you'll still care in a month."
+    },
+    {
+      "verdict": "maybe",
+      "text": "Maybe — your hesitation is data, not weakness."
+    },
+    {
+      "verdict": "maybe",
+      "text": "Maybe. There's a third option you haven't written down."
+    },
+    {
+      "verdict": "maybe",
+      "text": "Maybe. Say yes to the experiment and no to the commitment."
+    },
+    {
+      "verdict": "yes",
+      "text": "Yes — but only if you keep it small and keep it yours."
+    },
+    {
+      "verdict": "no",
+      "text": "No. You're negotiating with the version of events you wish were happening."
+    },
+    {
+      "verdict": "maybe",
+      "text": "Maybe. The Oracle suggests a snack and a second opinion."
+    },
+    {
+      "verdict": "yes",
+      "text": "Yes — the universe is not nearly as invested in this as you are."
+    },
+    {
+      "verdict": "no",
+      "text": "No. Protect the quiet you already have."
+    },
+    {
+      "verdict": "maybe",
+      "text": "Maybe. Decide at a time when you're not tired."
+    },
+    {
+      "verdict": "yes",
+      "text": "Yes. Close this tab and go do it."
+    },
+    {
+      "verdict": "no",
+      "text": "No — and it costs you nothing to leave it alone today."
+    },
+    {
+      "verdict": "yes",
+      "text": "Yes. The plan is better than the doubt."
+    },
+    {
+      "verdict": "yes",
+      "text": "Yes — you've been ready for months; you just haven't admitted it."
+    },
+    {
+      "verdict": "yes",
+      "text": "Yes. Bring snacks; it'll take longer than you think."
+    },
+    {
+      "verdict": "yes",
+      "text": "Yes, and the first step is smaller than you fear."
+    },
+    {
+      "verdict": "yes",
+      "text": "Yes. You'll be proud of this by Tuesday."
+    },
+    {
+      "verdict": "yes",
+      "text": "Yes — and if it fails, the lesson is worth the tuition."
+    },
+    {
+      "verdict": "yes",
+      "text": "Yes. The worst outcome is an interesting story."
+    },
+    {
+      "verdict": "yes",
+      "text": "Yes, but pack patience alongside the confidence."
+    },
+    {
+      "verdict": "yes",
+      "text": "Yes. You've done harder things with less information."
+    },
+    {
+      "verdict": "yes",
+      "text": "Yes — and you already know who to call first."
+    },
+    {
+      "verdict": "yes",
+      "text": "Yes. Stop rehearsing the question and start the answer."
+    },
+    {
+      "verdict": "yes",
+      "text": "Yes, and it will go better than the version in your head."
+    },
+    {
+      "verdict": "yes",
+      "text": "Yes. The timing will never be perfect; it's good enough now."
+    },
+    {
+      "verdict": "yes",
+      "text": "Yes — and it's okay to be nervous. Do it nervous."
+    },
+    {
+      "verdict": "yes",
+      "text": "Yes. You asked the right question at the right time."
+    },
+    {
+      "verdict": "yes",
+      "text": "Yes, and yes again if they ask twice."
+    },
+    {
+      "verdict": "yes",
+      "text": "Yes. The only thing you'll regret is the delay."
+    },
+    {
+      "verdict": "yes",
+      "text": "Yes — you've outgrown asking, honestly."
+    },
+    {
+      "verdict": "yes",
+      "text": "Yes. Just make sure you want the thing, not the applause."
+    },
+    {
+      "verdict": "yes",
+      "text": "Yes, and finish what you start this time."
+    },
+    {
+      "verdict": "yes",
+      "text": "Yes. Your instincts called it; your fear just talks a lot."
+    },
+    {
+      "verdict": "yes",
+      "text": "Yes — two years ago you'd be amazed you even hesitated."
+    },
+    {
+      "verdict": "yes",
+      "text": "Yes. Do it before you talk yourself out of a good thing."
+    },
+    {
+      "verdict": "yes",
+      "text": "Yes, and take the small win seriously. It's a down payment."
+    },
+    {
+      "verdict": "yes",
+      "text": "Yes. Proceed like it's already done."
+    },
+    {
+      "verdict": "no",
+      "text": "No. You knew before the question finished."
+    },
+    {
+      "verdict": "no",
+      "text": "No — and you're relieved, which tells you something."
+    },
+    {
+      "verdict": "no",
+      "text": "No. Not this version, not this price."
+    },
+    {
+      "verdict": "no",
+      "text": "No, but this “no” has an expiry date. Check back in a month."
+    },
+    {
+      "verdict": "no",
+      "text": "No. You're asking the wrong question of the wrong moment."
+    },
+    {
+      "verdict": "no",
+      "text": "No — and the alternative you haven't considered is better."
+    },
+    {
+      "verdict": "no",
+      "text": "No. It's a beautifully wrapped obligation."
+    },
+    {
+      "verdict": "no",
+      "text": "No, and stop interviewing people until they say yes."
+    },
+    {
+      "verdict": "no",
+      "text": "No. You're hoping the Oracle outvotes your gut. It won't."
+    },
+    {
+      "verdict": "no",
+      "text": "No — the fun version of this ends in a spreadsheet version."
+    },
+    {
+      "verdict": "no",
+      "text": "No. It's a detour dressed as a shortcut."
+    },
+    {
+      "verdict": "no",
+      "text": "No, and “no” is a complete sentence. Practice it."
+    },
+    {
+      "verdict": "no",
+      "text": "No. You'd be lending your best hours to someone else's worst idea."
+    },
+    {
+      "verdict": "no",
+      "text": "No — you're doing it out of guilt, and guilt is a terrible project manager."
+    },
+    {
+      "verdict": "no",
+      "text": "No. The excitement is real; so is the regret. Compare them honestly."
+    },
+    {
+      "verdict": "no",
+      "text": "No, and you already have plans you're pretending don't exist."
+    },
+    {
+      "verdict": "no",
+      "text": "No. The cost isn't money and you know it."
+    },
+    {
+      "verdict": "no",
+      "text": "No — finish the last thing first. You know the one."
+    },
+    {
+      "verdict": "no",
+      "text": "No. This is a Tuesday talking, not a calling."
+    },
+    {
+      "verdict": "no",
+      "text": "No, and six months from now this will be twice as good."
+    },
+    {
+      "verdict": "no",
+      "text": "No. You're solving boredom, not a problem."
+    },
+    {
+      "verdict": "no",
+      "text": "No — and being busy is not the same as being needed."
+    },
+    {
+      "verdict": "no",
+      "text": "No. Read the fine print you wrote yourself: you're tired."
+    },
+    {
+      "verdict": "no",
+      "text": "No, and don't take the “maybe later” bait. There is no later."
+    },
+    {
+      "verdict": "no",
+      "text": "No. You've outgrown it, which is different from failing at it."
+    },
+    {
+      "verdict": "no",
+      "text": "No — the ask keeps growing the closer you look."
+    },
+    {
+      "verdict": "no",
+      "text": "No. Respect your first instinct; it had no stakes attached."
+    },
+    {
+      "verdict": "maybe",
+      "text": "Maybe — ask again after a meal and a walk."
+    },
+    {
+      "verdict": "maybe",
+      "text": "Maybe. The real question is what you'll do with the yes."
+    },
+    {
+      "verdict": "maybe",
+      "text": "Maybe — you're one clarifying email away from knowing."
+    },
+    {
+      "verdict": "maybe",
+      "text": "Maybe. Flip a coin, then notice which side you hoped for."
+    },
+    {
+      "verdict": "maybe",
+      "text": "Maybe — the hesitation is data, not cowardice."
+    },
+    {
+      "verdict": "maybe",
+      "text": "Maybe. Run a two-week trial of the answer."
+    },
+    {
+      "verdict": "maybe",
+      "text": "Maybe — is it the thing you want, or the person you'd be doing it?"
+    },
+    {
+      "verdict": "maybe",
+      "text": "Maybe. Ask what “no” would cost. If nothing, decide already."
+    },
+    {
+      "verdict": "maybe",
+      "text": "Maybe — your problem is sequencing, not selection."
+    },
+    {
+      "verdict": "maybe",
+      "text": "Maybe. It's a yes if you slow down and a no if you rush."
+    },
+    {
+      "verdict": "maybe",
+      "text": "Maybe — write both endings and pick the one you'd rather live in."
+    },
+    {
+      "verdict": "maybe",
+      "text": "Maybe. The timing is wrong but the idea isn't. Park it, don't bury it."
+    },
+    {
+      "verdict": "maybe",
+      "text": "Maybe — do you want it, or want to have wanted it?"
+    },
+    {
+      "verdict": "maybe",
+      "text": "Maybe. Sleep on it exactly once. Then commit."
+    },
+    {
+      "verdict": "maybe",
+      "text": "Maybe — you've mixed two fears into one question. Untangle them."
+    },
+    {
+      "verdict": "maybe",
+      "text": "Maybe. Ask for the smallest possible version first."
+    },
+    {
+      "verdict": "maybe",
+      "text": "Maybe — who is this actually for? Answer that first."
+    },
+    {
+      "verdict": "maybe",
+      "text": "Maybe. The door is open; the hallway is what you should inspect."
+    },
+    {
+      "verdict": "maybe",
+      "text": "Maybe — you have the answer and want a witness. Noted."
+    },
+    {
+      "verdict": "maybe",
+      "text": "Maybe. If it were easy, would you still want it?"
+    },
+    {
+      "verdict": "maybe",
+      "text": "Maybe — the calendar knows something you're not admitting."
+    },
+    {
+      "verdict": "maybe",
+      "text": "Maybe. Do the research you've been calling “thinking about it”."
+    },
+    {
+      "verdict": "maybe",
+      "text": "Maybe — and “maybe” is expensive. Set yourself a deadline."
+    },
+    {
+      "verdict": "maybe",
+      "text": "Maybe. You want certainty; settle for momentum."
+    },
+    {
+      "verdict": "maybe",
+      "text": "Maybe — ask the person it affects, and actually listen."
+    },
+    {
+      "verdict": "maybe",
+      "text": "Maybe. The first step is reversible. Take it and see."
+    },
+    {
+      "verdict": "maybe",
+      "text": "Maybe — the version you're rehearsing is a fantasy. Budget the real one."
+    },
+    {
+      "verdict": "maybe",
+      "text": "Maybe. Decide what you'd have to believe for it to be a yes."
+    }
   ]
 }

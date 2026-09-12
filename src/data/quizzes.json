@@ -7,60 +7,185 @@
     "accent": "#7A5CFF",
     "tag": "Most shared",
     "plays": "34.2k",
-    "tags": ["personality", "work", "funny"],
+    "tags": [
+      "personality",
+      "work",
+      "funny"
+    ],
     "questions": [
       {
         "q": "Your agent says “thinking…” and the dots start moving. First instinct?",
         "options": [
-          { "label": "Watch the dots. Just in case they finish faster.", "scores": { "watcher": 3 } },
-          { "label": "Lean back, eyes closed. Wake me when it's done.", "scores": { "napper": 3 } },
-          { "label": "Open a second task. Idle time is wasted time.", "scores": { "multitasker": 3 } },
-          { "label": "Kitchen. Snack. Immediately.", "scores": { "snacker": 3 } }
+          {
+            "label": "Watch the dots. Just in case they finish faster.",
+            "scores": {
+              "watcher": 3
+            }
+          },
+          {
+            "label": "Lean back, eyes closed. Wake me when it's done.",
+            "scores": {
+              "napper": 3
+            }
+          },
+          {
+            "label": "Open a second task. Idle time is wasted time.",
+            "scores": {
+              "multitasker": 3
+            }
+          },
+          {
+            "label": "Kitchen. Snack. Immediately.",
+            "scores": {
+              "snacker": 3
+            }
+          }
         ]
       },
       {
         "q": "The task will take four minutes. What's the honest ideal four minutes?",
         "options": [
-          { "label": "I'd still rather watch it happen.", "scores": { "watcher": 3 } },
-          { "label": "Horizontal. On something soft.", "scores": { "napper": 3 } },
-          { "label": "Three other things, started badly.", "scores": { "multitasker": 3 } },
-          { "label": "A walk with no destination.", "scores": { "wanderer": 3 } }
+          {
+            "label": "I'd still rather watch it happen.",
+            "scores": {
+              "watcher": 3
+            }
+          },
+          {
+            "label": "Horizontal. On something soft.",
+            "scores": {
+              "napper": 3
+            }
+          },
+          {
+            "label": "Three other things, started badly.",
+            "scores": {
+              "multitasker": 3
+            }
+          },
+          {
+            "label": "A walk with no destination.",
+            "scores": {
+              "wanderer": 3
+            }
+          }
         ]
       },
       {
         "q": "Be honest — how many tabs are open right now?",
         "options": [
-          { "label": "Enough that the icons vanished.", "scores": { "multitasker": 3 } },
-          { "label": "Two. Mine and yours.", "scores": { "watcher": 2, "napper": 1 } },
-          { "label": "The snack site is one of them.", "scores": { "snacker": 3 } },
-          { "label": "I closed them. To go outside.", "scores": { "wanderer": 3 } }
+          {
+            "label": "Enough that the icons vanished.",
+            "scores": {
+              "multitasker": 3
+            }
+          },
+          {
+            "label": "Two. Mine and yours.",
+            "scores": {
+              "watcher": 2,
+              "napper": 1
+            }
+          },
+          {
+            "label": "The snack site is one of them.",
+            "scores": {
+              "snacker": 3
+            }
+          },
+          {
+            "label": "I closed them. To go outside.",
+            "scores": {
+              "wanderer": 3
+            }
+          }
         ]
       },
       {
         "q": "Your perfect break soundtrack is…",
         "options": [
-          { "label": "Silence. Actual, unfilled silence.", "scores": { "napper": 3 } },
-          { "label": "Rain and a distant train.", "scores": { "wanderer": 3 } },
-          { "label": "The click of me getting things done.", "scores": { "multitasker": 3 } },
-          { "label": "The kettle. The cupboard. The good mug.", "scores": { "snacker": 3 } }
+          {
+            "label": "Silence. Actual, unfilled silence.",
+            "scores": {
+              "napper": 3
+            }
+          },
+          {
+            "label": "Rain and a distant train.",
+            "scores": {
+              "wanderer": 3
+            }
+          },
+          {
+            "label": "The click of me getting things done.",
+            "scores": {
+              "multitasker": 3
+            }
+          },
+          {
+            "label": "The kettle. The cupboard. The good mug.",
+            "scores": {
+              "snacker": 3
+            }
+          }
         ]
       },
       {
         "q": "The notification lands: task complete. How do you feel?",
         "options": [
-          { "label": "Vindicated. I was watching the whole time.", "scores": { "watcher": 3 } },
-          { "label": "Refreshed. That nap carried the team.", "scores": { "napper": 3 } },
-          { "label": "Guilty. I'm now mid-way through something else.", "scores": { "multitasker": 3 } },
-          { "label": "Cheerful. I have crumbs and zero regrets.", "scores": { "snacker": 3 } }
+          {
+            "label": "Vindicated. I was watching the whole time.",
+            "scores": {
+              "watcher": 3
+            }
+          },
+          {
+            "label": "Refreshed. That nap carried the team.",
+            "scores": {
+              "napper": 3
+            }
+          },
+          {
+            "label": "Guilty. I'm now mid-way through something else.",
+            "scores": {
+              "multitasker": 3
+            }
+          },
+          {
+            "label": "Cheerful. I have crumbs and zero regrets.",
+            "scores": {
+              "snacker": 3
+            }
+          }
         ]
       },
       {
         "q": "Pick the sentence that sounds most like you.",
         "options": [
-          { "label": "“It's fine, I'll just wait here.”", "scores": { "watcher": 3 } },
-          { "label": "“Five more minutes, then productivity.”", "scores": { "napper": 3 } },
-          { "label": "“I can absolutely do both.”", "scores": { "multitasker": 3 } },
-          { "label": "“Let's go see what's out there.”", "scores": { "wanderer": 3 } }
+          {
+            "label": "“It's fine, I'll just wait here.”",
+            "scores": {
+              "watcher": 3
+            }
+          },
+          {
+            "label": "“Five more minutes, then productivity.”",
+            "scores": {
+              "napper": 3
+            }
+          },
+          {
+            "label": "“I can absolutely do both.”",
+            "scores": {
+              "multitasker": 3
+            }
+          },
+          {
+            "label": "“Let's go see what's out there.”",
+            "scores": {
+              "wanderer": 3
+            }
+          }
         ]
       }
     ],
@@ -115,51 +240,157 @@
     "accent": "#FF9EC4",
     "tag": "Feel-good",
     "plays": "21.4k",
-    "tags": ["personality", "cozy", "animals"],
+    "tags": [
+      "personality",
+      "cozy",
+      "animals"
+    ],
     "questions": [
       {
         "q": "It's 3pm and everything is fine. Where are you?",
         "options": [
-          { "label": "On the windowsill, judging the street.", "scores": { "cat": 2, "owl": 1 } },
-          { "label": "Wherever the people are, ideally touching them.", "scores": { "dog": 3 } },
-          { "label": "In water. Suspiciously peaceful.", "scores": { "capybara": 3 } },
-          { "label": "Curled into the smallest possible ball.", "scores": { "rabbit": 3 } }
+          {
+            "label": "On the windowsill, judging the street.",
+            "scores": {
+              "cat": 2,
+              "owl": 1
+            }
+          },
+          {
+            "label": "Wherever the people are, ideally touching them.",
+            "scores": {
+              "dog": 3
+            }
+          },
+          {
+            "label": "In water. Suspiciously peaceful.",
+            "scores": {
+              "capybara": 3
+            }
+          },
+          {
+            "label": "Curled into the smallest possible ball.",
+            "scores": {
+              "rabbit": 3
+            }
+          }
         ]
       },
       {
         "q": "Somebody knocks on your door unexpectedly.",
         "options": [
-          { "label": "I was already hidden. I was born hidden.", "scores": { "rabbit": 3 } },
-          { "label": "NEW FRIEND?! I have so much to show them.", "scores": { "dog": 3 } },
-          { "label": "I'll let them in… eventually. Maybe.", "scores": { "cat": 3 } },
-          { "label": "Everyone is welcome. The vibe cannot be broken.", "scores": { "capybara": 3 } }
+          {
+            "label": "I was already hidden. I was born hidden.",
+            "scores": {
+              "rabbit": 3
+            }
+          },
+          {
+            "label": "NEW FRIEND?! I have so much to show them.",
+            "scores": {
+              "dog": 3
+            }
+          },
+          {
+            "label": "I'll let them in… eventually. Maybe.",
+            "scores": {
+              "cat": 3
+            }
+          },
+          {
+            "label": "Everyone is welcome. The vibe cannot be broken.",
+            "scores": {
+              "capybara": 3
+            }
+          }
         ]
       },
       {
         "q": "Pick your ideal compliment.",
         "options": [
-          { "label": "“You're so unbothered, it's inspiring.”", "scores": { "capybara": 3 } },
-          { "label": "“I feel better just being near you.”", "scores": { "dog": 3 } },
-          { "label": "“You have excellent taste and you know it.”", "scores": { "cat": 3 } },
-          { "label": "“You're so gentle, everyone trusts you.”", "scores": { "rabbit": 3 } }
+          {
+            "label": "“You're so unbothered, it's inspiring.”",
+            "scores": {
+              "capybara": 3
+            }
+          },
+          {
+            "label": "“I feel better just being near you.”",
+            "scores": {
+              "dog": 3
+            }
+          },
+          {
+            "label": "“You have excellent taste and you know it.”",
+            "scores": {
+              "cat": 3
+            }
+          },
+          {
+            "label": "“You're so gentle, everyone trusts you.”",
+            "scores": {
+              "rabbit": 3
+            }
+          }
         ]
       },
       {
         "q": "Your relationship with being observed:",
         "options": [
-          { "label": "Observe me. I am the main event.", "scores": { "cat": 3 } },
-          { "label": "I'd rather you didn't. Too much.", "scores": { "rabbit": 3 } },
-          { "label": "Please look. I will perform.", "scores": { "dog": 3 } },
-          { "label": "People take photos of me while I sit in a hot spring.", "scores": { "capybara": 3 } }
+          {
+            "label": "Observe me. I am the main event.",
+            "scores": {
+              "cat": 3
+            }
+          },
+          {
+            "label": "I'd rather you didn't. Too much.",
+            "scores": {
+              "rabbit": 3
+            }
+          },
+          {
+            "label": "Please look. I will perform.",
+            "scores": {
+              "dog": 3
+            }
+          },
+          {
+            "label": "People take photos of me while I sit in a hot spring.",
+            "scores": {
+              "capybara": 3
+            }
+          }
         ]
       },
       {
         "q": "It's raining. Choose your afternoon.",
         "options": [
-          { "label": "Blanket fort. Minimal movement. Maximum naps.", "scores": { "rabbit": 2, "owl": 1 } },
-          { "label": "Rain is just outdoor bathwater. Outside I go.", "scores": { "capybara": 3 } },
-          { "label": "Pressing against the glass, making a puddle of nostalgia.", "scores": { "cat": 3 } },
-          { "label": "Wet walk! Mud! Best day of my life!", "scores": { "dog": 3 } }
+          {
+            "label": "Blanket fort. Minimal movement. Maximum naps.",
+            "scores": {
+              "rabbit": 2,
+              "owl": 1
+            }
+          },
+          {
+            "label": "Rain is just outdoor bathwater. Outside I go.",
+            "scores": {
+              "capybara": 3
+            }
+          },
+          {
+            "label": "Pressing against the glass, making a puddle of nostalgia.",
+            "scores": {
+              "cat": 3
+            }
+          },
+          {
+            "label": "Wet walk! Mud! Best day of my life!",
+            "scores": {
+              "dog": 3
+            }
+          }
         ]
       }
     ],
@@ -214,51 +445,155 @@
     "accent": "#7FE0C3",
     "tag": "Quick pick",
     "plays": "18.1k",
-    "tags": ["mood", "quick", "cozy"],
+    "tags": [
+      "mood",
+      "quick",
+      "cozy"
+    ],
     "questions": [
       {
         "q": "First sound of the morning, in your ideal world:",
         "options": [
-          { "label": "Nothing. Absolute velvet silence.", "scores": { "grape": 3 } },
-          { "label": "Birds being unreasonable.", "scores": { "mint": 3 } },
-          { "label": "A kettle reaching its conclusion.", "scores": { "butter": 3 } },
-          { "label": "Rain on a window you don't have to leave.", "scores": { "sky": 3 } }
+          {
+            "label": "Nothing. Absolute velvet silence.",
+            "scores": {
+              "grape": 3
+            }
+          },
+          {
+            "label": "Birds being unreasonable.",
+            "scores": {
+              "mint": 3
+            }
+          },
+          {
+            "label": "A kettle reaching its conclusion.",
+            "scores": {
+              "butter": 3
+            }
+          },
+          {
+            "label": "Rain on a window you don't have to leave.",
+            "scores": {
+              "sky": 3
+            }
+          }
         ]
       },
       {
         "q": "The energy you're carrying today is closest to:",
         "options": [
-          { "label": "A buzzing little current under everything.", "scores": { "bubblegum": 3 } },
-          { "label": "Slow, steady, deeply unbothered.", "scores": { "mint": 3 } },
-          { "label": "Bright and a bit too helpful.", "scores": { "butter": 3 } },
-          { "label": "Wide, open, and mildly daydreamy.", "scores": { "sky": 3 } }
+          {
+            "label": "A buzzing little current under everything.",
+            "scores": {
+              "bubblegum": 3
+            }
+          },
+          {
+            "label": "Slow, steady, deeply unbothered.",
+            "scores": {
+              "mint": 3
+            }
+          },
+          {
+            "label": "Bright and a bit too helpful.",
+            "scores": {
+              "butter": 3
+            }
+          },
+          {
+            "label": "Wide, open, and mildly daydreamy.",
+            "scores": {
+              "sky": 3
+            }
+          }
         ]
       },
       {
         "q": "Choose a texture.",
         "options": [
-          { "label": "Deep velvet.", "scores": { "grape": 3 } },
-          { "label": "Cold glass, warm hand.", "scores": { "sky": 3 } },
-          { "label": "Fresh cotton.", "scores": { "mint": 3 } },
-          { "label": "A cherry with a shine on it.", "scores": { "bubblegum": 3 } }
+          {
+            "label": "Deep velvet.",
+            "scores": {
+              "grape": 3
+            }
+          },
+          {
+            "label": "Cold glass, warm hand.",
+            "scores": {
+              "sky": 3
+            }
+          },
+          {
+            "label": "Fresh cotton.",
+            "scores": {
+              "mint": 3
+            }
+          },
+          {
+            "label": "A cherry with a shine on it.",
+            "scores": {
+              "bubblegum": 3
+            }
+          }
         ]
       },
       {
         "q": "Your ideal evening, in one object:",
         "options": [
-          { "label": "A candle nobody lit yet.", "scores": { "grape": 3 } },
-          { "label": "A blanket that belongs only to you.", "scores": { "mint": 3 } },
-          { "label": "A window seat and nothing to do.", "scores": { "sky": 3 } },
-          { "label": "A plate of something golden and unnecessary.", "scores": { "butter": 3 } }
+          {
+            "label": "A candle nobody lit yet.",
+            "scores": {
+              "grape": 3
+            }
+          },
+          {
+            "label": "A blanket that belongs only to you.",
+            "scores": {
+              "mint": 3
+            }
+          },
+          {
+            "label": "A window seat and nothing to do.",
+            "scores": {
+              "sky": 3
+            }
+          },
+          {
+            "label": "A plate of something golden and unnecessary.",
+            "scores": {
+              "butter": 3
+            }
+          }
         ]
       },
       {
         "q": "Last one — how do you want to be described this week?",
         "options": [
-          { "label": "Soft, but with an edge.", "scores": { "grape": 3 } },
-          { "label": "Disgustingly warm and lovely.", "scores": { "bubblegum": 3 } },
-          { "label": "Grounded and quietly thriving.", "scores": { "mint": 3 } },
-          { "label": "Sunny for no reason at all.", "scores": { "butter": 3 } }
+          {
+            "label": "Soft, but with an edge.",
+            "scores": {
+              "grape": 3
+            }
+          },
+          {
+            "label": "Disgustingly warm and lovely.",
+            "scores": {
+              "bubblegum": 3
+            }
+          },
+          {
+            "label": "Grounded and quietly thriving.",
+            "scores": {
+              "mint": 3
+            }
+          },
+          {
+            "label": "Sunny for no reason at all.",
+            "scores": {
+              "butter": 3
+            }
+          }
         ]
       }
     ],
@@ -307,6 +642,1381 @@
         "strength": "Big, open perspective.",
         "fix": "Take the break with no screen in it. Ten minutes outside.",
         "share": "My mood today is Open Sky ☁️ — wide, dreamy, and out the window."
+      }
+    }
+  },
+  {
+    "slug": "snack-destiny",
+    "title": "Your waiting snack knows your destiny",
+    "hook": "Five bites in, we'll tell you who you really are. The snack never lies.",
+    "emoji": "🍿",
+    "accent": "#FFB86B",
+    "tag": "New",
+    "plays": "2.1k",
+    "tags": [
+      "food",
+      "funny",
+      "personality"
+    ],
+    "questions": [
+      {
+        "q": "Your agent says “thinking…” and the vending machine is 20 steps away. You:",
+        "options": [
+          {
+            "label": "Go now, before the thought completes itself.",
+            "scores": {
+              "cookie": 3
+            }
+          },
+          {
+            "label": "Wait for a natural pause. Snacks have timing.",
+            "scores": {
+              "popcorn": 3
+            }
+          },
+          {
+            "label": "Go? They were pre-positioned an hour ago.",
+            "scores": {
+              "chips": 3
+            }
+          },
+          {
+            "label": "Grab the nearest edible object. Hunger has no agenda.",
+            "scores": {
+              "fruit": 3
+            }
+          }
+        ]
+      },
+      {
+        "q": "Choose your desk snack storage:",
+        "options": [
+          {
+            "label": "A drawer. Organised. Wrappers folded.",
+            "scores": {
+              "cookie": 3
+            }
+          },
+          {
+            "label": "Visible to all. Snacks are a lifestyle.",
+            "scores": {
+              "chips": 3
+            }
+          },
+          {
+            "label": "Hidden from myself, as a gift to future-me.",
+            "scores": {
+              "popcorn": 3
+            }
+          },
+          {
+            "label": "Whatever survived the last deadline.",
+            "scores": {
+              "fruit": 3
+            }
+          }
+        ]
+      },
+      {
+        "q": "The wait is four minutes. The snack is:",
+        "options": [
+          {
+            "label": "One precise portion, rationed like fuel.",
+            "scores": {
+              "cookie": 3
+            }
+          },
+          {
+            "label": "An experience, consumed in stages.",
+            "scores": {
+              "popcorn": 3
+            }
+          },
+          {
+            "label": "Whatever's within arm's reach. Arm's reach is destiny.",
+            "scores": {
+              "chips": 3
+            }
+          },
+          {
+            "label": "Water first. Decisions later.",
+            "scores": {
+              "fruit": 3
+            }
+          }
+        ]
+      },
+      {
+        "q": "Your snack ritual, honestly:",
+        "options": [
+          {
+            "label": "Same snack, same time, since forever.",
+            "scores": {
+              "cookie": 3
+            }
+          },
+          {
+            "label": "Seasonal. Adventurous. Mood-based.",
+            "scores": {
+              "fruit": 3
+            }
+          },
+          {
+            "label": "Optimised for crunches per unit of currency.",
+            "scores": {
+              "chips": 3
+            }
+          },
+          {
+            "label": "Snacks are fuel. Don't romanticise it.",
+            "scores": {
+              "chocolate": 3
+            }
+          }
+        ]
+      },
+      {
+        "q": "Crisis: the task failed. Your snack response:",
+        "options": [
+          {
+            "label": "Chocolate. Now. Questions later.",
+            "scores": {
+              "chocolate": 3
+            }
+          },
+          {
+            "label": "Crunch louder.",
+            "scores": {
+              "chips": 3
+            }
+          },
+          {
+            "label": "Share with a colleague. Misery loves company.",
+            "scores": {
+              "cookie": 3
+            }
+          },
+          {
+            "label": "A walk instead. Reset the body first.",
+            "scores": {
+              "fruit": 3
+            }
+          }
+        ]
+      }
+    ],
+    "results": {
+      "cookie": {
+        "title": "The Cookie Loyalist",
+        "emoji": "🍪",
+        "blurb": "You found your snack in a previous decade and have never looked back. Others call it routine; you call it a relationship. The drawer is organised, the portions are exact, and the comfort is non-negotiable.",
+        "strength": "Dependable comfort, on demand.",
+        "fix": "Try one new snack this week. Baby steps. We believe in you.",
+        "share": "I'm The Cookie Loyalist — same snack since 2019 and thriving 🍪"
+      },
+      "chips": {
+        "title": "The Hand-to-Mouth Philosopher",
+        "emoji": "🥔",
+        "blurb": "You understood early that arm's reach is the true measure of planning. Your desk is a distribution network, your keyboard a toll booth. Crumbs are not mess; crumbs are evidence of foresight.",
+        "strength": "You design for the hand, not the eye.",
+        "fix": "Move one snack one metre further away tonight. Feel the pull.",
+        "share": "I'm The Hand-to-Mouth Philosopher — my desk is a distribution network 🥔"
+      },
+      "popcorn": {
+        "title": "The Trilogy Planner",
+        "emoji": "🍿",
+        "blurb": "For you, a snack is not a bite — it's an event with acts, an intermission, and a satisfying finale. You have never eaten anything quickly in your life, and everyone secretly admires it.",
+        "strength": "You make the wait worth having.",
+        "fix": "Plan a snack with a beginning, middle and end. No spoiling the ending early.",
+        "share": "I'm The Trilogy Planner — my snack has an intermission 🍿"
+      },
+      "fruit": {
+        "title": "The Quiet Optimist",
+        "emoji": "🍎",
+        "blurb": "You believe, against all available evidence, that the next snack will be both healthy and delicious. Your water bottle is always full. Your future self sends thank-you notes.",
+        "strength": "Your future self is thriving.",
+        "fix": "It's okay if the apple is followed by a cookie. Balance is balance.",
+        "share": "I'm The Quiet Optimist — I bring fruit to a snack fight 🍎"
+      },
+      "chocolate": {
+        "title": "The Emergency Responder",
+        "emoji": "🍫",
+        "blurb": "Where others see a snack break, you see critical infrastructure. Your chocolate is stored the way others store flashlights: for the moment everything goes wrong. And it works. Every time.",
+        "strength": "You never meet a crisis unprepared.",
+        "fix": "Try a non-emergency chocolate. Just because it's Tuesday.",
+        "share": "I'm The Emergency Responder — chocolate is critical infrastructure 🍫"
+      }
+    }
+  },
+  {
+    "slug": "procrastination-style",
+    "title": "What's your procrastination style?",
+    "hook": "You're not lazy. You're strategically delayed. Find out which flavour.",
+    "emoji": "🌀",
+    "accent": "#FF9EC4",
+    "tag": "New",
+    "plays": "1.7k",
+    "tags": [
+      "personality",
+      "funny",
+      "work"
+    ],
+    "questions": [
+      {
+        "q": "A big task lands on your desk. Your very first move?",
+        "options": [
+          {
+            "label": "Open six tabs “for context”.",
+            "scores": {
+              "tabber": 3
+            }
+          },
+          {
+            "label": "Reorganise the entire desk first.",
+            "scores": {
+              "cleaner": 3
+            }
+          },
+          {
+            "label": "Write a to-do list about the to-do list.",
+            "scores": {
+              "lister": 3
+            }
+          },
+          {
+            "label": "“Quick” phone check. Twenty minutes evaporate.",
+            "scores": {
+              "sprinter": 3
+            }
+          }
+        ]
+      },
+      {
+        "q": "The deadline is tomorrow and you've done nothing. Your position:",
+        "options": [
+          {
+            "label": "Research is progress. Technically.",
+            "scores": {
+              "tabber": 3
+            }
+          },
+          {
+            "label": "You can't think in chaos. Obviously.",
+            "scores": {
+              "cleaner": 3
+            }
+          },
+          {
+            "label": "Planning counts as doing. Look it up.",
+            "scores": {
+              "lister": 3
+            }
+          },
+          {
+            "label": "You work best under threat. This is the threat.",
+            "scores": {
+              "sprinter": 3
+            }
+          }
+        ]
+      },
+      {
+        "q": "Your browser history right now is mostly:",
+        "options": [
+          {
+            "label": "Articles you opened and never read.",
+            "scores": {
+              "tabber": 3
+            }
+          },
+          {
+            "label": "How to organise cables. Again.",
+            "scores": {
+              "cleaner": 3
+            }
+          },
+          {
+            "label": "Productivity videos about productivity.",
+            "scores": {
+              "lister": 3
+            }
+          },
+          {
+            "label": "Everything except the thing.",
+            "scores": {
+              "sprinter": 3
+            }
+          }
+        ]
+      },
+      {
+        "q": "A full day passed without doing the thing. You feel:",
+        "options": [
+          {
+            "label": "Informed. You learned so much today.",
+            "scores": {
+              "tabber": 3
+            }
+          },
+          {
+            "label": "Productive! Look at all these other things.",
+            "scores": {
+              "cleaner": 3
+            }
+          },
+          {
+            "label": "Ready. Tomorrow's plan is flawless.",
+            "scores": {
+              "lister": 3
+            }
+          },
+          {
+            "label": "Tired but weirdly alive.",
+            "scores": {
+              "sprinter": 3
+            }
+          }
+        ]
+      },
+      {
+        "q": "Someone asks about your progress. You say:",
+        "options": [
+          {
+            "label": "“Gathering context. It's a deep topic.”",
+            "scores": {
+              "tabber": 3
+            }
+          },
+          {
+            "label": "“Just tidying up my workspace first.”",
+            "scores": {
+              "cleaner": 3
+            }
+          },
+          {
+            "label": "“Making a plan. Planning is 80% of success.”",
+            "scores": {
+              "lister": 3
+            }
+          },
+          {
+            "label": "“On it.” [returns to phone]",
+            "scores": {
+              "sprinter": 3
+            }
+          }
+        ]
+      }
+    ],
+    "results": {
+      "tabber": {
+        "title": "The Tab Hoarder",
+        "emoji": "🗂",
+        "blurb": "Your research phase has research phases. Somewhere in those 60 tabs is the answer, and you can feel it. Every source is “almost relevant”, which is the most dangerous phrase in productivity.",
+        "strength": "You know a little about everything.",
+        "fix": "Pick one tab. Finish it. Close it. Feel the strange, terrible power.",
+        "share": "I'm The Tab Hoarder — 60 open tabs and all of them are “almost relevant” 🗂"
+      },
+      "cleaner": {
+        "title": "The Desk Tidier",
+        "emoji": "🧹",
+        "blurb": "You have transmuted procrastination into an immaculate workspace. Your cables are tied, your pens are aligned, and your actual task remains untouched in its original packaging.",
+        "strength": "Your environment is immaculate.",
+        "fix": "Start the task messy. Let the desk stay messy for one hour. Survive.",
+        "share": "I'm The Desk Tidier — my desk is perfect and my deadline is crying 🧹"
+      },
+      "lister": {
+        "title": "The List Architect",
+        "emoji": "📝",
+        "blurb": "Your to-do list has subsections, priorities, and a legend. The list for making the list is also done. Somewhere beneath this beautiful bureaucracy, the task waits patiently.",
+        "strength": "Nothing ever gets lost.",
+        "fix": "Do item one badly. Badly-done beats perfectly-planned, every time.",
+        "share": "I'm The List Architect — my to-do list has a legend and a glossary 📝"
+      },
+      "sprinter": {
+        "title": "The Deadline Sprinter",
+        "emoji": "📱",
+        "blurb": "You don't procrastinate; you schedule pressure. Others panic at deadlines — you merely begin. The work gets done, the hair gets greyer, and nobody can prove it's a bad system.",
+        "strength": "Clutch performance is real.",
+        "fix": "Start 24 hours early, once. Compare the output. Report back.",
+        "share": "I'm The Deadline Sprinter — panic is my pre-work ritual 📱"
+      }
+    }
+  },
+  {
+    "slug": "meeting-survival",
+    "title": "What's your meeting survival mode?",
+    "hook": "47 minutes that could've been an email. But how you survive them? That's a personality.",
+    "emoji": "🎪",
+    "accent": "#6BB8FF",
+    "tag": "New",
+    "plays": "1.3k",
+    "tags": [
+      "work",
+      "funny",
+      "personality"
+    ],
+    "questions": [
+      {
+        "q": "Meeting invite arrives. No agenda. You:",
+        "options": [
+          {
+            "label": "Accept, and mourn quietly.",
+            "scores": {
+              "nodder": 3
+            }
+          },
+          {
+            "label": "Decline with “conflict”. The conflict is peace.",
+            "scores": {
+              "strategist": 3
+            }
+          },
+          {
+            "label": "Accept but pre-warn “I may have to drop”.",
+            "scores": {
+              "ghost": 3
+            }
+          },
+          {
+            "label": "Accept and open the laptop at half-mast.",
+            "scores": {
+              "scribe": 3
+            }
+          }
+        ]
+      },
+      {
+        "q": "Camera on or off?",
+        "options": [
+          {
+            "label": "Off. Always off. The face is a work surface.",
+            "scores": {
+              "ghost": 3
+            }
+          },
+          {
+            "label": "On — but strategically blurred.",
+            "scores": {
+              "nodder": 3
+            }
+          },
+          {
+            "label": "On, with visible note-taking. It's armour.",
+            "scores": {
+              "scribe": 3
+            }
+          },
+          {
+            "label": "Depends what I want from the meeting.",
+            "scores": {
+              "strategist": 3
+            }
+          }
+        ]
+      },
+      {
+        "q": "Your muted reaction face is best described as:",
+        "options": [
+          {
+            "label": "Concerned nod, professionally calibrated.",
+            "scores": {
+              "nodder": 3
+            }
+          },
+          {
+            "label": "Entirely absent. Voice only. A rumour.",
+            "scores": {
+              "ghost": 3
+            }
+          },
+          {
+            "label": "Intensely focused. Transcribing everything.",
+            "scores": {
+              "scribe": 3
+            }
+          },
+          {
+            "label": "“Called away” at the interesting moments.",
+            "scores": {
+              "strategist": 3
+            }
+          }
+        ]
+      },
+      {
+        "q": "The meeting could've been an email. Your proof:",
+        "options": [
+          {
+            "label": "You read the recap in 90 seconds, later.",
+            "scores": {
+              "strategist": 3
+            }
+          },
+          {
+            "label": "Your notes ARE the email now.",
+            "scores": {
+              "scribe": 3
+            }
+          },
+          {
+            "label": "You nodded for 47 consecutive minutes.",
+            "scores": {
+              "nodder": 3
+            }
+          },
+          {
+            "label": "You finished a sandwich. Not all was lost.",
+            "scores": {
+              "ghost": 3
+            }
+          }
+        ]
+      },
+      {
+        "q": "Your dream meeting is:",
+        "options": [
+          {
+            "label": "Fifteen minutes, an agenda, done.",
+            "scores": {
+              "strategist": 3
+            }
+          },
+          {
+            "label": "Cancelled.",
+            "scores": {
+              "ghost": 3
+            }
+          },
+          {
+            "label": "A walking call. Camera irrelevant.",
+            "scores": {
+              "nodder": 3
+            }
+          },
+          {
+            "label": "One where my notes get quoted.",
+            "scores": {
+              "scribe": 3
+            }
+          }
+        ]
+      }
+    ],
+    "results": {
+      "ghost": {
+        "title": "The Camera Ghost",
+        "emoji": "👻",
+        "blurb": "You attend meetings the way atmospheric conditions attend weather reports: technically present, fundamentally unverifiable. Voice-only is not shyness — it's energy management with a dial tone.",
+        "strength": "You protect deep-work hours fiercely.",
+        "fix": "One meeting a week, camera on. See if the world ends. It won't.",
+        "share": "I'm The Camera Ghost — technically present, fundamentally unverifiable 👻"
+      },
+      "nodder": {
+        "title": "The Professional Nodder",
+        "emoji": "🙂",
+        "blurb": "You have elevated nodding to a communication protocol. Concerned nod, agreeable nod, the slow contemplative nod. Speakers feel understood. You have said nothing. It's art.",
+        "strength": "You keep the room warm.",
+        "fix": "Ask one real question per meeting. Watch the nod gain meaning.",
+        "share": "I'm The Professional Nodder — fluent in 47 minutes of silent agreement 🙂"
+      },
+      "scribe": {
+        "title": "The Note Scribe",
+        "emoji": "✍️",
+        "blurb": "While others drift, you capture. Your notes have timestamps, action items and colour codes. You are the institutional memory, the person everyone emails after asking “what did they say about…?”",
+        "strength": "You're the institutional memory.",
+        "fix": "Share notes within the hour. People will start guarding your time.",
+        "share": "I'm The Note Scribe — your meeting has been archived for posterity ✍️"
+      },
+      "strategist": {
+        "title": "The Meeting Strategist",
+        "emoji": "♟️",
+        "blurb": "You never attend a meeting without a reason, an exit, or a counter-offer. “Conflict” is your most-used word. Your calendar is a fortress, and the gates open only for value.",
+        "strength": "You never attend without a reason.",
+        "fix": "Teach one colleague your decline-with-alternative move. Liberate them.",
+        "share": "I'm The Meeting Strategist — my calendar is a fortress ♟️"
+      }
+    }
+  },
+  {
+    "slug": "desk-creature",
+    "title": "What creature lives on your desk?",
+    "hook": "Scientists observe desks in the wild. The findings are alarming. Which species are you?",
+    "emoji": "🦕",
+    "accent": "#5CD6B8",
+    "tag": "New",
+    "plays": "0.9k",
+    "tags": [
+      "funny",
+      "personality",
+      "work"
+    ],
+    "questions": [
+      {
+        "q": "Your desk surface is:",
+        "options": [
+          {
+            "label": "A controlled ecosystem of exactly-placed items.",
+            "scores": {
+              "shrine": 3
+            }
+          },
+          {
+            "label": "One mug. Then another. Then a civilisation.",
+            "scores": {
+              "mug": 3
+            }
+          },
+          {
+            "label": "Cables like vines, adapters like artefacts.",
+            "scores": {
+              "goblin": 3
+            }
+          },
+          {
+            "label": "Mostly plant. The desk is a pot now.",
+            "scores": {
+              "plant": 3
+            }
+          }
+        ]
+      },
+      {
+        "q": "The state of your cables:",
+        "options": [
+          {
+            "label": "Labelled, velcro-tied, colour-coded.",
+            "scores": {
+              "shrine": 3
+            }
+          },
+          {
+            "label": "One charger works. It is guarded like a crown.",
+            "scores": {
+              "goblin": 3
+            }
+          },
+          {
+            "label": "A nest. Don't touch it. It knows things.",
+            "scores": {
+              "goblin": 2,
+              "plant": 1
+            }
+          },
+          {
+            "label": "Tucked away. The surface must stay clear.",
+            "scores": {
+              "shrine": 2,
+              "plant": 1
+            }
+          }
+        ]
+      },
+      {
+        "q": "Coffee cups on the desk, right now:",
+        "options": [
+          {
+            "label": "One. Washed. Upside down. Perfect.",
+            "scores": {
+              "shrine": 3
+            }
+          },
+          {
+            "label": "Three. Two are “decorative”.",
+            "scores": {
+              "mug": 3
+            }
+          },
+          {
+            "label": "One, from Tuesday. Archaeologically significant.",
+            "scores": {
+              "goblin": 3
+            }
+          },
+          {
+            "label": "Zero. Plants don't drink coffee.",
+            "scores": {
+              "plant": 3
+            }
+          }
+        ]
+      },
+      {
+        "q": "A visitor touches your desk setup. You:",
+        "options": [
+          {
+            "label": "Smile warmly. Die inside.",
+            "scores": {
+              "shrine": 3
+            }
+          },
+          {
+            "label": "Watch exactly which cable they unplug.",
+            "scores": {
+              "goblin": 3
+            }
+          },
+          {
+            "label": "Hand them a coaster, reflexively.",
+            "scores": {
+              "mug": 3
+            }
+          },
+          {
+            "label": "Worry about the fern.",
+            "scores": {
+              "plant": 3
+            }
+          }
+        ]
+      },
+      {
+        "q": "Your desk's vibe in one word:",
+        "options": [
+          {
+            "label": "Sanctuary.",
+            "scores": {
+              "shrine": 3
+            }
+          },
+          {
+            "label": "Laboratory.",
+            "scores": {
+              "goblin": 3
+            }
+          },
+          {
+            "label": "Café.",
+            "scores": {
+              "mug": 3
+            }
+          },
+          {
+            "label": "Greenhouse.",
+            "scores": {
+              "plant": 3
+            }
+          }
+        ]
+      }
+    ],
+    "results": {
+      "shrine": {
+        "title": "The Shrine Keeper",
+        "emoji": "🏺",
+        "blurb": "Your desk is not a workspace; it's a statement. Every object has a coordinate, every cable a label. Visitors speak in whispers. Order isn't a preference — it's a religion with very small furniture.",
+        "strength": "Order is your superpower.",
+        "fix": "Let one thing be imperfect on purpose. Start with a pen angle.",
+        "share": "I'm The Shrine Keeper — my desk has coordinates 🏺"
+      },
+      "mug": {
+        "title": "The Mug Baron",
+        "emoji": "☕",
+        "blurb": "Your desk hosts the largest collection of ceremonial drinking vessels in the building. Each mug has a history, a favourite beverage, and a reason it can't be washed yet. You always have a cup and an opinion.",
+        "strength": "You always have a cup and an opinion.",
+        "fix": "Wash them all tonight. Feel reborn. Acquire new ones by Friday.",
+        "share": "I'm The Mug Baron — each cup has a backstory and a legal status ☕"
+      },
+      "goblin": {
+        "title": "The Cable Goblin",
+        "emoji": "🔌",
+        "blurb": "Beneath your desk lives a labyrinth no map has survived. You know which adapter is which by touch, in the dark, by smell. When tech fails, all eyes turn to you — and you always fix it. Eventually.",
+        "strength": "You can fix anything tech. Eventually.",
+        "fix": "Label three cables. Just three. The goblin tolerates progress.",
+        "share": "I'm The Cable Goblin — my desk has an undercity 🔌"
+      },
+      "plant": {
+        "title": "The Desk Plant",
+        "emoji": "🪴",
+        "blurb": "You and your desk have merged into a single biome. The pothos has opinions about your meetings; the succulent judges your sleep schedule. Somehow, everything you keep alive thrives — including you.",
+        "strength": "You keep things alive, including yourself.",
+        "fix": "Propagate one cutting. Give it away. Spread the biome.",
+        "share": "I'm The Desk Plant — my desk is a protected habitat 🪴"
+      }
+    }
+  },
+  {
+    "slug": "focus-fuel",
+    "title": "Coffee, tea, or delicious chaos?",
+    "hook": "Your drink order has been profiling you for years. Time to read the report.",
+    "emoji": "☕",
+    "accent": "#FFD66B",
+    "tag": "New",
+    "plays": "1.5k",
+    "tags": [
+      "food",
+      "personality",
+      "funny"
+    ],
+    "questions": [
+      {
+        "q": "It's 9am. The first sip of the day is:",
+        "options": [
+          {
+            "label": "Coffee. Immediately. No negotiation.",
+            "scores": {
+              "espresso": 3
+            }
+          },
+          {
+            "label": "Tea, and it's a whole ceremony.",
+            "scores": {
+              "tea": 3
+            }
+          },
+          {
+            "label": "Something carbonated and unwise.",
+            "scores": {
+              "can": 3
+            }
+          },
+          {
+            "label": "Water. Revolutionary, I know.",
+            "scores": {
+              "water": 3
+            }
+          }
+        ]
+      },
+      {
+        "q": "Your caffeine peak arrives at:",
+        "options": [
+          {
+            "label": "9:04am.",
+            "scores": {
+              "espresso": 3
+            }
+          },
+          {
+            "label": "Never peaks. Just glides, all morning.",
+            "scores": {
+              "tea": 3
+            }
+          },
+          {
+            "label": "Unknowable. The can decides.",
+            "scores": {
+              "can": 3
+            }
+          },
+          {
+            "label": "I don't peak. I plateau, calmly.",
+            "scores": {
+              "water": 3
+            }
+          }
+        ]
+      },
+      {
+        "q": "The 3pm slump hits. Your response:",
+        "options": [
+          {
+            "label": "Second coffee. No lessons were learned.",
+            "scores": {
+              "espresso": 3
+            }
+          },
+          {
+            "label": "A walk and more water.",
+            "scores": {
+              "water": 3
+            }
+          },
+          {
+            "label": "Another can. The stack grows.",
+            "scores": {
+              "can": 3
+            }
+          },
+          {
+            "label": "Herbal tea and dignified denial.",
+            "scores": {
+              "tea": 3
+            }
+          }
+        ]
+      },
+      {
+        "q": "Your drink order reveals you as:",
+        "options": [
+          {
+            "label": "Efficient. Possibly vibrating.",
+            "scores": {
+              "espresso": 3
+            }
+          },
+          {
+            "label": "Calm, ceremonial, secretly stubborn.",
+            "scores": {
+              "tea": 3
+            }
+          },
+          {
+            "label": "Chaos-forward.",
+            "scores": {
+              "can": 3
+            }
+          },
+          {
+            "label": "Suspiciously healthy.",
+            "scores": {
+              "water": 3
+            }
+          }
+        ]
+      },
+      {
+        "q": "Without your drink of choice, you are:",
+        "options": [
+          {
+            "label": "Non-functional, but polite about it.",
+            "scores": {
+              "espresso": 3
+            }
+          },
+          {
+            "label": "Grumpy, but upright.",
+            "scores": {
+              "tea": 3
+            }
+          },
+          {
+            "label": "Fine, actually. Which is the scary part.",
+            "scores": {
+              "can": 3
+            }
+          },
+          {
+            "label": "Hydrated.",
+            "scores": {
+              "water": 3
+            }
+          }
+        ]
+      }
+    ],
+    "results": {
+      "espresso": {
+        "title": "The Espresso Engine",
+        "emoji": "⚡",
+        "blurb": "You convert caffeine directly into output with near-perfect efficiency. Mornings are not a phase for you; they're a launch sequence. Your keyboard has a permanent, faint aroma of dark roast.",
+        "strength": "You convert caffeine straight into output.",
+        "fix": "One caffeine-free morning. We'll keep your spot warm.",
+        "share": "I'm The Espresso Engine — mornings are a launch sequence ⚡"
+      },
+      "tea": {
+        "title": "The Tea Ritualist",
+        "emoji": "🍵",
+        "blurb": "You don't drink tea; you perform it. The warming of the pot, the waiting, the second waiting. Where others rush, you steep. Your patience is legendary and slightly infuriating.",
+        "strength": "You turn waiting into a ceremony.",
+        "fix": "Brew for a colleague. Rituals multiply when shared.",
+        "share": "I'm The Tea Ritualist — I don't rush, I steep 🍵"
+      },
+      "can": {
+        "title": "The Carbonated Gambler",
+        "emoji": "🧃",
+        "blurb": "Your energy management strategy is best described as riding waves you didn't create. Some days you're a god of output; some days you're negotiating with your own heartbeat. It's never boring.",
+        "strength": "You ride energy waves like a surfer.",
+        "fix": "Swap one can for water. Feel your skeleton say thank you.",
+        "share": "I'm The Carbonated Gambler — my energy has a mind of its own 🧃"
+      },
+      "water": {
+        "title": "The Hydration Sage",
+        "emoji": "💧",
+        "blurb": "You have achieved what others cannot: a stable baseline. No spikes, no crashes, just the serene, unshakeable calm of a fully hydrated organism. People find you soothing and slightly unreadable.",
+        "strength": "Your baseline is unshakeable.",
+        "fix": "You're allowed a treat, you know. This is not a test.",
+        "share": "I'm The Hydration Sage — stable, serene, smug about it 💧"
+      }
+    }
+  },
+  {
+    "slug": "weekend-battery",
+    "title": "How does your weekend battery charge?",
+    "hook": "Some people recharge alone. Some recharge in crowds. Some recharge a spotless flat. Which socket is yours?",
+    "emoji": "🔋",
+    "accent": "#7A5CFF",
+    "tag": "New",
+    "plays": "1.1k",
+    "tags": [
+      "personality",
+      "life",
+      "funny"
+    ],
+    "questions": [
+      {
+        "q": "Friday, 6pm. Your phone:",
+        "options": [
+          {
+            "label": "Goes on the shelf until Monday.",
+            "scores": {
+              "hermit": 3
+            }
+          },
+          {
+            "label": "Fills with plans within minutes.",
+            "scores": {
+              "social": 3
+            }
+          },
+          {
+            "label": "Shows four errand alarms, colour-coded.",
+            "scores": {
+              "chore": 3
+            }
+          },
+          {
+            "label": "Has one plan. The rest is weather-dependent.",
+            "scores": {
+              "adventure": 3
+            }
+          }
+        ]
+      },
+      {
+        "q": "The perfect Saturday morning is:",
+        "options": [
+          {
+            "label": "Slow. No alarm. No decisions.",
+            "scores": {
+              "hermit": 3
+            }
+          },
+          {
+            "label": "Trailhead by 8am.",
+            "scores": {
+              "adventure": 3
+            }
+          },
+          {
+            "label": "Market, laundry, deep clean.",
+            "scores": {
+              "chore": 3
+            }
+          },
+          {
+            "label": "Brunch with six people.",
+            "scores": {
+              "social": 3
+            }
+          }
+        ]
+      },
+      {
+        "q": "Sunday evening. Your battery reads:",
+        "options": [
+          {
+            "label": "100%. I did nothing and it was correct.",
+            "scores": {
+              "hermit": 3
+            }
+          },
+          {
+            "label": "80%. People are tiring but worth it.",
+            "scores": {
+              "social": 3
+            }
+          },
+          {
+            "label": "60%. The flat is spotless. The soul is neutral.",
+            "scores": {
+              "chore": 3
+            }
+          },
+          {
+            "label": "90%. New place, new story.",
+            "scores": {
+              "adventure": 3
+            }
+          }
+        ]
+      },
+      {
+        "q": "Your weekend has a plan when:",
+        "options": [
+          {
+            "label": "It doesn't. That's the plan.",
+            "scores": {
+              "hermit": 3
+            }
+          },
+          {
+            "label": "There's a group-chat logistics doc.",
+            "scores": {
+              "social": 3
+            }
+          },
+          {
+            "label": "There are three tiny goals and one treat.",
+            "scores": {
+              "chore": 3
+            }
+          },
+          {
+            "label": "There's a forecast and a bag, packed.",
+            "scores": {
+              "adventure": 3
+            }
+          }
+        ]
+      },
+      {
+        "q": "Plans get cancelled. You feel:",
+        "options": [
+          {
+            "label": "Relief so pure it's alarming.",
+            "scores": {
+              "hermit": 3
+            }
+          },
+          {
+            "label": "Mild FOMO. Quick recovery.",
+            "scores": {
+              "social": 3
+            }
+          },
+          {
+            "label": "Recalculating the errand map.",
+            "scores": {
+              "chore": 3
+            }
+          },
+          {
+            "label": "Already building a better solo itinerary.",
+            "scores": {
+              "adventure": 3
+            }
+          }
+        ]
+      }
+    ],
+    "results": {
+      "hermit": {
+        "title": "The Weekend Hermit",
+        "emoji": "🛋️",
+        "blurb": "You have achieved what productivity gurus promise and never deliver: actual rest. Your sofa knows your shape. Cancelling plans isn't a flaw — it's a healing art you've practised to mastery.",
+        "strength": "You actually rest. A rare skill.",
+        "fix": "One social hour a month. Maximum dose. You'll survive.",
+        "share": "I'm The Weekend Hermit — my sofa knows my shape 🛋️"
+      },
+      "social": {
+        "title": "The Social Solar Panel",
+        "emoji": "🎉",
+        "blurb": "You photosynthesise through other people. A good brunch restores more than a holiday. Your group chat is your lifeline and your calendar is a mosaic of faces you love.",
+        "strength": "People recharge you, and you them.",
+        "fix": "Guard one empty morning per weekend. Solar panels need maintenance.",
+        "share": "I'm The Social Solar Panel — I photosynthesise through people 🎉"
+      },
+      "chore": {
+        "title": "The Chore Goblin",
+        "emoji": "🧺",
+        "blurb": "Monday-you is a person you actively protect. Laundry folded, fridge stocked, sockets dusted. Your weekend isn't rest — it's infrastructure maintenance, and it's weirdly satisfying.",
+        "strength": "Monday-you inherits a perfect flat.",
+        "fix": "Leave one chore undone. Live dangerously. The dust will wait.",
+        "share": "I'm The Chore Goblin — I protect Monday-me like a client 🧺"
+      },
+      "adventure": {
+        "title": "The Micro-Adventurer",
+        "emoji": "🥾",
+        "blurb": "You don't need a two-week holiday; you need a different street. New trail, new market, new bakery with unclear opening hours. You return with stories, not receipts, and your Mondays are jealous of your weekends.",
+        "strength": "You return with stories, not receipts.",
+        "fix": "Plan the next tiny trip before this one fades. Momentum is fuel.",
+        "share": "I'm The Micro-Adventurer — a different street is enough 🥾"
+      }
+    }
+  },
+  {
+    "slug": "type-of-tired",
+    "title": "What kind of tired are you?",
+    "hook": "You slept eight hours and still feel flat. That's because tiredness has species. Identify yours.",
+    "emoji": "🥱",
+    "accent": "#B8A6FF",
+    "tag": "New",
+    "plays": "0.8k",
+    "tags": [
+      "personality",
+      "life",
+      "wellbeing"
+    ],
+    "questions": [
+      {
+        "q": "You slept eight hours and still feel flat. The tiredness lives in:",
+        "options": [
+          {
+            "label": "The brain. 47 tabs, all frozen.",
+            "scores": {
+              "brain": 3
+            }
+          },
+          {
+            "label": "The body. Shoulders made of cable.",
+            "scores": {
+              "body": 3
+            }
+          },
+          {
+            "label": "The mood. Everything is beige.",
+            "scores": {
+              "soul": 3
+            }
+          },
+          {
+            "label": "The boredom. Nothing is interesting enough.",
+            "scores": {
+              "bored": 3
+            }
+          }
+        ]
+      },
+      {
+        "q": "Your ideal recovery, honestly:",
+        "options": [
+          {
+            "label": "Silence and a puzzle.",
+            "scores": {
+              "brain": 3
+            }
+          },
+          {
+            "label": "A bath and a long stretch.",
+            "scores": {
+              "body": 3
+            }
+          },
+          {
+            "label": "A brief cry, then a comedy.",
+            "scores": {
+              "soul": 3
+            }
+          },
+          {
+            "label": "Something completely new.",
+            "scores": {
+              "bored": 3
+            }
+          }
+        ]
+      },
+      {
+        "q": "What you actually do instead:",
+        "options": [
+          {
+            "label": "Scroll in bed and call it rest.",
+            "scores": {
+              "brain": 3
+            }
+          },
+          {
+            "label": "Crash on the sofa, motionless.",
+            "scores": {
+              "body": 3
+            }
+          },
+          {
+            "label": "Comfort food and a rewatch.",
+            "scores": {
+              "soul": 3
+            }
+          },
+          {
+            "label": "Start three new hobbies at once.",
+            "scores": {
+              "bored": 3
+            }
+          }
+        ]
+      },
+      {
+        "q": "Your tiredness started around:",
+        "options": [
+          {
+            "label": "The last big decision.",
+            "scores": {
+              "brain": 3
+            }
+          },
+          {
+            "label": "The last commute.",
+            "scores": {
+              "body": 3
+            }
+          },
+          {
+            "label": "The last “fine, how are you”.",
+            "scores": {
+              "soul": 3
+            }
+          },
+          {
+            "label": "The last routine Tuesday.",
+            "scores": {
+              "bored": 3
+            }
+          }
+        ]
+      },
+      {
+        "q": "The cure you'd actually take:",
+        "options": [
+          {
+            "label": "One day with zero choices.",
+            "scores": {
+              "brain": 3
+            }
+          },
+          {
+            "label": "Someone to carry everything heavy.",
+            "scores": {
+              "body": 3
+            }
+          },
+          {
+            "label": "One honest conversation.",
+            "scores": {
+              "soul": 3
+            }
+          },
+          {
+            "label": "A train ticket to somewhere new.",
+            "scores": {
+              "bored": 3
+            }
+          }
+        ]
+      }
+    ],
+    "results": {
+      "brain": {
+        "title": "The Full-Buffer Brain",
+        "emoji": "🧠",
+        "blurb": "You're not sleepy — you're buffering. Your mind holds 47 open processes and every one of them is “almost done”. Sleep doesn't close tabs; it just pauses them. What you need is a decision, not a duvet.",
+        "strength": "You think everything through. Everything.",
+        "fix": "Write the tabs down on paper. Close them. They'll keep.",
+        "share": "I'm The Full-Buffer Brain — 47 tabs, all frozen, all “almost done” 🧠"
+      },
+      "body": {
+        "title": "The Cable-Shoulder Carrier",
+        "emoji": "🦵",
+        "blurb": "Your tiredness is load-bearing. You carry bags, deadlines and other people's emergencies in exactly the same muscles. Sleep is fine; it's the gravity that's the problem. What you need is to put something down.",
+        "strength": "You carry more than you mention.",
+        "fix": "Ten minutes of stretching tonight. Set the alarm. Shoulders, we're coming for you.",
+        "share": "I'm The Cable-Shoulder Carrier — my tiredness is load-bearing 🦵"
+      },
+      "soul": {
+        "title": "The Beige-Mood Survivor",
+        "emoji": "🕯️",
+        "blurb": "Nothing is wrong, exactly. Everything is beige. You answer “fine” eleven times a day and mean it 40% of the time. This isn't burnout and it isn't sadness — it's underwhelmed. What you need is one honest conversation.",
+        "strength": "You keep showing up. Respect.",
+        "fix": "Text the friend who gets it. Today. Not a summary — the real version.",
+        "share": "I'm The Beige-Mood Survivor — everything is fine, in beige 🕯️"
+      },
+      "bored": {
+        "title": "The Under-Stimulated Spark",
+        "emoji": "🎈",
+        "blurb": "You're not tired — you're under-fed. Not on food: on novelty. Your routine has become so efficient that your brain has started filing days under “already seen”. What you need isn't rest. It's a plot twist.",
+        "strength": "You refuse to be bored by life.",
+        "fix": "One tiny novelty tomorrow. New route, new lunch, anything. Feed the spark.",
+        "share": "I'm The Under-Stimulated Spark — I need a plot twist, not a nap 🎈"
       }
     }
   }

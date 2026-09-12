@@ -12,5 +12,8 @@
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
     "astro": "^5.18.2"
+  },
+  "devDependencies": {
+    "wrangler": "^4.131.1"
   }
 }
