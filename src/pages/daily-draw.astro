@@ -138,11 +138,38 @@ const jsonLd = {
         cardEl.querySelector(".card-quote").textContent = "“" + c.quote + "”";
         cardEl.querySelector(".card-meaning").textContent = c.meaning;
         cardEl.querySelector(".card-bottom b").textContent = c.lucky;
-        var d = cardEl.querySelectorAll(".do-panel li");
-        var n = cardEl.querySelectorAll(".dont-panel li");
+        // DO / DON'T live outside #theCard — query the document, not the card element
+        var d = document.querySelectorAll(".do-panel li");
+        var n = document.querySelectorAll(".dont-panel li");
         c.do.forEach(function (t, i) { if (d[i]) d[i].textContent = t; });
         c.dont.forEach(function (t, i) { if (n[i]) n[i].textContent = t; });
       }
+
+      /* ---- keep "today" actually today when the build is older than a day ---- */
+      (function reseed() {
+        var DAY = 86400000;
+        var t = new Date();
+        var seed = Math.floor(Date.UTC(t.getUTCFullYear(), t.getUTCMonth(), t.getUTCDate()) / DAY);
+        var idx = (seed * 17 + 5) % allCards.length;
+        var fresh = allCards[idx];
+        if (!fresh || fresh.no === today.no) return;
+        today = fresh;
+        setCard(fresh);
+        var kicker = document.querySelector(".head .kicker");
+        if (kicker) kicker.textContent = "✦ Card No. " + fresh.no + " of " + allCards.length;
+        var h1 = document.querySelector(".head h1");
+        if (h1) h1.textContent = "Today's card · " + t.toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" });
+        var hist = document.querySelectorAll(".hist-grid .hist-card");
+        for (var i = 0; i < hist.length; i++) {
+          var d2 = new Date(Date.UTC(t.getUTCFullYear(), t.getUTCMonth(), t.getUTCDate()) - i * DAY);
+          var s2 = Math.floor(d2.getTime() / DAY);
+          var c2 = allCards[(s2 * 17 + 5) % allCards.length];
+          hist[i].querySelector(".hist-emoji").textContent = c2.emoji;
+          hist[i].querySelector("h3").textContent = c2.title;
+          hist[i].querySelector("p").textContent = "“" + c2.quote + "”";
+          hist[i].querySelector(".hist-tone").textContent = c2.tone;
+        }
+      })();
 
       document.getElementById("shareBtn").addEventListener("click", function () {
         var text = "Dinkly Daily Draw — Card No. " + today.no + ": “" + today.quote + "”";

@@ -3,9 +3,31 @@ import Base from "../layouts/Base.astro";
 import cards from "../data/cards.json";
 import quizzes from "../data/quizzes.json";
 import jokes from "../data/jokes.json";
+import oracle from "../data/oracle.json";
 
 const card = cards[41]; // The Spinner Spins
 const topQuiz = quizzes[0];
+
+/* ---- Today's set: deterministic pick by UTC day -------------------------
+   Rendered at build time for no-JS + crawlers, then re-seeded client-side
+   (below) so the set stays correct even if the site isn't rebuilt today. */
+const DAY = 86400000;
+const now = new Date();
+const dayIndex = Math.floor(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()) / DAY);
+const dayCard = cards[dayIndex % cards.length];
+const dayQuiz = quizzes[dayIndex % quizzes.length];
+const dayJoke = jokes[dayIndex % jokes.length];
+const dayPrompt = oracle.prompts[dayIndex % oracle.prompts.length];
+const todayLabel = now.toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" });
+
+// compact payload for the client-side re-seed (keeps the homepage light)
+const dailyPayload = {
+  builtDay: dayIndex,
+  cards: cards.map((c) => [c.no, c.emoji, c.tone, c.quote]),
+  quizzes: quizzes.map((q) => [q.slug, q.emoji, q.title, q.hook]),
+  jokes: jokes.map((j) => [j.setup, j.punchline]),
+  prompts: oracle.prompts,
+};
 
 const searchIndex = [
   ...quizzes.map((q) => ({ t: q.title, h: `/quizzes/${q.slug}/`, k: "Quiz", e: q.emoji })),
@@ -131,6 +153,53 @@ const jsonLd = {
     </div>
   </section>
 
+  <!-- ============ TODAY ============ -->
+  <section class="wrap today-section" id="today">
+    <div class="section-head">
+      <span class="kicker">✦ Today · <span id="todayDate">{todayLabel}</span></span>
+      <h2>Today's four, sorted.</h2>
+      <p class="section-sub">
+        A fresh set every day at midnight UTC — one card, one quiz, one joke, one question worth asking.
+        <span class="streak" id="streakBadge" hidden></span>
+      </p>
+    </div>
+
+    <div class="today-grid">
+      <article class="today-card">
+        <span class="today-tag">Daily Draw · No. <b class="num" id="tCardNo">{dayCard.no}</b></span>
+        <p class="today-emoji" id="tCardEmoji" aria-hidden="true">{dayCard.emoji}</p>
+        <p class="today-quote" id="tCardQuote">“{dayCard.quote}”</p>
+        <p class="today-sub" id="tCardTone">{dayCard.tone}</p>
+        <a class="today-cta" href="/daily-draw/">Open today's card →</a>
+      </article>
+
+      <article class="today-card">
+        <span class="today-tag">60-second quiz</span>
+        <p class="today-emoji" id="tQuizEmoji" aria-hidden="true">{dayQuiz.emoji}</p>
+        <h3 class="today-title" id="tQuizTitle">{dayQuiz.title}</h3>
+        <p class="today-sub" id="tQuizHook">{dayQuiz.hook}</p>
+        <a class="today-cta" id="tQuizLink" href={`/quizzes/${dayQuiz.slug}/`}>Take it →</a>
+      </article>
+
+      <article class="today-card">
+        <span class="today-tag">Joke of the day</span>
+        <p class="today-quote" id="tJokeSetup">{dayJoke.setup}</p>
+        <details class="today-reveal">
+          <summary>Reveal punchline</summary>
+          <p class="today-punch" id="tJokePunch">{dayJoke.punchline}</p>
+        </details>
+        <a class="today-cta" href="/jokes/">More from the jar →</a>
+      </article>
+
+      <article class="today-card">
+        <span class="today-tag">Oracle · question of the day</span>
+        <p class="today-quote" id="tOraclePrompt">“{dayPrompt}”</p>
+        <p class="today-sub">One question. One verdict. No follow-ups.</p>
+        <a class="today-cta" href="/oracle/">Ask the Oracle →</a>
+      </article>
+    </div>
+  </section>
+
   <div class="wrap ad-wrap"><div class="ad-slot">Ad slot · 970×90 leaderboard</div></div>
 
   <!-- ============ BENTO ============ -->
@@ -245,6 +314,67 @@ const jsonLd = {
     </div>
   </section>
 
+  <script is:inline define:vars={{ daily: dailyPayload }}>
+    /* Today's set: re-seed if the build is stale + track visit streak. */
+    (function () {
+      var DAY = 86400000;
+      function dayIndexOf(d) {
+        return Math.floor(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()) / DAY);
+      }
+      function isoDay(d) {
+        return d.toISOString().slice(0, 10);
+      }
+      var today = new Date();
+      var idx = dayIndexOf(today);
+
+      /* ---- streak ---- */
+      try {
+        var KEY = "dinkly:streak";
+        var prev = JSON.parse(localStorage.getItem(KEY) || "null");
+        var n = 1;
+        if (prev && prev.last) {
+          var gap = idx - prev.day;
+          if (gap === 0) n = prev.n || 1;
+          else if (gap === 1) n = (prev.n || 0) + 1;
+        }
+        localStorage.setItem(KEY, JSON.stringify({ day: idx, last: isoDay(today), n: n }));
+        if (n >= 2) {
+          var badge = document.getElementById("streakBadge");
+          if (badge) {
+            badge.textContent = "🔥 " + n + "-day streak — see you tomorrow";
+            badge.hidden = false;
+          }
+        }
+      } catch (e) {}
+
+      /* ---- re-seed the day's four if the page was built on another day ---- */
+      if (daily.builtDay === idx) return;
+      var set = function (id, text) {
+        var el = document.getElementById(id);
+        if (el) el.textContent = text;
+      };
+      var c = daily.cards[idx % daily.cards.length];
+      set("tCardNo", c[0]);
+      set("tCardEmoji", c[1]);
+      set("tCardQuote", "“" + c[3] + "”");
+      set("tCardTone", c[2]);
+
+      var q = daily.quizzes[idx % daily.quizzes.length];
+      set("tQuizEmoji", q[1]);
+      set("tQuizTitle", q[2]);
+      set("tQuizHook", q[3]);
+      var ql = document.getElementById("tQuizLink");
+      if (ql) ql.setAttribute("href", "/quizzes/" + q[0] + "/");
+
+      var j = daily.jokes[idx % daily.jokes.length];
+      set("tJokeSetup", j[0]);
+      set("tJokePunch", j[1]);
+
+      set("tOraclePrompt", "“" + daily.prompts[idx % daily.prompts.length] + "”");
+      set("todayDate", today.toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" }));
+    })();
+  </script>
+
   <script is:inline define:vars={{ searchIndex }}>
     (function () {
       var idx = searchIndex;
@@ -293,6 +423,50 @@ const jsonLd = {
 </Base>
 
 <style>
+  /* ---------- Today's set ---------- */
+  .today-section { margin-top: 56px; scroll-margin-top: 84px; }
+  .streak {
+    display: inline-block; margin-left: 10px; padding: 3px 10px; border-radius: 99px;
+    background: color-mix(in srgb, #FF9EC4 18%, #fff); color: #C2487B;
+    font-size: 12.5px; font-weight: 600; white-space: nowrap;
+  }
+  .today-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 26px; }
+  .today-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--r-lg);
+    padding: 22px; display: flex; flex-direction: column; min-height: 232px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .today-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+  .today-tag {
+    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--faint); margin-bottom: 14px;
+  }
+  .today-emoji { font-size: 30px; margin: 0 0 10px; line-height: 1; }
+  .today-quote {
+    font-family: var(--font-display); font-size: 17px; line-height: 1.42;
+    margin: 0 0 10px;
+  }
+  .today-title { font-size: 18px; line-height: 1.32; margin: 0 0 8px; }
+  .today-sub { font-size: 13.5px; color: var(--muted); margin: 0; }
+  .today-reveal { margin: 0 0 10px; }
+  .today-reveal summary {
+    cursor: pointer; font-size: 12.5px; font-weight: 600;
+    color: var(--accent); list-style: none;
+  }
+  .today-reveal summary::-webkit-details-marker { display: none; }
+  .today-reveal summary::after { content: " →"; }
+  .today-reveal[open] summary::after { content: ""; }
+  .today-punch {
+    font-size: 15px; margin: 10px 0 0; padding: 12px 14px;
+    background: var(--bg-soft); border-radius: var(--r-md); line-height: 1.45;
+  }
+  .today-cta {
+    margin-top: auto; padding-top: 14px; font-size: 13.5px; font-weight: 600;
+    color: var(--accent);
+  }
+  .today-cta:hover { text-decoration: underline; }
+  @media (max-width: 980px) { .today-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 620px) { .today-grid { grid-template-columns: 1fr; } .today-card { min-height: 0; } }
   /* ---------- Hero ---------- */
   .hero { position: relative; padding: 68px 0 40px; overflow: hidden; }
   .hero-mesh {

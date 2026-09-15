@@ -1,6 +1,7 @@
 ---
 // Config-driven base layout. All branding comes from site.config.json.
 import site from "../../site.config.json";
+import "../styles/fonts.css";
 import "../styles/global.css";
 
 interface Props {
@@ -11,6 +12,7 @@ interface Props {
 }
 
 const { title, description = site.description, noindex = false, jsonLd } = Astro.props;
+const analyticsToken = (site as Record<string, string>).webAnalyticsToken || "";
 
 const canonical = new URL(Astro.url.pathname, site.siteUrl).href;
 const fullTitle = title.includes(site.siteName) ? title : `${title} · ${site.siteName}`;
@@ -56,17 +58,25 @@ const structured = [
     <link rel="apple-touch-icon" href="/favicon.svg" />
     <link rel="manifest" href="/site.webmanifest" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,600;1,9..144,700&family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap"
-    />
+    {/* Self-hosted latin-subset fonts (see src/styles/fonts.css). Preload the two
+        faces that paint above the fold: display roman + body. */}
+    <link rel="preload" href="/fonts/fraunces-48642176d9.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/inter-f11d729bb0.woff2" as="font" type="font/woff2" crossorigin />
 
     <script
       async
       src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${site.adsenseClientId}`}
       crossorigin="anonymous"></script>
+
+    {/* Cloudflare Web Analytics — cookieless, no consent banner needed.
+        Token comes from dash.cloudflare.com → Web Analytics → add site.
+        Empty token = snippet omitted entirely. */}
+    {analyticsToken && (
+      <script
+        defer
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon={JSON.stringify({ token: analyticsToken })}></script>
+    )}
 
     <script type="application/ld+json" set:html={JSON.stringify(structured)} />
   </head>
