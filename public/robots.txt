@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /go/
 
-Sitemap: https://dinkly.pages.dev/sitemap.xml
+Sitemap: https://dinkly.lootseer.com/sitemap.xml
