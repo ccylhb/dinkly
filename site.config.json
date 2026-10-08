@@ -24,11 +24,52 @@
   },
   "favicon": "🌙",
   "nav": [
-    { "label": "Home", "href": "/" },
-    { "label": "Daily Draw", "href": "/daily-draw/" },
-    { "label": "Quizzes", "href": "/quizzes/" },
-    { "label": "Games", "href": "/games/" },
-    { "label": "Sounds", "href": "/sounds/" }
+    {
+      "label": "Home",
+      "href": "/"
+    },
+    {
+      "label": "Daily Draw",
+      "href": "/daily-draw/"
+    },
+    {
+      "label": "Quizzes",
+      "href": "/quizzes/"
+    },
+    {
+      "label": "Games",
+      "href": "/games/"
+    },
+    {
+      "label": "Sounds",
+      "href": "/sounds/"
+    }
   ],
-  "footerNote": "Dinkly is a small independent studio. Free to use, ad-supported, and made for the waiting times."
+  "footerNote": "Dinkly is a small independent studio. Free to use, ad-supported, and made for the waiting times.",
+  "sisterSites": [
+    {
+      "name": "ConanDB",
+      "url": "https://conan.lootseer.com",
+      "blurb": "Weapon damage, armour values, thrall stats and consumables."
+    },
+    {
+      "name": "CoreDB",
+      "url": "https://corekeeper.lootseer.com",
+      "blurb": "Weapons, armour, food and enemies with material tiers."
+    },
+    {
+      "name": "BellwrightDB",
+      "url": "https://bellwright.lootseer.com",
+      "blurb": "Armour ratings with movement-speed penalties side by side."
+    },
+    {
+      "name": "FactorioDB",
+      "url": "https://factorio.lootseer.com",
+      "blurb": "Recipes with exact craft times and ingredient counts."
+    }
+  ],
+  "hubSite": {
+    "name": "LootSeer",
+    "url": "https://lootseer.com"
+  }
 }
